@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,java源代码,String," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC]   jdk8 类定义实现了java.io.Serializable, Comparable, CharSequence 成员变量value:存储字符串 hash: 缓存hashCode避免重复计算 serialPersistentFields:  待研究 https:&#x2F;&#x2F;docs.oracle.com&#x2F;en&#x2F;java&#x2F;javase&#x2F;14&#x2F;docs&#x2F;specs&#x2F;serialization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="String源码阅读">
+<meta property="og:url" content="http://yoursite.com/2020/03/30/String%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.html">
+<meta property="og:site_name" content="宋二的小窝">
+<meta property="og:description" content="[TOC]   jdk8 类定义实现了java.io.Serializable, Comparable, CharSequence 成员变量value:存储字符串 hash: 缓存hashCode避免重复计算 serialPersistentFields:  待研究 https:&#x2F;&#x2F;docs.oracle.com&#x2F;en&#x2F;java&#x2F;javase&#x2F;14&#x2F;docs&#x2F;specs&#x2F;serialization">
+<meta property="og:image" content="c:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200330233354777.png">
+<meta property="article:published_time" content="2020-03-30T12:51:45.000Z">
+<meta property="article:modified_time" content="2020-04-01T13:45:46.947Z">
+<meta property="article:author" content="宋梓立 sorie">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="java源代码">
+<meta property="article:tag" content="String">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200330233354777.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/30/String源码阅读/"/>
+
+
+
+
+
+  <title>String源码阅读 | 宋二的小窝</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Ewasong" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">宋二的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/30/String%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="宋梓立 sorie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋二的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">String源码阅读</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-30T20:51:45+08:00">
+                2020-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<!-- toc -->
+
+<p>jdk8</p>
+<h1 id="类定义"><a href="#类定义" class="headerlink" title="类定义"></a>类定义</h1><p>实现了java.io.Serializable, Comparable<String>, CharSequence</p>
+<h1 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h1><p>value:存储字符串</p>
+<p>hash: 缓存hashCode避免重复计算</p>
+<p>serialPersistentFields:  待研究</p>
+<p><a href="https://docs.oracle.com/en/java/javase/14/docs/specs/serialization/protocol.html#stream-elements" target="_blank" rel="noopener">https://docs.oracle.com/en/java/javase/14/docs/specs/serialization/protocol.html#stream-elements</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** The value is used for character storage. */</span>   </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line"></span><br><span class="line">   <span class="comment">/** Cache the hash code for the string */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">/** use serialVersionUID from JDK 1.0.2 for interoperability */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">6849794470754667710L</span>;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Class String is special cased within the Serialization Stream Protocol.</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * A String instance is written into an ObjectOutputStream according to</span></span><br><span class="line"><span class="comment">    * &lt;a href="&#123;<span class="doctag">@docRoot</span>&#125;/../platform/serialization/spec/output.html"&gt;</span></span><br><span class="line"><span class="comment">    * Object Serialization Specification, Section 6.2, "Stream Elements"&lt;/a&gt;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ObjectStreamField[] serialPersistentFields =</span><br><span class="line">       <span class="keyword">new</span> ObjectStreamField[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+
+<h1 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h1><p>大部分略，个人认为值得关注的一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">   * Package private constructor which shares value array for speed.</span><br><span class="line">   * this constructor is always expected to be called with share&#x3D;&#x3D;true.</span><br><span class="line">   * a separate constructor is needed because we already have a public</span><br><span class="line">   * String(char[]) constructor that makes a copy of the given char[].</span><br><span class="line">   *&#x2F;</span><br><span class="line">   String(char[] value, boolean share) &#123;</span><br><span class="line">       &#x2F;&#x2F; assert share : &quot;unshared not supported&quot;;</span><br><span class="line">       this.value &#x3D; value;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>有几点值得关注:</p>
+<ul>
+<li>访问修饰符为default</li>
+<li>直接赋值</li>
+<li>参数share只为区分其他构造方法，并不支持unshare。</li>
+</ul>
+<p>这个的意义是为了节约内存，String中用到该方法的有三处:</p>
+<ul>
+<li>replace(char, char)</li>
+<li>concat(String)</li>
+<li>valueof(char)</li>
+</ul>
+<p>其中的value全是在这三个方法定义的，没有外界引用，所以可以直接赋予给this.value</p>
+<h1 id="重要成员方法"><a href="#重要成员方法" class="headerlink" title="重要成员方法"></a>重要成员方法</h1><h2 id="Equals"><a href="#Equals" class="headerlink" title="Equals"></a>Equals</h2><p>主要有地址比较，类型比较，长度比较以提高效率，我们在复写一些Equals方法时，可以有所启发。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Compares this string to the specified object.  The result is &#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">    * true&#125; if and only if the argument is not &#123;<span class="doctag">@code</span> null&#125; and is a &#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">    * String&#125; object that represents the same sequence of characters as this</span></span><br><span class="line"><span class="comment">    * object.</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span>  anObject</span></span><br><span class="line"><span class="comment">    *         The object to compare this &#123;<span class="doctag">@code</span> String&#125; against</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if the given object represents a &#123;<span class="doctag">@code</span> String&#125;</span></span><br><span class="line"><span class="comment">    *          equivalent to this string, &#123;<span class="doctag">@code</span> false&#125; otherwise</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@see</span>  #compareTo(String)</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@see</span>  #equalsIgnoreCase(String)</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//地址相同，代表相同直接返回true</span></span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 如果不是String类型的数据，就直接返回false，</span></span><br><span class="line">       <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">           String anotherString = (String)anObject;</span><br><span class="line">           <span class="keyword">int</span> n = value.length;</span><br><span class="line">           <span class="comment">//长度一样才有可能相等</span></span><br><span class="line">           <span class="keyword">if</span> (n == anotherString.value.length) &#123;</span><br><span class="line">               <span class="keyword">char</span> v1[] = value;</span><br><span class="line">               <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line">               <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">               <span class="comment">//逐个比较</span></span><br><span class="line">               <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                   <span class="keyword">if</span> (v1[i] != v2[i])</span><br><span class="line">                       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                   i++;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="contentEquals-CharSequence"><a href="#contentEquals-CharSequence" class="headerlink" title="contentEquals(CharSequence)"></a>contentEquals(CharSequence)</h2><p>如果是StringBuffer，使用一个synchronized修饰，猜想是为了避免在比较时有地方修改了它。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Compares this string to the specified &#123;<span class="doctag">@code</span> CharSequence&#125;.  The</span></span><br><span class="line"><span class="comment">    * result is &#123;<span class="doctag">@code</span> true&#125; if and only if this &#123;<span class="doctag">@code</span> String&#125; represents the</span></span><br><span class="line"><span class="comment">    * same sequence of char values as the specified sequence. Note that if the</span></span><br><span class="line"><span class="comment">    * &#123;<span class="doctag">@code</span> CharSequence&#125; is a &#123;<span class="doctag">@code</span> StringBuffer&#125; then the method</span></span><br><span class="line"><span class="comment">    * synchronizes on it.</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span>  cs</span></span><br><span class="line"><span class="comment">    *         The sequence to compare this &#123;<span class="doctag">@code</span> String&#125; against</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if this &#123;<span class="doctag">@code</span> String&#125; represents the same</span></span><br><span class="line"><span class="comment">    *          sequence of char values as the specified sequence, &#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">    *          false&#125; otherwise</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@since</span>  1.5</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contentEquals</span><span class="params">(CharSequence cs)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// Argument is a StringBuffer, StringBuilder</span></span><br><span class="line">       <span class="keyword">if</span> (cs <span class="keyword">instanceof</span> AbstractStringBuilder) &#123;</span><br><span class="line">           <span class="keyword">if</span> (cs <span class="keyword">instanceof</span> StringBuffer) &#123;</span><br><span class="line">               <span class="keyword">synchronized</span>(cs) &#123;</span><br><span class="line">                  <span class="keyword">return</span> nonSyncContentEquals((AbstractStringBuilder)cs);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="keyword">return</span> nonSyncContentEquals((AbstractStringBuilder)cs);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// Argument is a String</span></span><br><span class="line">       <span class="keyword">if</span> (cs <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">           <span class="keyword">return</span> equals(cs);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// Argument is a generic CharSequence</span></span><br><span class="line">       <span class="keyword">char</span> v1[] = value;</span><br><span class="line">       <span class="keyword">int</span> n = v1.length;</span><br><span class="line">       <span class="keyword">if</span> (n != cs.length()) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">           <span class="keyword">if</span> (v1[i] != cs.charAt(i)) &#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="compareTo"><a href="#compareTo" class="headerlink" title="compareTo"></a>compareTo</h2><p>如果短字符串是长字符串开始部分，那么返回this.value.length - anotherString.value.length,</p>
+<p>否则返回第一个不一样的char c1 - c2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Compares two strings lexicographically.</span></span><br><span class="line"><span class="comment"> * The comparison is based on the Unicode value of each character in</span></span><br><span class="line"><span class="comment"> * the strings. The character sequence represented by this</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> String&#125; object is compared lexicographically to the</span></span><br><span class="line"><span class="comment"> * character sequence represented by the argument string. The result is</span></span><br><span class="line"><span class="comment"> * a negative integer if this &#123;<span class="doctag">@code</span> String&#125; object</span></span><br><span class="line"><span class="comment"> * lexicographically precedes the argument string. The result is a</span></span><br><span class="line"><span class="comment"> * positive integer if this &#123;<span class="doctag">@code</span> String&#125; object lexicographically</span></span><br><span class="line"><span class="comment"> * follows the argument string. The result is zero if the strings</span></span><br><span class="line"><span class="comment"> * are equal; &#123;<span class="doctag">@code</span> compareTo&#125; returns &#123;<span class="doctag">@code</span> 0&#125; exactly when</span></span><br><span class="line"><span class="comment"> * the &#123;<span class="doctag">@link</span> #equals(Object)&#125; method would return &#123;<span class="doctag">@code</span> true&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * This is the definition of lexicographic ordering. If two strings are</span></span><br><span class="line"><span class="comment"> * different, then either they have different characters at some index</span></span><br><span class="line"><span class="comment"> * that is a valid index for both strings, or their lengths are different,</span></span><br><span class="line"><span class="comment"> * or both. If they have different characters at one or more index</span></span><br><span class="line"><span class="comment"> * positions, let &lt;i&gt;k&lt;/i&gt; be the smallest such index; then the string</span></span><br><span class="line"><span class="comment"> * whose character at position &lt;i&gt;k&lt;/i&gt; has the smaller value, as</span></span><br><span class="line"><span class="comment"> * determined by using the &amp;lt; operator, lexicographically precedes the</span></span><br><span class="line"><span class="comment"> * other string. In this case, &#123;<span class="doctag">@code</span> compareTo&#125; returns the</span></span><br><span class="line"><span class="comment"> * difference of the two character values at position &#123;<span class="doctag">@code</span> k&#125; in</span></span><br><span class="line"><span class="comment"> * the two string -- that is, the value:</span></span><br><span class="line"><span class="comment"> * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment"> * this.charAt(k)-anotherString.charAt(k)</span></span><br><span class="line"><span class="comment"> * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment"> * If there is no index position at which they differ, then the shorter</span></span><br><span class="line"><span class="comment"> * string lexicographically precedes the longer string. In this case,</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> compareTo&#125; returns the difference of the lengths of the</span></span><br><span class="line"><span class="comment"> * strings -- that is, the value:</span></span><br><span class="line"><span class="comment"> * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment"> * this.length()-anotherString.length()</span></span><br><span class="line"><span class="comment"> * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   anotherString   the &#123;<span class="doctag">@code</span> String&#125; to be compared.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  the value &#123;<span class="doctag">@code</span> 0&#125; if the argument string is equal to</span></span><br><span class="line"><span class="comment"> *          this string; a value less than &#123;<span class="doctag">@code</span> 0&#125; if this string</span></span><br><span class="line"><span class="comment"> *          is lexicographically less than the string argument; and a</span></span><br><span class="line"><span class="comment"> *          value greater than &#123;<span class="doctag">@code</span> 0&#125; if this string is</span></span><br><span class="line"><span class="comment"> *          lexicographically greater than the string argument.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(String anotherString)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len1 = value.length;</span><br><span class="line">    <span class="keyword">int</span> len2 = anotherString.value.length;</span><br><span class="line">    <span class="keyword">int</span> lim = Math.min(len1, len2);</span><br><span class="line">    <span class="keyword">char</span> v1[] = value;</span><br><span class="line">    <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (k &lt; lim) &#123;</span><br><span class="line">        <span class="keyword">char</span> c1 = v1[k];</span><br><span class="line">        <span class="keyword">char</span> c2 = v2[k];</span><br><span class="line">        <span class="keyword">if</span> (c1 != c2) &#123;</span><br><span class="line">            <span class="keyword">return</span> c1 - c2;</span><br><span class="line">        &#125;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len1 - len2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="equalsIgnoreCase"><a href="#equalsIgnoreCase" class="headerlink" title="equalsIgnoreCase"></a>equalsIgnoreCase</h2><p>值得注意的是regionMatches中，如果忽略大小写，先比较大写，再比较去比较小写(Georgian alphabet转换规则有点问题)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Compares this &#123;<span class="doctag">@code</span> String&#125; to another &#123;<span class="doctag">@code</span> String&#125;, ignoring case</span></span><br><span class="line"><span class="comment">   * considerations.  Two strings are considered equal ignoring case if they</span></span><br><span class="line"><span class="comment">   * are of the same length and corresponding characters in the two strings</span></span><br><span class="line"><span class="comment">   * are equal ignoring case.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * &lt;p&gt; Two characters &#123;<span class="doctag">@code</span> c1&#125; and &#123;<span class="doctag">@code</span> c2&#125; are considered the same</span></span><br><span class="line"><span class="comment">   * ignoring case if at least one of the following is true:</span></span><br><span class="line"><span class="comment">   * &lt;ul&gt;</span></span><br><span class="line"><span class="comment">   *   &lt;li&gt; The two characters are the same (as compared by the</span></span><br><span class="line"><span class="comment">   *        &#123;<span class="doctag">@code</span> ==&#125; operator)</span></span><br><span class="line"><span class="comment">   *   &lt;li&gt; Applying the method &#123;<span class="doctag">@link</span></span></span><br><span class="line"><span class="comment">   *        java.lang.Character#toUpperCase(char)&#125; to each character</span></span><br><span class="line"><span class="comment">   *        produces the same result</span></span><br><span class="line"><span class="comment">   *   &lt;li&gt; Applying the method &#123;<span class="doctag">@link</span></span></span><br><span class="line"><span class="comment">   *        java.lang.Character#toLowerCase(char)&#125; to each character</span></span><br><span class="line"><span class="comment">   *        produces the same result</span></span><br><span class="line"><span class="comment">   * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span>  anotherString</span></span><br><span class="line"><span class="comment">   *         The &#123;<span class="doctag">@code</span> String&#125; to compare this &#123;<span class="doctag">@code</span> String&#125; against</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if the argument is not &#123;<span class="doctag">@code</span> null&#125; and it</span></span><br><span class="line"><span class="comment">   *          represents an equivalent &#123;<span class="doctag">@code</span> String&#125; ignoring case; &#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment">   *          false&#125; otherwise</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@see</span>  #equals(Object)</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equalsIgnoreCase</span><span class="params">(String anotherString)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> (<span class="keyword">this</span> == anotherString) ? <span class="keyword">true</span></span><br><span class="line">              : (anotherString != <span class="keyword">null</span>)</span><br><span class="line">              &amp;&amp; (anotherString.value.length == value.length)</span><br><span class="line">              &amp;&amp; regionMatches(<span class="keyword">true</span>, <span class="number">0</span>, anotherString, <span class="number">0</span>, value.length);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Tests if two string regions are equal.</span></span><br><span class="line"><span class="comment">   * &lt;p&gt;</span></span><br><span class="line"><span class="comment">   * A substring of this &#123;<span class="doctag">@code</span> String&#125; object is compared to a substring</span></span><br><span class="line"><span class="comment">   * of the argument &#123;<span class="doctag">@code</span> other&#125;. The result is &#123;<span class="doctag">@code</span> true&#125; if these</span></span><br><span class="line"><span class="comment">   * substrings represent character sequences that are the same, ignoring</span></span><br><span class="line"><span class="comment">   * case if and only if &#123;<span class="doctag">@code</span> ignoreCase&#125; is true. The substring of</span></span><br><span class="line"><span class="comment">   * this &#123;<span class="doctag">@code</span> String&#125; object to be compared begins at index</span></span><br><span class="line"><span class="comment">   * &#123;<span class="doctag">@code</span> toffset&#125; and has length &#123;<span class="doctag">@code</span> len&#125;. The substring of</span></span><br><span class="line"><span class="comment">   * &#123;<span class="doctag">@code</span> other&#125; to be compared begins at index &#123;<span class="doctag">@code</span> ooffset&#125; and</span></span><br><span class="line"><span class="comment">   * has length &#123;<span class="doctag">@code</span> len&#125;. The result is &#123;<span class="doctag">@code</span> false&#125; if and only if</span></span><br><span class="line"><span class="comment">   * at least one of the following is true:</span></span><br><span class="line"><span class="comment">   * &lt;ul&gt;&lt;li&gt;&#123;<span class="doctag">@code</span> toffset&#125; is negative.</span></span><br><span class="line"><span class="comment">   * &lt;li&gt;&#123;<span class="doctag">@code</span> ooffset&#125; is negative.</span></span><br><span class="line"><span class="comment">   * &lt;li&gt;&#123;<span class="doctag">@code</span> toffset+len&#125; is greater than the length of this</span></span><br><span class="line"><span class="comment">   * &#123;<span class="doctag">@code</span> String&#125; object.</span></span><br><span class="line"><span class="comment">   * &lt;li&gt;&#123;<span class="doctag">@code</span> ooffset+len&#125; is greater than the length of the other</span></span><br><span class="line"><span class="comment">   * argument.</span></span><br><span class="line"><span class="comment">   * &lt;li&gt;&#123;<span class="doctag">@code</span> ignoreCase&#125; is &#123;<span class="doctag">@code</span> false&#125; and there is some nonnegative</span></span><br><span class="line"><span class="comment">   * integer &lt;i&gt;k&lt;/i&gt; less than &#123;<span class="doctag">@code</span> len&#125; such that:</span></span><br><span class="line"><span class="comment">   * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment">   * this.charAt(toffset+k) != other.charAt(ooffset+k)</span></span><br><span class="line"><span class="comment">   * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment">   * &lt;li&gt;&#123;<span class="doctag">@code</span> ignoreCase&#125; is &#123;<span class="doctag">@code</span> true&#125; and there is some nonnegative</span></span><br><span class="line"><span class="comment">   * integer &lt;i&gt;k&lt;/i&gt; less than &#123;<span class="doctag">@code</span> len&#125; such that:</span></span><br><span class="line"><span class="comment">   * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment">   * Character.toLowerCase(this.charAt(toffset+k)) !=</span></span><br><span class="line"><span class="comment">   Character.toLowerCase(other.charAt(ooffset+k))</span></span><br><span class="line"><span class="comment">   * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment">   * and:</span></span><br><span class="line"><span class="comment">   * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment">   * Character.toUpperCase(this.charAt(toffset+k)) !=</span></span><br><span class="line"><span class="comment">   *         Character.toUpperCase(other.charAt(ooffset+k))</span></span><br><span class="line"><span class="comment">   * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment">   * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span>   ignoreCase   if &#123;<span class="doctag">@code</span> true&#125;, ignore case when comparing</span></span><br><span class="line"><span class="comment">   *                       characters.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span>   toffset      the starting offset of the subregion in this</span></span><br><span class="line"><span class="comment">   *                       string.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span>   other        the string argument.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span>   ooffset      the starting offset of the subregion in the string</span></span><br><span class="line"><span class="comment">   *                       argument.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span>   len          the number of characters to compare.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if the specified subregion of this string</span></span><br><span class="line"><span class="comment">   *          matches the specified subregion of the string argument;</span></span><br><span class="line"><span class="comment">   *          &#123;<span class="doctag">@code</span> false&#125; otherwise. Whether the matching is exact</span></span><br><span class="line"><span class="comment">   *          or case insensitive depends on the &#123;<span class="doctag">@code</span> ignoreCase&#125;</span></span><br><span class="line"><span class="comment">   *          argument.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">regionMatches</span><span class="params">(<span class="keyword">boolean</span> ignoreCase, <span class="keyword">int</span> toffset,</span></span></span><br><span class="line"><span class="function"><span class="params">          String other, <span class="keyword">int</span> ooffset, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">char</span> ta[] = value;</span><br><span class="line">      <span class="keyword">int</span> to = toffset;</span><br><span class="line">      <span class="keyword">char</span> pa[] = other.value;</span><br><span class="line">      <span class="keyword">int</span> po = ooffset;</span><br><span class="line">      <span class="comment">// Note: toffset, ooffset, or len might be near -1&gt;&gt;&gt;1.</span></span><br><span class="line">      <span class="keyword">if</span> ((ooffset &lt; <span class="number">0</span>) || (toffset &lt; <span class="number">0</span>)</span><br><span class="line">              || (toffset &gt; (<span class="keyword">long</span>)value.length - len)</span><br><span class="line">              || (ooffset &gt; (<span class="keyword">long</span>)other.value.length - len)) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">while</span> (len-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">char</span> c1 = ta[to++];</span><br><span class="line">          <span class="keyword">char</span> c2 = pa[po++];</span><br><span class="line">          <span class="keyword">if</span> (c1 == c2) &#123;</span><br><span class="line">              <span class="keyword">continue</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (ignoreCase) &#123;</span><br><span class="line">              <span class="comment">// If characters don't match but case may be ignored,</span></span><br><span class="line">              <span class="comment">// try converting both characters to uppercase.</span></span><br><span class="line">              <span class="comment">// If the results match, then the comparison scan should</span></span><br><span class="line">              <span class="comment">// continue.</span></span><br><span class="line">              <span class="keyword">char</span> u1 = Character.toUpperCase(c1);</span><br><span class="line">              <span class="keyword">char</span> u2 = Character.toUpperCase(c2);</span><br><span class="line">              <span class="keyword">if</span> (u1 == u2) &#123;</span><br><span class="line">                  <span class="keyword">continue</span>;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="comment">// Unfortunately, conversion to uppercase does not work properly</span></span><br><span class="line">              <span class="comment">// for the Georgian alphabet, which has strange rules about case</span></span><br><span class="line">              <span class="comment">// conversion.  So we need to make one last check before</span></span><br><span class="line">              <span class="comment">// exiting.</span></span><br><span class="line">              <span class="keyword">if</span> (Character.toLowerCase(u1) == Character.toLowerCase(u2)) &#123;</span><br><span class="line">                  <span class="keyword">continue</span>;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="startsWith-amp-endWith"><a href="#startsWith-amp-endWith" class="headerlink" title="startsWith&amp;endWith"></a>startsWith&amp;endWith</h2><p>其中endWith依赖starsWith的实现，直接从value.length - suffix.value.length开始比较，避免代码重复。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Tests if the substring of this string beginning at the</span></span><br><span class="line"><span class="comment"> * specified index starts with the specified prefix.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   prefix    the prefix.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   toffset   where to begin looking in this string.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if the character sequence represented by the</span></span><br><span class="line"><span class="comment"> *          argument is a prefix of the substring of this object starting</span></span><br><span class="line"><span class="comment"> *          at index &#123;<span class="doctag">@code</span> toffset&#125;; &#123;<span class="doctag">@code</span> false&#125; otherwise.</span></span><br><span class="line"><span class="comment"> *          The result is &#123;<span class="doctag">@code</span> false&#125; if &#123;<span class="doctag">@code</span> toffset&#125; is</span></span><br><span class="line"><span class="comment"> *          negative or greater than the length of this</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@code</span> String&#125; object; otherwise the result is the same</span></span><br><span class="line"><span class="comment"> *          as the result of the expression</span></span><br><span class="line"><span class="comment"> *          &lt;pre&gt;</span></span><br><span class="line"><span class="comment"> *          this.substring(toffset).startsWith(prefix)</span></span><br><span class="line"><span class="comment"> *          &lt;/pre&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">startsWith</span><span class="params">(String prefix, <span class="keyword">int</span> toffset)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> ta[] = value;</span><br><span class="line">    <span class="keyword">int</span> to = toffset;</span><br><span class="line">    <span class="keyword">char</span> pa[] = prefix.value;</span><br><span class="line">    <span class="keyword">int</span> po = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> pc = prefix.value.length;</span><br><span class="line">    <span class="comment">// Note: toffset might be near -1&gt;&gt;&gt;1.</span></span><br><span class="line">    <span class="keyword">if</span> ((toffset &lt; <span class="number">0</span>) || (toffset &gt; value.length - pc)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (--pc &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ta[to++] != pa[po++]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Tests if this string starts with the specified prefix.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   prefix   the prefix.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if the character sequence represented by the</span></span><br><span class="line"><span class="comment"> *          argument is a prefix of the character sequence represented by</span></span><br><span class="line"><span class="comment"> *          this string; &#123;<span class="doctag">@code</span> false&#125; otherwise.</span></span><br><span class="line"><span class="comment"> *          Note also that &#123;<span class="doctag">@code</span> true&#125; will be returned if the</span></span><br><span class="line"><span class="comment"> *          argument is an empty string or is equal to this</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@code</span> String&#125; object as determined by the</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@link</span> #equals(Object)&#125; method.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span>   1. 0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">startsWith</span><span class="params">(String prefix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> startsWith(prefix, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Tests if this string ends with the specified suffix.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   suffix   the suffix.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  &#123;<span class="doctag">@code</span> true&#125; if the character sequence represented by the</span></span><br><span class="line"><span class="comment"> *          argument is a suffix of the character sequence represented by</span></span><br><span class="line"><span class="comment"> *          this object; &#123;<span class="doctag">@code</span> false&#125; otherwise. Note that the</span></span><br><span class="line"><span class="comment"> *          result will be &#123;<span class="doctag">@code</span> true&#125; if the argument is the</span></span><br><span class="line"><span class="comment"> *          empty string or is equal to this &#123;<span class="doctag">@code</span> String&#125; object</span></span><br><span class="line"><span class="comment"> *          as determined by the &#123;<span class="doctag">@link</span> #equals(Object)&#125; method.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">endsWith</span><span class="params">(String suffix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> startsWith(suffix, value.length - suffix.value.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="hashCode"><a href="#hashCode" class="headerlink" title="hashCode"></a>hashCode</h2><p>参考文献: <a href="https://segmentfault.com/a/1190000010799123" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010799123</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Returns a hash code for this string. The hash code for a</span><br><span class="line"> * &#123;@code String&#125; object is computed as</span><br><span class="line"> * &lt;blockquote&gt;&lt;pre&gt;</span><br><span class="line"> * s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]</span><br><span class="line"> * &lt;&#x2F;pre&gt;&lt;&#x2F;blockquote&gt;</span><br><span class="line"> * using &#123;@code int&#125; arithmetic, where &#123;@code s[i]&#125; is the</span><br><span class="line"> * &lt;i&gt;i&lt;&#x2F;i&gt;th character of the string, &#123;@code n&#125; is the length of</span><br><span class="line"> * the string, and &#123;@code ^&#125; indicates exponentiation.</span><br><span class="line"> * (The hash value of the empty string is zero.)</span><br><span class="line"> *</span><br><span class="line"> * @return  a hash code value for this object.</span><br><span class="line"> *&#x2F;</span><br><span class="line">public int hashCode() &#123;</span><br><span class="line">    int h &#x3D; hash;</span><br><span class="line">    if (h &#x3D;&#x3D; 0 &amp;&amp; value.length &gt; 0) &#123;</span><br><span class="line">        char val[] &#x3D; value;</span><br><span class="line"></span><br><span class="line">        for (int i &#x3D; 0; i &lt; value.length; i++) &#123;</span><br><span class="line">            h &#x3D; 31 * h + val[i];</span><br><span class="line">        &#125;</span><br><span class="line">        hash &#x3D; h;</span><br><span class="line">    &#125;</span><br><span class="line">    return h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a>indexOf</h2><h3 id="indexOf-int-ch-int-fromIndex"><a href="#indexOf-int-ch-int-fromIndex" class="headerlink" title="indexOf(int ch, int fromIndex)"></a>indexOf(int ch, int fromIndex)</h3><p>值得注意的地方是:</p>
+<p>当 ch &gt;= Character.MIN_SUPPLEMENTARY_CODE_POINT是，使用的indexOfSupplementary方法</p>
+<p>原因是为了应对UTF-16的情况</p>
+<p>*<em>//todo 这里还需要下来深入研究 *</em></p>
+<p>参考 <a href="https://www.zhihu.com/question/42176549的回答" target="_blank" rel="noopener">https://www.zhihu.com/question/42176549的回答</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns the index within this string of the first occurrence of the</span></span><br><span class="line"><span class="comment"> * specified character, starting the search at the specified index.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * If a character with value &#123;<span class="doctag">@code</span> ch&#125; occurs in the</span></span><br><span class="line"><span class="comment"> * character sequence represented by this &#123;<span class="doctag">@code</span> String&#125;</span></span><br><span class="line"><span class="comment"> * object at an index no smaller than &#123;<span class="doctag">@code</span> fromIndex&#125;, then</span></span><br><span class="line"><span class="comment"> * the index of the first such occurrence is returned. For values</span></span><br><span class="line"><span class="comment"> * of &#123;<span class="doctag">@code</span> ch&#125; in the range from 0 to 0xFFFF (inclusive),</span></span><br><span class="line"><span class="comment"> * this is the smallest value &lt;i&gt;k&lt;/i&gt; such that:</span></span><br><span class="line"><span class="comment"> * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment"> * (this.charAt(&lt;i&gt;k&lt;/i&gt;) == ch) &#123;<span class="doctag">@code</span> &amp;&amp;&#125; (&lt;i&gt;k&lt;/i&gt; &amp;gt;= fromIndex)</span></span><br><span class="line"><span class="comment"> * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment"> * is true. For other values of &#123;<span class="doctag">@code</span> ch&#125;, it is the</span></span><br><span class="line"><span class="comment"> * smallest value &lt;i&gt;k&lt;/i&gt; such that:</span></span><br><span class="line"><span class="comment"> * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment"> * (this.codePointAt(&lt;i&gt;k&lt;/i&gt;) == ch) &#123;<span class="doctag">@code</span> &amp;&amp;&#125; (&lt;i&gt;k&lt;/i&gt; &amp;gt;= fromIndex)</span></span><br><span class="line"><span class="comment"> * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment"> * is true. In either case, if no such character occurs in this</span></span><br><span class="line"><span class="comment"> * string at or after position &#123;<span class="doctag">@code</span> fromIndex&#125;, then</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> -1&#125; is returned.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * There is no restriction on the value of &#123;<span class="doctag">@code</span> fromIndex&#125;. If it</span></span><br><span class="line"><span class="comment"> * is negative, it has the same effect as if it were zero: this entire</span></span><br><span class="line"><span class="comment"> * string may be searched. If it is greater than the length of this</span></span><br><span class="line"><span class="comment"> * string, it has the same effect as if it were equal to the length of</span></span><br><span class="line"><span class="comment"> * this string: &#123;<span class="doctag">@code</span> -1&#125; is returned.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;All indices are specified in &#123;<span class="doctag">@code</span> char&#125; values</span></span><br><span class="line"><span class="comment"> * (Unicode code units).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   ch          a character (Unicode code point).</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   fromIndex   the index to start the search from.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  the index of the first occurrence of the character in the</span></span><br><span class="line"><span class="comment"> *          character sequence represented by this object that is greater</span></span><br><span class="line"><span class="comment"> *          than or equal to &#123;<span class="doctag">@code</span> fromIndex&#125;, or &#123;<span class="doctag">@code</span> -1&#125;</span></span><br><span class="line"><span class="comment"> *          if the character does not occur.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(<span class="keyword">int</span> ch, <span class="keyword">int</span> fromIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> max = value.length;</span><br><span class="line">    <span class="keyword">if</span> (fromIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        fromIndex = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (fromIndex &gt;= max) &#123;</span><br><span class="line">        <span class="comment">// Note: fromIndex might be near -1&gt;&gt;&gt;1.</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ch &lt; Character.MIN_SUPPLEMENTARY_CODE_POINT) &#123;</span><br><span class="line">        <span class="comment">// handle most cases here (ch is a BMP code point or a</span></span><br><span class="line">        <span class="comment">// negative value (invalid code point))</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">char</span>[] value = <span class="keyword">this</span>.value;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = fromIndex; i &lt; max; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (value[i] == ch) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> indexOfSupplementary(ch, fromIndex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Handles (rare) calls of indexOf with a supplementary character.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">indexOfSupplementary</span><span class="params">(<span class="keyword">int</span> ch, <span class="keyword">int</span> fromIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (Character.isValidCodePoint(ch)) &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">char</span>[] value = <span class="keyword">this</span>.value;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">char</span> hi = Character.highSurrogate(ch);</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">char</span> lo = Character.lowSurrogate(ch);</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> max = value.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = fromIndex; i &lt; max; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (value[i] == hi &amp;&amp; value[i + <span class="number">1</span>] == lo) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="substring"><a href="#substring" class="headerlink" title="substring"></a>substring</h2><p>当beginIndex为0是返回的是自己，否则是一个新的字符串。</p>
+<p>jdk1.6和1.7subString发生了一些变化:</p>
+<p>jdk1.6可能会导致一些内存泄露问题</p>
+<p>所以一般用x = x.substring(x, y) + “”解决</p>
+<p>参考文献:<a href="http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/substring" target="_blank" rel="noopener">http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/substring</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a string that is a substring of this string. The</span></span><br><span class="line"><span class="comment"> * substring begins with the character at the specified index and</span></span><br><span class="line"><span class="comment"> * extends to the end of this string. &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Examples:</span></span><br><span class="line"><span class="comment"> * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment"> * "unhappy".substring(2) returns "happy"</span></span><br><span class="line"><span class="comment"> * "Harbison".substring(3) returns "bison"</span></span><br><span class="line"><span class="comment"> * "emptiness".substring(9) returns "" (an empty string)</span></span><br><span class="line"><span class="comment"> * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>      beginIndex   the beginning index, inclusive.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>     the specified substring.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span>  IndexOutOfBoundsException  if</span></span><br><span class="line"><span class="comment"> *             &#123;<span class="doctag">@code</span> beginIndex&#125; is negative or larger than the</span></span><br><span class="line"><span class="comment"> *             length of this &#123;<span class="doctag">@code</span> String&#125; object.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> beginIndex)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (beginIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(beginIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> subLen = value.length - beginIndex;</span><br><span class="line">    <span class="keyword">if</span> (subLen &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(subLen);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (beginIndex == <span class="number">0</span>) ? <span class="keyword">this</span> : <span class="keyword">new</span> String(value, beginIndex, subLen);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JDK 6</span></span><br><span class="line">String(<span class="keyword">int</span> offset, <span class="keyword">int</span> count, <span class="keyword">char</span> value[]) &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = value;</span><br><span class="line">    <span class="keyword">this</span>.offset = offset;</span><br><span class="line">    <span class="keyword">this</span>.count = count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> beginIndex, <span class="keyword">int</span> endIndex)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//check boundary</span></span><br><span class="line">    <span class="keyword">return</span>  <span class="keyword">new</span> String(offset + beginIndex, endIndex - beginIndex, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h2><p> avoid getfield opcode：<a href="https://www.cnblogs.com/think-in-java/p/6130917.html" target="_blank" rel="noopener">https://www.cnblogs.com/think-in-java/p/6130917.html</a></p>
+<ul>
+<li>首先找到第一个要替换的值的位置，然后再去new一个char[] 将其push进去</li>
+<li>这里极端情况下会遍历两次len，但是如果没有找到oldchar可以节约一个char[len]的空间</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a string resulting from replacing all occurrences of</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> oldChar&#125; in this string with &#123;<span class="doctag">@code</span> newChar&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * If the character &#123;<span class="doctag">@code</span> oldChar&#125; does not occur in the</span></span><br><span class="line"><span class="comment"> * character sequence represented by this &#123;<span class="doctag">@code</span> String&#125; object,</span></span><br><span class="line"><span class="comment"> * then a reference to this &#123;<span class="doctag">@code</span> String&#125; object is returned.</span></span><br><span class="line"><span class="comment"> * Otherwise, a &#123;<span class="doctag">@code</span> String&#125; object is returned that</span></span><br><span class="line"><span class="comment"> * represents a character sequence identical to the character sequence</span></span><br><span class="line"><span class="comment"> * represented by this &#123;<span class="doctag">@code</span> String&#125; object, except that every</span></span><br><span class="line"><span class="comment"> * occurrence of &#123;<span class="doctag">@code</span> oldChar&#125; is replaced by an occurrence</span></span><br><span class="line"><span class="comment"> * of &#123;<span class="doctag">@code</span> newChar&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Examples:</span></span><br><span class="line"><span class="comment"> * &lt;blockquote&gt;&lt;pre&gt;</span></span><br><span class="line"><span class="comment"> * "mesquite in your cellar".replace('e', 'o')</span></span><br><span class="line"><span class="comment"> *         returns "mosquito in your collar"</span></span><br><span class="line"><span class="comment"> * "the war of baronets".replace('r', 'y')</span></span><br><span class="line"><span class="comment"> *         returns "the way of bayonets"</span></span><br><span class="line"><span class="comment"> * "sparring with a purple porpoise".replace('p', 't')</span></span><br><span class="line"><span class="comment"> *         returns "starring with a turtle tortoise"</span></span><br><span class="line"><span class="comment"> * "JonL".replace('q', 'x') returns "JonL" (no change)</span></span><br><span class="line"><span class="comment"> * &lt;/pre&gt;&lt;/blockquote&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   oldChar   the old character.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   newChar   the new character.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  a string derived from this string by replacing every</span></span><br><span class="line"><span class="comment"> *          occurrence of &#123;<span class="doctag">@code</span> oldChar&#125; with &#123;<span class="doctag">@code</span> newChar&#125;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replace</span><span class="params">(<span class="keyword">char</span> oldChar, <span class="keyword">char</span> newChar)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (oldChar != newChar) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = value.length;</span><br><span class="line">        <span class="keyword">int</span> i = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">char</span>[] val = value; <span class="comment">/* avoid getfield opcode */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (++i &lt; len) &#123;</span><br><span class="line">            <span class="keyword">if</span> (val[i] == oldChar) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; len) &#123;</span><br><span class="line">            <span class="keyword">char</span> buf[] = <span class="keyword">new</span> <span class="keyword">char</span>[len];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">                buf[j] = val[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; len) &#123;</span><br><span class="line">                <span class="keyword">char</span> c = val[i];</span><br><span class="line">                buf[i] = (c == oldChar) ? newChar : c;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> String(buf, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>总感觉不满意，有没有优化空间呢？暂时想不到。  //todo</p>
+<h2 id="trim"><a href="#trim" class="headerlink" title="trim"></a>trim</h2><p>截取字符串中间的非空白字符，如果两段没有空白字符，则返回this</p>
+<p>参考文献:<a href="https://blog.csdn.net/leeqihe/article/details/81006611" target="_blank" rel="noopener">https://blog.csdn.net/leeqihe/article/details/81006611</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a string whose value is this string, with any leading and trailing</span></span><br><span class="line"><span class="comment"> * whitespace removed.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * If this &#123;<span class="doctag">@code</span> String&#125; object represents an empty character</span></span><br><span class="line"><span class="comment"> * sequence, or the first and last characters of character sequence</span></span><br><span class="line"><span class="comment"> * represented by this &#123;<span class="doctag">@code</span> String&#125; object both have codes</span></span><br><span class="line"><span class="comment"> * greater than &#123;<span class="doctag">@code</span> '\u005Cu0020'&#125; (the space character), then a</span></span><br><span class="line"><span class="comment"> * reference to this &#123;<span class="doctag">@code</span> String&#125; object is returned.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Otherwise, if there is no character with a code greater than</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> '\u005Cu0020'&#125; in the string, then a</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> String&#125; object representing an empty string is</span></span><br><span class="line"><span class="comment"> * returned.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * Otherwise, let &lt;i&gt;k&lt;/i&gt; be the index of the first character in the</span></span><br><span class="line"><span class="comment"> * string whose code is greater than &#123;<span class="doctag">@code</span> '\u005Cu0020'&#125;, and let</span></span><br><span class="line"><span class="comment"> * &lt;i&gt;m&lt;/i&gt; be the index of the last character in the string whose code</span></span><br><span class="line"><span class="comment"> * is greater than &#123;<span class="doctag">@code</span> '\u005Cu0020'&#125;. A &#123;<span class="doctag">@code</span> String&#125;</span></span><br><span class="line"><span class="comment"> * object is returned, representing the substring of this string that</span></span><br><span class="line"><span class="comment"> * begins with the character at index &lt;i&gt;k&lt;/i&gt; and ends with the</span></span><br><span class="line"><span class="comment"> * character at index &lt;i&gt;m&lt;/i&gt;-that is, the result of</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> this.substring(k, m + 1)&#125;.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * This method may be used to trim whitespace (as defined above) from</span></span><br><span class="line"><span class="comment"> * the beginning and end of a string.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  A string whose value is this string, with any leading and trailing white</span></span><br><span class="line"><span class="comment"> *          space removed, or this string if it has no leading or</span></span><br><span class="line"><span class="comment"> *          trailing white space.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">trim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = value.length;</span><br><span class="line">    <span class="keyword">int</span> st = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span>[] val = value;    <span class="comment">/* avoid getfield opcode */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ((st &lt; len) &amp;&amp; (val[st] &lt;= <span class="string">' '</span>)) &#123;</span><br><span class="line">        st++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ((st &lt; len) &amp;&amp; (val[len - <span class="number">1</span>] &lt;= <span class="string">' '</span>)) &#123;</span><br><span class="line">        len--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ((st &gt; <span class="number">0</span>) || (len &lt; value.length)) ? substring(st, len) : <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="valueOf-NaN"><a href="#valueOf-NaN" class="headerlink" title="valueOf"></a>valueOf</h2><p>为空返回null，不为空返回toString()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Returns the string representation of the &#123;<span class="doctag">@code</span> Object&#125; argument.</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span>   obj   an &#123;<span class="doctag">@code</span> Object&#125;.</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span>  if the argument is &#123;<span class="doctag">@code</span> null&#125;, then a string equal to</span></span><br><span class="line"><span class="comment">    *          &#123;<span class="doctag">@code</span> "null"&#125;; otherwise, the value of</span></span><br><span class="line"><span class="comment">    *          &#123;<span class="doctag">@code</span> obj.toString()&#125; is returned.</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@see</span>     java.lang.Object#toString()</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> (obj == <span class="keyword">null</span>) ? <span class="string">"null"</span> : obj.toString();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="copyValueOf"><a href="#copyValueOf" class="headerlink" title="copyValueOf"></a>copyValueOf</h2><p>不清楚这两个方法的意义，因为已经有相同的代码了。确实是一模一样，而且不同版本之前也没有区别。</p>
+<p>摘自stackOverFlow中Stephen C的回答</p>
+<p><a href="https://stackoverflow.com/questions/48134493/java-valueof-vs-copyvalueof" target="_blank" rel="noopener">https://stackoverflow.com/questions/48134493/java-valueof-vs-copyvalueof</a></p>
+<p><img src="C:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200330233354777.png" alt="image-20200330233354777"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns the string representation of the &#123;<span class="doctag">@code</span> char&#125; array</span></span><br><span class="line"><span class="comment"> * argument. The contents of the character array are copied; subsequent</span></span><br><span class="line"><span class="comment"> * modification of the character array does not affect the returned</span></span><br><span class="line"><span class="comment"> * string.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   data     the character array.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  a &#123;<span class="doctag">@code</span> String&#125; that contains the characters of the</span></span><br><span class="line"><span class="comment"> *          character array.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">char</span> data[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns the string representation of a specific subarray of the</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> char&#125; array argument.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * The &#123;<span class="doctag">@code</span> offset&#125; argument is the index of the first</span></span><br><span class="line"><span class="comment"> * character of the subarray. The &#123;<span class="doctag">@code</span> count&#125; argument</span></span><br><span class="line"><span class="comment"> * specifies the length of the subarray. The contents of the subarray</span></span><br><span class="line"><span class="comment"> * are copied; subsequent modification of the character array does not</span></span><br><span class="line"><span class="comment"> * affect the returned string.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   data     the character array.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   offset   initial offset of the subarray.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   count    length of the subarray.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  a &#123;<span class="doctag">@code</span> String&#125; that contains the characters of the</span></span><br><span class="line"><span class="comment"> *          specified subarray of the character array.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span> IndexOutOfBoundsException if &#123;<span class="doctag">@code</span> offset&#125; is</span></span><br><span class="line"><span class="comment"> *          negative, or &#123;<span class="doctag">@code</span> count&#125; is negative, or</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@code</span> offset+count&#125; is larger than</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@code</span> data.length&#125;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(<span class="keyword">char</span> data[], <span class="keyword">int</span> offset, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(data, offset, count);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Equivalent to &#123;<span class="doctag">@link</span> #valueOf(char[], int, int)&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   data     the character array.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   offset   initial offset of the subarray.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   count    length of the subarray.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  a &#123;<span class="doctag">@code</span> String&#125; that contains the characters of the</span></span><br><span class="line"><span class="comment"> *          specified subarray of the character array.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span> IndexOutOfBoundsException if &#123;<span class="doctag">@code</span> offset&#125; is</span></span><br><span class="line"><span class="comment"> *          negative, or &#123;<span class="doctag">@code</span> count&#125; is negative, or</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@code</span> offset+count&#125; is larger than</span></span><br><span class="line"><span class="comment"> *          &#123;<span class="doctag">@code</span> data.length&#125;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">copyValueOf</span><span class="params">(<span class="keyword">char</span> data[], <span class="keyword">int</span> offset, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(data, offset, count);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Equivalent to &#123;<span class="doctag">@link</span> #valueOf(char[])&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>   data   the character array.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  a &#123;<span class="doctag">@code</span> String&#125; that contains the characters of the</span></span><br><span class="line"><span class="comment"> *          character array.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">copyValueOf</span><span class="params">(<span class="keyword">char</span> data[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="intern"><a href="#intern" class="headerlink" title="intern"></a>intern</h2><p>intern() 方法返回字符串对象的规范化表示形式。</p>
+<h1 id="各个版本代码重大改变"><a href="#各个版本代码重大改变" class="headerlink" title="各个版本代码重大改变"></a>各个版本代码重大改变</h1><p>//todo</p>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><ol>
+<li>JDK 6和JDK 7中substring的原理及区别</li>
+</ol>
+<p><a href="http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/substring" target="_blank" rel="noopener">http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/substring</a></p>
+<ol start="2">
+<li>replaceFirst、replaceAll、replace区别</li>
+</ol>
+<p><a href="https://www.cnblogs.com/zeze/p/5010022.html" target="_blank" rel="noopener">https://www.cnblogs.com/zeze/p/5010022.html</a></p>
+<ol start="3">
+<li>String对“+”的重载</li>
+</ol>
+<p><a href="http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/string-append" target="_blank" rel="noopener">http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/string-append</a></p>
+<ol start="4">
+<li>字符串拼接的几种方式和区别</li>
+</ol>
+<p><a href="http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/string-concat" target="_blank" rel="noopener">http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/string-concat</a></p>
+<ol start="5">
+<li>String.valueOf和Integer.toString的区别</li>
+</ol>
+<p><a href="http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/value-of-vs-to-string" target="_blank" rel="noopener">http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/value-of-vs-to-string</a></p>
+<ol start="6">
+<li>switch对String的支持</li>
+</ol>
+<p><a href="http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/switch-string" target="_blank" rel="noopener">http://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/switch-string</a></p>
+<ol start="7">
+<li>字符串池</li>
+</ol>
+<p><a href="https://www.cnblogs.com/fangfuhai/p/5500065.html" target="_blank" rel="noopener">https://www.cnblogs.com/fangfuhai/p/5500065.html</a></p>
+<ol start="8">
+<li>Java String 面试题以及答案</li>
+</ol>
+<p><a href="https://www.cnblogs.com/rese-t/p/8024166.html" target="_blank" rel="noopener">https://www.cnblogs.com/rese-t/p/8024166.html</a></p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/java%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="tag"># java源代码</a>
+          
+            <a href="/tags/String/" rel="tag"># String</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/29/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%AE%A8%E8%AE%BA/" rel="next" title="关于学习的第1次讨论">
+                <i class="fa fa-chevron-left"></i> 关于学习的第1次讨论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/01/ArrayList%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" rel="prev" title="ArrayList源码阅读">
+                ArrayList源码阅读 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpg"
+                alt="宋梓立 sorie" />
+            
+              <p class="site-author-name" itemprop="name">宋梓立 sorie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ewasong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:819294006@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类定义"><span class="nav-number">1.</span> <span class="nav-text">类定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#成员变量"><span class="nav-number">2.</span> <span class="nav-text">成员变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造方法"><span class="nav-number">3.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重要成员方法"><span class="nav-number">4.</span> <span class="nav-text">重要成员方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Equals"><span class="nav-number">4.1.</span> <span class="nav-text">Equals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#contentEquals-CharSequence"><span class="nav-number">4.2.</span> <span class="nav-text">contentEquals(CharSequence)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compareTo"><span class="nav-number">4.3.</span> <span class="nav-text">compareTo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#equalsIgnoreCase"><span class="nav-number">4.4.</span> <span class="nav-text">equalsIgnoreCase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#startsWith-amp-endWith"><span class="nav-number">4.5.</span> <span class="nav-text">startsWith&amp;endWith</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hashCode"><span class="nav-number">4.6.</span> <span class="nav-text">hashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexOf"><span class="nav-number">4.7.</span> <span class="nav-text">indexOf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#indexOf-int-ch-int-fromIndex"><span class="nav-number">4.7.1.</span> <span class="nav-text">indexOf(int ch, int fromIndex)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#substring"><span class="nav-number">4.8.</span> <span class="nav-text">substring</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#replace"><span class="nav-number">4.9.</span> <span class="nav-text">replace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trim"><span class="nav-number">4.10.</span> <span class="nav-text">trim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#valueOf-NaN"><span class="nav-number">4.11.</span> <span class="nav-text">valueOf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#copyValueOf"><span class="nav-number">4.12.</span> <span class="nav-text">copyValueOf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#intern"><span class="nav-number">4.13.</span> <span class="nav-text">intern</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#各个版本代码重大改变"><span class="nav-number">5.</span> <span class="nav-text">各个版本代码重大改变</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">6.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">宋梓立 sorie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
