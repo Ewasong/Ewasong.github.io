@@ -89,8 +89,18 @@
 <meta property="og:image" content="c:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200411142137761.png">
 <meta property="og:image" content="c:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200411144452744.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Ewasong/picBed/master/20200414211346.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea2fd18c2a9a83be5da6152.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea30232c2a9a83be5de7ba8.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec62803c2a9a83be57d5c0a.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec634c0c2a9a83be58fd552.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec636f6c2a9a83be592e697.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec6372ac2a9a83be59339bd.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec6375fc2a9a83be5939011.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec638c1c2a9a83be5958728.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec63d3ac2a9a83be59c3b9b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec7b8a8c2a9a83be5e5766f.jpg">
 <meta property="article:published_time" content="2020-03-28T16:08:27.000Z">
-<meta property="article:modified_time" content="2020-04-19T13:49:03.654Z">
+<meta property="article:modified_time" content="2020-05-24T11:57:03.070Z">
 <meta property="article:author" content="宋梓立 sorie">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -768,6 +778,576 @@
 
 
 <h1 id="Redis规范"><a href="#Redis规范" class="headerlink" title="Redis规范"></a>Redis规范</h1><p><a href="https://blog.csdn.net/glx490676405/article/details/79580748" target="_blank" rel="noopener">https://blog.csdn.net/glx490676405/article/details/79580748</a></p>
+<h1 id="Jedis简介"><a href="#Jedis简介" class="headerlink" title="Jedis简介"></a>Jedis简介</h1><p>一个Java语言连接Redis工具、通道。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testJedis</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//连接redis</span></span><br><span class="line">    Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"127.0.0.1"</span>, <span class="number">6379</span>);</span><br><span class="line">    <span class="comment">//操作redis</span></span><br><span class="line">    jedis.set(<span class="string">"name"</span>, <span class="string">"sorie"</span>);</span><br><span class="line">    String name = jedis.get(<span class="string">"name"</span>);</span><br><span class="line">    System.out.println(name);</span><br><span class="line">    <span class="comment">//关闭连接</span></span><br><span class="line">    jedis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Jedis常规操作"><a href="#Jedis常规操作" class="headerlink" title="Jedis常规操作"></a>Jedis常规操作</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"127.0.0.1"</span>, <span class="number">6379</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"list1"</span>, <span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>);</span><br><span class="line">    jedis.rpush(<span class="string">"list1"</span>, <span class="string">"x"</span>);</span><br><span class="line">    List&lt;String&gt; list = jedis.lrange(<span class="string">"list1"</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">    list.forEach(System.out::println);</span><br><span class="line">    jedis.close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"127.0.0.1"</span>, <span class="number">6379</span>);</span><br><span class="line">    jedis.hset(<span class="string">"hash1"</span>, <span class="string">"a1"</span>, <span class="string">"1"</span>);</span><br><span class="line">    jedis.hset(<span class="string">"hash1"</span>, <span class="string">"a2"</span>, <span class="string">"2"</span>);</span><br><span class="line">    jedis.hset(<span class="string">"hash1"</span>, <span class="string">"a3"</span>, <span class="string">"3"</span>);</span><br><span class="line">    Map&lt;String, String&gt; map = jedis.hgetAll(<span class="string">"hash1"</span>);</span><br><span class="line">    <span class="keyword">for</span>(Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">        System.out.println(entry.getKey() + <span class="string">" "</span> + entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">    jedis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h1><p>如果make不成功可能是没有安装gcc 参考：</p>
+<p><a href="https://blog.csdn.net/yudianxiaoxiao/article/details/102525099" target="_blank" rel="noopener">https://blog.csdn.net/yudianxiaoxiao/article/details/102525099</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-5.0.8.tar.gz</span><br><span class="line">tar zxvf redis-5.0.8.tar.gz</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h2 id="指定端口运行"><a href="#指定端口运行" class="headerlink" title="指定端口运行"></a>指定端口运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-server --port 6380</span><br><span class="line">redis-server -p 6380</span><br></pre></td></tr></table></figure>
+
+<h2 id="指定配置文件启动"><a href="#指定配置文件启动" class="headerlink" title="指定配置文件启动"></a>指定配置文件启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis-6379.conf</span><br><span class="line"># 查看进程</span><br><span class="line">ps -ef | grep redis-</span><br><span class="line"># 杀死进程</span><br><span class="line">kill -s 9 pid</span><br></pre></td></tr></table></figure>
+
+<h1 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h1><h2 id="持久化简介"><a href="#持久化简介" class="headerlink" title="持久化简介"></a>持久化简介</h2><p>​    利用永久性存储介质将数据进行保存，在特定时间将保存的数据进行恢复的工作机制称为持久化。</p>
+<p><strong>为什么要进行持久化？</strong></p>
+<p>​    防止数据的意外丢失，确保数据安全性。</p>
+<p><strong>持久化过程保存什么？</strong></p>
+<ul>
+<li>数据快照（RDB)</li>
+<li>数据操作过程/日志(AOF)</li>
+</ul>
+<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><p><strong>命令</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p><strong>作用</strong></p>
+<p>​    手动执行一次保存，会在设定的数据文件目录保存一个rdb数据</p>
+<h3 id="save指令相关配置"><a href="#save指令相关配置" class="headerlink" title="save指令相关配置"></a>save指令相关配置</h3><p><strong>dbfilename dump.rdb</strong></p>
+<p>​    说明：设置本地数据库文件名，默认值为dump.rdb</p>
+<p>​    经验：通常设置为dump-端口号.rdb</p>
+<p><strong>dir</strong></p>
+<p>​    说明：设置存储.rdb的路径</p>
+<p>​    经验：通常设置成存储空间较大的目录中，目录名称data</p>
+<p><strong>rdbcompression yes</strong></p>
+<p>​    说明：设置存储至本地数据库时是否压缩数据，默认为yes，采用LZF压缩</p>
+<p>​    经验：通常默认为开启状态，如果设置为no，可以节省CPU运行时间，但会使存储的文件变大（巨大）</p>
+<p><strong>rdbchecksum yes</strong></p>
+<p>​    说明：设置是否进行RDB文件格式校验，该校验过程在写文件和读文件过程中进行。</p>
+<p>​    经验：通常默认为开启状态，如果设置为no，可以节约读写性过程约10%时间消耗，但存储一定的数据损坏风险。</p>
+<h3 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h3><p>​    启动时恢复</p>
+<h3 id="save指令工作原理"><a href="#save指令工作原理" class="headerlink" title="save指令工作原理"></a>save指令工作原理</h3><p>​    save执行时间很长怎么办？</p>
+<p>​    注意：save指令的执行会阻塞当前redis服务器，直到当前RDB过程完成为止，有可能会造成长时间阻塞，线上环境不建议使用。</p>
+<h3 id="后台保存-bgsave"><a href="#后台保存-bgsave" class="headerlink" title="后台保存-bgsave"></a>后台保存-bgsave</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bgsave</span><br></pre></td></tr></table></figure>
+
+<p>作用</p>
+<p>​    手动启动后台保存操作，但不是立即执行</p>
+<p><strong>bgsave工作原理</strong></p>
+<p><img src="https://pic.imgdb.cn/item/5ea2fd18c2a9a83be5da6152.jpg" alt=""></p>
+<p>注意：bgsave命令是针对save阻塞问题做的优化。Redis内部所有涉及到RDB操作都采用bgsave的方式。save命令可以放弃使用。</p>
+<p><strong>bgsave指令相关配置</strong></p>
+<p><strong>stop-writes-on-bgsave-error yes</strong></p>
+<p>​    说明：后台存储过程中如果出现错误现象，是否停止保存操作</p>
+<p>​    经验：通常默认为开启状态。</p>
+<h3 id="自动执行save"><a href="#自动执行save" class="headerlink" title="自动执行save"></a>自动执行save</h3><p>redis服务器基于条件执行，满足条件就保存。</p>
+<p><strong>配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save second changes</span><br></pre></td></tr></table></figure>
+
+<p><strong>作用</strong></p>
+<p>​    满足限定时间范围key的变化数量达到制定数量即进行持久化</p>
+<p><strong>参数</strong></p>
+<p>​    seond：监控时间范围</p>
+<p>​    changes: 监控key的变化量</p>
+<p><strong>位置</strong></p>
+<p>​    在conf文件中进行配置</p>
+<p><strong>范例</strong></p>
+<p>​    save 900 1</p>
+<p>​    save 300 10</p>
+<p>​    save 60 10000</p>
+<p>注意：</p>
+<p>​    save配置要根据实际业务情况进行配置，频度过高或者过低都会出现性能问题，结果可能是灾难性的。</p>
+<p>​    save配置中对second和changes设置通常具有互补对应关系，尽量不要设置包含性关系</p>
+<p>​    save配置启动后执行的是bgsave</p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p><img src="https://pic.imgdb.cn/item/5ea30232c2a9a83be5de7ba8.jpg" alt=""></p>
+<h3 id="rdb特殊启动形式"><a href="#rdb特殊启动形式" class="headerlink" title="rdb特殊启动形式"></a>rdb特殊启动形式</h3><ul>
+<li>全量复制</li>
+<li>服务器运行过程中重启</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debug reload</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>关闭服务器时制定保存数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown save</span><br></pre></td></tr></table></figure>
+
+<p><strong>rdb优点</strong></p>
+<ul>
+<li>RDB是一个紧凑压缩的二进制文件，存储效率高</li>
+<li>RDB内部存储的是redis在某个时间点的快照，非常适合于数据备份，全量复制等场景。</li>
+<li>RDB恢复数据的速度要比AOF快很多</li>
+<li>应用：服务器中每X小时执行bgsave备份，并将RDB文件拷贝到远程服务机器中，用于灾难恢复。</li>
+</ul>
+<p><strong>rdb缺点</strong></p>
+<ul>
+<li>RDB方式无论是执行指令还是利用配置，无法做到实时持久化，具有较大的可能性丢失数据。</li>
+<li>bgsave指令每次运行要执行fork操作创建子进程，要牺牲掉一些性能。</li>
+<li>Redis的众多版本中未进行RDB文件格式的版本统一，有可能出现各版本服务之间数据格式无法兼容现象。</li>
+</ul>
+<h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><ul>
+<li><p>不写全数据，仅记录部分数据</p>
+</li>
+<li><p>改记录数据为记录操作过程</p>
+</li>
+<li><p>对所有操作均进行记录，排除丢失数据的风险</p>
+</li>
+</ul>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>AOF(append only file)持久化：以独立日志的方式记录每次写命令，重启时再重新执行AOF文件中命令，达到恢复数据的目的。与RDB相比可以简单描述为改记录数据为记录数据产生的过程。</p>
+<p>AOF的主要作用是解决了数据持久化的实时性，目前已经是Redis持久化的主流方式。</p>
+<p><strong>写数据过程</strong></p>
+<p><img src="https://pic.imgdb.cn/item/5ec62803c2a9a83be57d5c0a.jpg" alt=""></p>
+<p><strong>写数据策略</strong></p>
+<ul>
+<li><p>always（每次）</p>
+<p>​    每次写入操作均同步到AOF文件中，数据零误差，性能较低</p>
+</li>
+<li><p>everysec（每秒）</p>
+<p>​    每秒将缓冲区中的指令同步到AOF文件中，数据准确性较高，性能较高</p>
+<p>​    在系统突然宕机的情况下丢失1秒的数据</p>
+</li>
+<li><p>no（系统控制）</p>
+<p>​    由操作系统控制每次同步到AOF文件的周期，整体过程不可控</p>
+</li>
+</ul>
+<h3 id="AOF功能开启"><a href="#AOF功能开启" class="headerlink" title="AOF功能开启"></a>AOF功能开启</h3><ul>
+<li>配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendonly yes|no</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>作用</p>
+<p>是否开启AOF持久化功能，默认为不开启</p>
+</li>
+<li><p>配置</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendfsync always|everysec|no</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>作用</p>
+<p>AOF写数据策略</p>
+</li>
+<li><p>配置</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendfilename filename</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>作用</p>
+<p>AOF之持久化文件名，默认文件名为appendonly.aof, 建议配置为appendonly-端口号.aof</p>
+</li>
+<li><p>配置</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appendfsync always|everysec|no</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>作用</p>
+<p>AOF写数据策略</p>
+</li>
+</ul>
+<h3 id="AOF重写"><a href="#AOF重写" class="headerlink" title="AOF重写"></a>AOF重写</h3><p>随着命令不断写入AOF，文件会越来越大，为了解决这个问题，Redis引入了AOF重写机制压缩文件体积。AOF文件重写是将Redis进程的数据转化为写命令同步到新AOF文件的过程。简单说就是将同一个数据的若干个命令执行结果转化成最终结果数据对应的指令进行记录。</p>
+<h3 id="AOF重写规则"><a href="#AOF重写规则" class="headerlink" title="AOF重写规则"></a>AOF重写规则</h3><ul>
+<li><p>进程内已超时的数据不再写入文件</p>
+</li>
+<li><p>忽略无效指令，重写时使用进程数据直接生成，这样新的AOF文件只保留最终数据写入命令</p>
+</li>
+<li><p>对同一条数据的多条写命令合并为一条命令</p>
+<p>为防止数据过大造成客户端缓冲区溢出，对list、set、hash、zset等数据，每条指令最多写入64个元素。</p>
+</li>
+</ul>
+<h3 id="AOF重写方式"><a href="#AOF重写方式" class="headerlink" title="AOF重写方式"></a>AOF重写方式</h3><ul>
+<li><p>手动重写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bgrewriteaof</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/5ec634c0c2a9a83be58fd552.jpg" alt=""></p>
+<ul>
+<li>自动重写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auto-aof-rewrite-min-size size</span><br><span class="line">auto-aof-rewrite-percentage percentage</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自动重写触发比对参数(运行指令info Persistence获取具体信息)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aof_current_size</span><br><span class="line">aof_base_size</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自动重写触发条件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aof_current_size &gt; auto-aof-rewrite-min-size</span><br><span class="line">(aof_current_size - aof_base_size) &#x2F; aof_base_size &gt;&#x3D; auto-aof-rewrite-percentage</span><br></pre></td></tr></table></figure>
+
+<p><strong>自动重写工作原理自动重写</strong></p>
+<p><img src="https://pic.imgdb.cn/item/5ec636f6c2a9a83be592e697.jpg" alt=""></p>
+<h2 id="AOF-VS-RDB"><a href="#AOF-VS-RDB" class="headerlink" title="AOF VS RDB"></a>AOF VS RDB</h2><p><img src="https://pic.imgdb.cn/item/5ec6372ac2a9a83be59339bd.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5ec6375fc2a9a83be5939011.jpg" alt=""></p>
+<h2 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h2><p><img src="https://pic.imgdb.cn/item/5ec638c1c2a9a83be5958728.jpg" alt=""></p>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>Redis执行指令过程中，多条连续执行的指令被干扰，打断，插队。</p>
+<p>按照添加顺序依次执行，中间不会被打断。</p>
+<h2 id="基本操作-2"><a href="#基本操作-2" class="headerlink" title="基本操作"></a>基本操作</h2><p>开启事务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">multi</span><br></pre></td></tr></table></figure>
+
+<p>作用</p>
+<p>设定事务的开启位置，此指令执行后，后续所有的指令均加入到事务中</p>
+<p>执行事务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec</span><br></pre></td></tr></table></figure>
+
+<p>作用</p>
+<p>设定事务结束位置，同时执行事务。与multi成对出现，成对使用。</p>
+<p>取消事务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">discard</span><br></pre></td></tr></table></figure>
+
+<p>作用</p>
+<p>终止当前事务的定义，发送在multi之后，exec之前。</p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p><img src="https://pic.imgdb.cn/item/5ec63d3ac2a9a83be59c3b9b.jpg" alt=""></p>
+<p><strong>注意事项</strong></p>
+<p>语法错误</p>
+<p>​    如果定义的事务中所包含的指令存在语法错误，整体事务所有命令均不执行，包括那些正确的指令</p>
+<p>执行错误</p>
+<p>​    正确运行的指令会执行，运行错误的指令不会被执行。</p>
+<p><strong>手动进行事务回滚</strong></p>
+<ul>
+<li>记录操作过程中被影响的数据之前的状态<ul>
+<li>单数据：string</li>
+<li>多数据：hash、list、set、zset</li>
+</ul>
+</li>
+<li>设置指令恢复所有的被修改的项<ul>
+<li>单数据：直接set（注意周边属性、时效性）</li>
+<li>多数据：修改对应值或整体克隆复制。</li>
+</ul>
+</li>
+</ul>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><ul>
+<li>对key添加监视锁，在执行exec前如果key发生了变化，终止事务的执行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">watch key1 [key2]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>取消对所有key的监视</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unwatch</span><br></pre></td></tr></table></figure>
+
+<h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><p>超卖问题</p>
+<p>使用setnx 设置一个公共锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setnx lock-key value</span><br></pre></td></tr></table></figure>
+
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>给锁添加时效性</p>
+<h1 id="删除策略"><a href="#删除策略" class="headerlink" title="删除策略"></a>删除策略</h1><p>数据特征</p>
+<p>Redis是一种内存级数据库，所有数据均存放在内存中，内存中的数据可以通过TTL指令获取其状态</p>
+<ul>
+<li>XX： 具有时效性的数据</li>
+<li>-1：永久有效的数据</li>
+<li>-2：已经过期的数据 被删除的数据 或未定义的数据</li>
+</ul>
+<p>已经过期的数据真的删除了吗？</p>
+<h2 id="数据删除策略"><a href="#数据删除策略" class="headerlink" title="数据删除策略"></a>数据删除策略</h2><ul>
+<li>定时删除</li>
+<li>惰性删除</li>
+<li>定期删除</li>
+</ul>
+<p><strong>时效性数据存储格式</strong></p>
+<p><img src="https://pic.imgdb.cn/item/5ec7b8a8c2a9a83be5e5766f.jpg" alt=""></p>
+<p><strong>数据删除策略的目标</strong></p>
+<p>在内存占用和CPU占用之间寻找一种平衡，顾此失彼都会造成redis性能的下降，甚至引发服务宕机或内存泄露。</p>
+<h2 id="定时删除"><a href="#定时删除" class="headerlink" title="定时删除"></a>定时删除</h2><ul>
+<li><p>创建一个定时器，当key设置有过期时间，且过期时间到达时，由定时任务立即执行对键的删除。</p>
+</li>
+<li><p>优点：节约内存，到时就删除，快速释放不必要的内存占用。</p>
+</li>
+<li><p>缺点：CPU压力很大，无论CPU此时负载量多高，均占用CPU，会影响redis服务器响应时间和指令吞吐量。</p>
+</li>
+</ul>
+<ul>
+<li>总结：用处理器性能换存储空间。</li>
+</ul>
+<h2 id="惰性删除"><a href="#惰性删除" class="headerlink" title="惰性删除"></a>惰性删除</h2><ul>
+<li>数据到达过期时间，不做处理。等下次访问该数据时删除。</li>
+<li>优点：节约CPU性能，发现必须删除的时候才删除</li>
+<li>缺点：内存压力很大，出现长期占用内存的数据。</li>
+</ul>
+<h2 id="定期删除"><a href="#定期删除" class="headerlink" title="定期删除"></a>定期删除</h2><ul>
+<li>Redis启动服务器初始化时，读取配置server.hz的值，默认为10</li>
+<li>每秒钟执行server.hz次serverCron()<ul>
+<li>databasesCron()<ul>
+<li>activeExpireCycle()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>activeExpireCycle()对每个expires[*]逐一进行检测，每次执行250ms/server.hz</li>
+<li>对某个expires[*]检测时，随机挑选W个key检测<ul>
+<li>key超时删除</li>
+<li>如果一轮中删除的key数量&gt; w * 25%,循环该过程</li>
+<li>W取值=ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP属性值</li>
+</ul>
+</li>
+<li>参数current_db用于记录activeExpireCycle()进入哪个expires[*]执行</li>
+</ul>
+<ul>
+<li>周期性轮询redis库中时效性数据，采用随机抽取的策略，利用过期数据占比的方式控制删除频度</li>
+<li>特点1：CPU性能占用设置有峰值，检测频度可自定义设置。</li>
+<li>特点2：内存压力不是很大，长期占用的冷数据会被持续处理。</li>
+<li>总结：周期性抽查存储空间（随机抽查，重点抽查）</li>
+</ul>
+<h2 id="逐出算法"><a href="#逐出算法" class="headerlink" title="逐出算法"></a>逐出算法</h2><p>新数据进入redis，内存不足怎么办？</p>
+<ul>
+<li><p>Redis使用内存存储数据，在执行每一个命令前，会调用freeMemoryIfNeeded()检测内存是否充足。如果内存不满足新加入数据最低存储要求，redis要求临时删除一些数据为当前指令清理存储空间。清理数据的策略称为逐出算法。</p>
+</li>
+<li><p>注意：逐出策略的过程不是100%能够清理出足够的可用空间，如果不成功则反复执行。当对所有数据尝试完毕后，如果不能达到内存清理要求，将出现错误信息。</p>
+</li>
+<li><p>配置最大可用内存</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxmemory</span><br></pre></td></tr></table></figure>
+
+<p>占用物理内存的比例，默认值为0，表示不限制。生产环境中根据需求设定，通常在50%。</p>
+<ul>
+<li>配置每次选取待删除的数据个数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxmeory-samples</span><br></pre></td></tr></table></figure>
+
+<p>选取数据时并不会全库扫描，导致严重的性能消耗，降低读写性能，因此采用随机获取数据的方式作为待检测删除数据。</p>
+<ul>
+<li>删除策略</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxmemory-policy</span><br></pre></td></tr></table></figure>
+
+<p>达到最大内存后，对被挑选出来的数据进行删除的策略。</p>
+<ul>
+<li>检测易失数据（可能会过期的数据集server.db[i].expires)<ol>
+<li>volatile-lru: 挑选最长时间没有使用的数据淘汰</li>
+<li>volatile-lfu: 挑选最近使用次数最少的数据进行淘汰</li>
+<li>volatile-ttl: 挑选刚要过期的数据淘汰</li>
+<li>volatile-random: 任意选择数据淘汰</li>
+</ol>
+</li>
+<li>检测全库数据（所有数据集server.db[i].dict)<ol start="5">
+<li>allkeys-lru: 挑选最长时间没有使用过的数据淘汰</li>
+<li>allkeys-lfu: 挑选最近使用次数最少的数据进行淘汰</li>
+<li>allkeys-random: 任意选择数据淘汰</li>
+</ol>
+</li>
+<li>放弃数据驱逐<ol start="8">
+<li>no-enviction(驱逐): 禁止驱逐(redis4.0中默认策略)，会引发OOM</li>
+</ol>
+</li>
+</ul>
+<p>可以使用info命令输出监控信息，查询缓存hit和miss次数，根据业务需求调优redis配置。</p>
+<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># 设置服务器以守护进程的方式运行</span><br><span class="line">daemonize yes|noe</span><br><span class="line"></span><br><span class="line"># 绑定主机地址</span><br><span class="line">bind 127.0.0.1</span><br><span class="line"></span><br><span class="line"># 设置端口号</span><br><span class="line">port 6379</span><br><span class="line"></span><br><span class="line"># 设置数据库数量</span><br><span class="line">databases 16</span><br><span class="line"></span><br><span class="line"># 设置服务器以指定日志记录级别</span><br><span class="line">loglevel debug|verbose|notice|waring</span><br><span class="line"></span><br><span class="line"># 日志记录文件名 注意日志级别开发库设置为verbose，生产库设置为notice，简化日志输出量，降低写日志的IO频度</span><br><span class="line">logfile 端口号.log</span><br><span class="line"></span><br><span class="line"># 设置同一时间最大客户端连接数，默认无限制。当客户端连接达到上限，Redis会关闭新的连接</span><br><span class="line">maxclients 0</span><br><span class="line"></span><br><span class="line"># 客户端闲置等待最大时长，达到最大值后关闭连接，如需关闭该功能，设置为0</span><br><span class="line">timeout 300</span><br><span class="line"></span><br><span class="line">#导入并加载指定配置文件信息，用于快速创建redis公共配置较多的redis实例配置文件，便于维护</span><br><span class="line">include &#x2F;path&#x2F;server-端口号.conf</span><br></pre></td></tr></table></figure>
+
+<h1 id="高级数据结构"><a href="#高级数据结构" class="headerlink" title="高级数据结构"></a>高级数据结构</h1><h2 id="BitMaps"><a href="#BitMaps" class="headerlink" title="BitMaps"></a>BitMaps</h2><p>问题：年度浏览量最低，月度浏览量最低，周浏览量最低</p>
+<p>存储需求：</p>
+<p>非黑即白的存储</p>
+<p>其实就是string的二进制操作api</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#获取指定key对应偏移量上的bit值</span><br><span class="line">getbit key offset</span><br><span class="line"></span><br><span class="line"># 获取指定key对应偏移量上的bit值,value只能是1,或者0</span><br><span class="line">setbit key offset value</span><br><span class="line"></span><br><span class="line"># 对指定key按位进行交、并、非、异或操作，并将结果保存到destKey中</span><br><span class="line">bittop op destKey key1 [key2 ....]</span><br><span class="line">	and, or, not, xor</span><br><span class="line"># 统计key中1的数量</span><br><span class="line">bitcount key [start end]</span><br></pre></td></tr></table></figure>
+
+<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><p>统计独立UV</p>
+<ul>
+<li><p>原始方案：set</p>
+<p>​    * 存储每个用户的id</p>
+</li>
+<li><p>改进方案：BitMaps</p>
+<ul>
+<li>存储每个用户的状态bit</li>
+</ul>
+</li>
+<li><p>全新方案HyperLogLog</p>
+</li>
+</ul>
+<p><strong>基数</strong></p>
+<ul>
+<li>基数是数据集去重后元素个数</li>
+<li>HyperLogLog是用来做基数统计的，运用了LogLog算法</li>
+</ul>
+<p>LogLog算法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 添加数据</span><br><span class="line">pfadd key element [element2...]</span><br><span class="line"># 统计数据</span><br><span class="line">pfcount key [key...]</span><br><span class="line"># 合并数据</span><br><span class="line">pfmerge destkety sourcekey [sourcekey]</span><br></pre></td></tr></table></figure>
+
+<p>相关说明</p>
+<ul>
+<li>用于进行基数统计，不是集合，不保存数据，只记录数量而不是具体数据</li>
+<li>核心是基数估算算法，最终数值存在一定误差</li>
+<li>误差范围：基数估计的结果是一个带有0.81%标准错误的近似值</li>
+<li>耗空间极小，每个hyperloglog key占用12k的内存用于标记基数</li>
+<li>pdadd命令不是一次性分配12k内存使用，会随着基数的增加内存逐渐增大</li>
+<li>pfmerge命令合并后占用的存储空间为12K，无论合并之前的数据量多少</li>
+</ul>
+<h2 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h2><p>附近的人</p>
+<p>就是位置关系</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 添加坐标点</span><br><span class="line">geoadd key longitude latitude member [longitude latitude member...]</span><br><span class="line"># 获取坐标</span><br><span class="line">geopos key member [member ...]</span><br><span class="line"># 计算坐标点距离</span><br><span class="line">geodist key member1 member2 [unit]</span><br><span class="line"># 根据坐标求范围内的数据</span><br><span class="line">georadius key longitude latitude radius m|km|ft|mi [withcoord][withdist][withhash][count count]</span><br><span class="line"># 根据点求范围内数据</span><br><span class="line">georadiusbymember key member radius m|km|ft|mi [withcoord][withdist][withhash][count count]</span><br><span class="line"># 获取指定点对应坐标的hash值</span><br><span class="line">geohash key member [member...]</span><br></pre></td></tr></table></figure>
+
+<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><p>//todo </p>
+<h1 id="企业解决方案"><a href="#企业解决方案" class="headerlink" title="企业解决方案"></a>企业解决方案</h1><h2 id="缓存预热"><a href="#缓存预热" class="headerlink" title="缓存预热"></a>缓存预热</h2><p>“宕机”</p>
+<ol>
+<li>请求数据较高</li>
+<li>主从之间吞吐量较大，数据同步操作频度高</li>
+</ol>
+<p><strong>解决方案</strong></p>
+<p>前置准备工作：</p>
+<p>1.日常例行统计数据访问记录，统计访问频度比较高的热点数据</p>
+<p>2.利用LRU数据删除策略，构建数据留存队列</p>
+<p>​        例如:storm和kafka配合</p>
+<p>准备工作:</p>
+<p>3.将统计结果中的数据分类，根据级别，redis优先加载级别较高的热点数据</p>
+<p>4.利用分布式多服务器同时进行数据读取，提高数据加载过程</p>
+<p>实施：</p>
+<ol>
+<li>使用脚本程序固定触发缓存预热过程</li>
+<li>如果条件允许，使用CDN，效果会更好</li>
+</ol>
+<p>总结：</p>
+<p>缓存预热就是系统启动前，提前将相关的缓存数据直接加载到缓存系统。避免在用户请求的时候，先查询数据库，然后在将数据缓存的问题。用户直接查询的就是缓存的数据。</p>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><p>数据库服务器崩溃(1)</p>
+<ol>
+<li>忽然数据库连接量激增</li>
+<li>应用服务器无法及时处理请求</li>
+<li>大量408，500错误页面出现</li>
+<li>客户反复刷新页面获取数据</li>
+<li>数据库崩溃</li>
+<li>应用服务器崩溃</li>
+<li>重启服务器无效</li>
+<li>Redis服务器崩溃</li>
+<li>Redis集群崩溃</li>
+<li>重启数据库后再次被瞬间流量放到</li>
+</ol>
+<p>问题排查</p>
+<ol>
+<li>较短时间内，缓存中较多的key集中过期</li>
+<li>此周期请求访问过期的数据，redis未命中，redis向数据库获取数据</li>
+<li>数据库同时接收到大量的请求无法及时处理</li>
+<li>Redis大量请求被积压，开始出现超时现象</li>
+<li>数据库流量激增，数据库崩溃</li>
+<li>重启后仍然面对缓存中无数据可用的问题</li>
+<li>Redis服务器资源被严重占用，Redis数据库服务器崩溃</li>
+<li>Redis集群呈现崩溃，集群瓦解</li>
+<li>应用服务器无法及时得到数据响应请求，来自客户端的请求数量越来越多，应用服务器崩溃</li>
+<li>应用服务器，redis，数据库全部重启，效果不理想。</li>
+</ol>
+<p>解决方案（道）</p>
+<ol>
+<li><p>更多的页面静态化处理</p>
+</li>
+<li><p>构建多级缓存架构</p>
+<p>Nginx缓存+redis缓存+ehcache缓存</p>
+</li>
+<li><p>检测mysql严重耗时业务进行优化</p>
+<p>对数据库的瓶颈排查：例如超时查询、耗时较高的业务等</p>
+</li>
+<li><p>灾难预警机制</p>
+<p>监控redis服务器指标性能</p>
+<ul>
+<li>CPU占用、CPU使用率</li>
+<li>内存容量</li>
+<li>查询平均响应时间</li>
+<li>线程数</li>
+</ul>
+</li>
+<li><p>限流、降级</p>
+<p>短时间内牺牲一些客户体验，限制一部分请求访问，降低应用服务器压力，待业务低速运转后，再逐步开放访问</p>
+</li>
+</ol>
+<p>解决方案（术）</p>
+<ol>
+<li><p>LRU和LFU切换</p>
+</li>
+<li><p>数据有效策略调整</p>
+<ul>
+<li>根据业务数据有效期进行分类错峰，A类90分钟，B类80分钟，C类70分钟</li>
+<li>过期时间使用固定时间+随机值的形式，稀释集中到期的key的数量</li>
+</ul>
+</li>
+<li><p>超热数据使用永久key</p>
+</li>
+<li><p>定期维护（自动+人工）</p>
+<p>​    对即将过期的数据做访量分析，确认是否延时，配合访问量统计，做热点数据的延时</p>
+</li>
+<li><p>加锁</p>
+<p>​    慎用！</p>
+</li>
+</ol>
+<p>总结</p>
+<p>缓存雪崩就是瞬间过期数据量太大，导致对数据库服务器造成压力。如能够有效避免，过期时间集中，可以有效解决雪崩现象出现(约40%)，配合其他策略一起使用，并监控数据库运行数据，根据运行记录进行快速调整。</p>
+<h2 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h2><p>数据库崩溃2</p>
+<ol>
+<li>系统平稳运行中</li>
+<li>数据库连接量瞬间激增</li>
+<li>Redis服务器无大量key过期</li>
+<li>Redis内存平稳，无波动</li>
+<li>Redis服务器CPU正常</li>
+<li>数据库崩溃</li>
+</ol>
+<p>问题排查</p>
+<ol>
+<li>Redis中某个key过期，该key访问量巨大</li>
+<li>多个数据请求从服务器直接到Redis中，均未命中</li>
+<li>Redis在短时间内发起了大量对数据库中同一数据的访问</li>
+</ol>
+<p>问题</p>
+<ul>
+<li>单个key高热数据</li>
+<li>key过期</li>
+</ul>
+<p>解决方案（术)</p>
+<ol>
+<li><p>预先设定</p>
+<p>以电商为例，每个商家根据店铺等级，指定若干款主打产品，在购物节期间，加大此类信息的key的过期时长。</p>
+<p>注意：购物节不仅仅指当天，以及后续若干天，访问峰值呈现逐渐降低的趋势</p>
+</li>
+<li><p>现场调整</p>
+<p>监控访问量，对自然流量激增的数据延长过期时间或者设置为永久key</p>
+</li>
+<li><p>后台刷新数据</p>
+<p>启动定时任务，高峰期来临之前，刷新数据有效期，确保不丢失</p>
+</li>
+<li><p>二级缓存</p>
+<p>设置不同失效时间，保障不会被同时淘汰就行</p>
+</li>
+<li><p>加锁</p>
+<p>分布式锁，防止被击穿，但是要注意也是性能瓶颈，慎重。</p>
+</li>
+</ol>
+<p>总结</p>
+<p>缓存击穿就是单个高热数据过期的瞬间，数据访问量较大，未命中redis后，发起了大量对同一数据的数据访问，导致对数据库服务器造成压力。应对策略应该在业务数据分析与预防方面进行，配合运行监控测试与即时调整策略，毕竟单个key 的过期监控难度较高，配合雪崩处理策略即可。</p>
+<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><p>数据库崩溃3</p>
+<ol>
+<li>系统平稳运行中</li>
+<li>应用服务器流量随时间增量较大</li>
+<li>Redis服务器命中率随时间逐步降低</li>
+<li>Redis内存平稳，内存无压力</li>
+<li>Redis服务器CPU占用激增</li>
+<li>数据库服务器压力激增</li>
+<li>数据库崩溃</li>
+</ol>
+<p>问题排查</p>
+<p>1.Redis大面积出现未命中</p>
+<p>2.出现非正常URL的访问</p>
+<p>问题分析</p>
+<ul>
+<li>获取的数据在数据库中也不存在，数据库查询未得到对应数据</li>
+<li>Redis获取到null数据未进行持久化，直接返回</li>
+<li>下次此类数据到达重复上述过程</li>
+<li>出现黑客攻击服务器</li>
+</ul>
+<p>解决方案（术）</p>
+<ol>
+<li><p>缓存null</p>
+<p>​    对查询结果为null的数据进行缓存（长期使用，定期清理），设定短时限，例如30-60秒，最高5分钟</p>
+</li>
+<li><p>白名单策略</p>
+<ul>
+<li>提前预热各种分类数据id对应的bitmaps，id作为bitmaps的offset，相当于设置了数据白名单。当加载正常数据时，放行，加载异常数据时直接拦截（效率偏低）</li>
+<li>使用布隆过滤器（有关布隆过滤器命中问题对当前状况可以忽略）</li>
+</ul>
+</li>
+<li><p>实施监控</p>
+<p>实时监控redis命中率（业务正常范围时，通常会有一个波动值）与null数据的占比。</p>
+<ul>
+<li>非活动时段波动：通常检测3-5倍，超过5倍纳入重点排查对象</li>
+<li>活动时段波动：通常检测10-50倍，超过50倍纳入重点排查对象</li>
+</ul>
+<p>根据倍数不同，启动不同的排查流程，然后使用黑名单进行防控（运营）</p>
+</li>
+<li><p>key加密</p>
+<p>​    问题出现后，临时启动防灾业务key，对key进行业务层传输加密服务，设定校验程序，过来的key校验</p>
+<p>​    例如每天随机分配60个加密串，挑选2-3个，混淆在页面数据id中，发现key不满足规则，驳回数据访问。</p>
+</li>
+</ol>
+<p>总结：</p>
+<p>缓存穿透访问了不存在的数据，跳过了合法数据的redis数据缓存阶段，每次访问数据库，导致对数据库服务器造成压力。通常此类数据出现量是一个较低的值，当出现此类情况以毒攻毒，并及时报警。应对策略应该在临时预案防范方面多做文章。</p>
+<p>无论是黑名单还是白名单，都是对整体系统的压力，警报解除后尽快移除。</p>
 
       
     </div>
@@ -894,7 +1474,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -907,7 +1487,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -956,7 +1536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSql"><span class="nav-number">2.</span> <span class="nav-text">NoSql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis介绍"><span class="nav-number">3.</span> <span class="nav-text">Redis介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的应用"><span class="nav-number">3.1.</span> <span class="nav-text">Redis的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis下载"><span class="nav-number">4.</span> <span class="nav-text">Redis下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务启动"><span class="nav-number">5.</span> <span class="nav-text">服务启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis基本操作"><span class="nav-number">6.</span> <span class="nav-text">Redis基本操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">7.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型-5种常用"><span class="nav-number">7.1.</span> <span class="nav-text">数据类型(5种常用)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据存储格式"><span class="nav-number">8.</span> <span class="nav-text">Redis数据存储格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string-类型"><span class="nav-number">8.1.</span> <span class="nav-text">string 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作"><span class="nav-number">8.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单数据操作VS多数据操作"><span class="nav-number">8.1.2.</span> <span class="nav-text">单数据操作VS多数据操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型数据的扩展操作"><span class="nav-number">8.1.3.</span> <span class="nav-text">string 类型数据的扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型数据操作注意事项"><span class="nav-number">8.1.4.</span> <span class="nav-text">string 类型数据操作注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型应用场景"><span class="nav-number">8.1.5.</span> <span class="nav-text">string 类型应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-类型"><span class="nav-number">8.2.</span> <span class="nav-text">hash 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型数据的基本操作"><span class="nav-number">8.2.1.</span> <span class="nav-text">hash类型数据的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型数据的扩展操作"><span class="nav-number">8.2.2.</span> <span class="nav-text">hash类型数据的扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-类型数据操作的注意事项"><span class="nav-number">8.2.3.</span> <span class="nav-text">hash 类型数据操作的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型应用场景"><span class="nav-number">8.2.4.</span> <span class="nav-text">hash类型应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string存对象和hash存对象"><span class="nav-number">8.2.5.</span> <span class="nav-text">string存对象和hash存对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-类型"><span class="nav-number">8.3.</span> <span class="nav-text">list 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据基本操作"><span class="nav-number">8.3.1.</span> <span class="nav-text">list 类型数据基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据扩展操作"><span class="nav-number">8.3.2.</span> <span class="nav-text">list 类型数据扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景1"><span class="nav-number">8.3.3.</span> <span class="nav-text">业务场景1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据操作注意事项"><span class="nav-number">8.3.4.</span> <span class="nav-text">list 类型数据操作注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景-2"><span class="nav-number">8.3.5.</span> <span class="nav-text">业务场景 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set类型"><span class="nav-number">8.4.</span> <span class="nav-text">set类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作-1"><span class="nav-number">8.4.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展操作"><span class="nav-number">8.4.2.</span> <span class="nav-text">扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">8.4.3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">8.4.4.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sorted-set"><span class="nav-number">8.5.</span> <span class="nav-text">sorted_set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础操作"><span class="nav-number">8.5.1.</span> <span class="nav-text">基础操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-number">8.5.2.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项-1"><span class="nav-number">8.5.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型实践案例"><span class="nav-number">9.</span> <span class="nav-text">数据类型实践案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景"><span class="nav-number">9.1.</span> <span class="nav-text">业务背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景-1"><span class="nav-number">9.2.</span> <span class="nav-text">业务背景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用命令"><span class="nav-number">10.</span> <span class="nav-text">通用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#key基本操作"><span class="nav-number">10.1.</span> <span class="nav-text">key基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的扩展-时效性"><span class="nav-number">10.2.</span> <span class="nav-text">key的扩展-时效性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的扩展操作-查询"><span class="nav-number">10.3.</span> <span class="nav-text">key的扩展操作-查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的其他操作"><span class="nav-number">10.4.</span> <span class="nav-text">key的其他操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db基本操作"><span class="nav-number">10.5.</span> <span class="nav-text">db基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db其他操作"><span class="nav-number">10.6.</span> <span class="nav-text">db其他操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis规范"><span class="nav-number">11.</span> <span class="nav-text">Redis规范</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSql"><span class="nav-number">2.</span> <span class="nav-text">NoSql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis介绍"><span class="nav-number">3.</span> <span class="nav-text">Redis介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的应用"><span class="nav-number">3.1.</span> <span class="nav-text">Redis的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis下载"><span class="nav-number">4.</span> <span class="nav-text">Redis下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务启动"><span class="nav-number">5.</span> <span class="nav-text">服务启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis基本操作"><span class="nav-number">6.</span> <span class="nav-text">Redis基本操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">7.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型-5种常用"><span class="nav-number">7.1.</span> <span class="nav-text">数据类型(5种常用)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据存储格式"><span class="nav-number">8.</span> <span class="nav-text">Redis数据存储格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string-类型"><span class="nav-number">8.1.</span> <span class="nav-text">string 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作"><span class="nav-number">8.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单数据操作VS多数据操作"><span class="nav-number">8.1.2.</span> <span class="nav-text">单数据操作VS多数据操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型数据的扩展操作"><span class="nav-number">8.1.3.</span> <span class="nav-text">string 类型数据的扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型数据操作注意事项"><span class="nav-number">8.1.4.</span> <span class="nav-text">string 类型数据操作注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型应用场景"><span class="nav-number">8.1.5.</span> <span class="nav-text">string 类型应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-类型"><span class="nav-number">8.2.</span> <span class="nav-text">hash 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型数据的基本操作"><span class="nav-number">8.2.1.</span> <span class="nav-text">hash类型数据的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型数据的扩展操作"><span class="nav-number">8.2.2.</span> <span class="nav-text">hash类型数据的扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-类型数据操作的注意事项"><span class="nav-number">8.2.3.</span> <span class="nav-text">hash 类型数据操作的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型应用场景"><span class="nav-number">8.2.4.</span> <span class="nav-text">hash类型应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string存对象和hash存对象"><span class="nav-number">8.2.5.</span> <span class="nav-text">string存对象和hash存对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-类型"><span class="nav-number">8.3.</span> <span class="nav-text">list 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据基本操作"><span class="nav-number">8.3.1.</span> <span class="nav-text">list 类型数据基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据扩展操作"><span class="nav-number">8.3.2.</span> <span class="nav-text">list 类型数据扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景1"><span class="nav-number">8.3.3.</span> <span class="nav-text">业务场景1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据操作注意事项"><span class="nav-number">8.3.4.</span> <span class="nav-text">list 类型数据操作注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景-2"><span class="nav-number">8.3.5.</span> <span class="nav-text">业务场景 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set类型"><span class="nav-number">8.4.</span> <span class="nav-text">set类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作-1"><span class="nav-number">8.4.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展操作"><span class="nav-number">8.4.2.</span> <span class="nav-text">扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">8.4.3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">8.4.4.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sorted-set"><span class="nav-number">8.5.</span> <span class="nav-text">sorted_set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础操作"><span class="nav-number">8.5.1.</span> <span class="nav-text">基础操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-number">8.5.2.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项-1"><span class="nav-number">8.5.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型实践案例"><span class="nav-number">9.</span> <span class="nav-text">数据类型实践案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景"><span class="nav-number">9.1.</span> <span class="nav-text">业务背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景-1"><span class="nav-number">9.2.</span> <span class="nav-text">业务背景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用命令"><span class="nav-number">10.</span> <span class="nav-text">通用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#key基本操作"><span class="nav-number">10.1.</span> <span class="nav-text">key基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的扩展-时效性"><span class="nav-number">10.2.</span> <span class="nav-text">key的扩展-时效性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的扩展操作-查询"><span class="nav-number">10.3.</span> <span class="nav-text">key的扩展操作-查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的其他操作"><span class="nav-number">10.4.</span> <span class="nav-text">key的其他操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db基本操作"><span class="nav-number">10.5.</span> <span class="nav-text">db基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db其他操作"><span class="nav-number">10.6.</span> <span class="nav-text">db其他操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis规范"><span class="nav-number">11.</span> <span class="nav-text">Redis规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jedis简介"><span class="nav-number">12.</span> <span class="nav-text">Jedis简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jedis常规操作"><span class="nav-number">13.</span> <span class="nav-text">Jedis常规操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux安装"><span class="nav-number">14.</span> <span class="nav-text">Linux安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指定端口运行"><span class="nav-number">14.1.</span> <span class="nav-text">指定端口运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定配置文件启动"><span class="nav-number">14.2.</span> <span class="nav-text">指定配置文件启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久化"><span class="nav-number">15.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化简介"><span class="nav-number">15.1.</span> <span class="nav-text">持久化简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">15.2.</span> <span class="nav-text">RDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#save指令相关配置"><span class="nav-number">15.2.1.</span> <span class="nav-text">save指令相关配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复"><span class="nav-number">15.2.2.</span> <span class="nav-text">恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#save指令工作原理"><span class="nav-number">15.2.3.</span> <span class="nav-text">save指令工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台保存-bgsave"><span class="nav-number">15.2.4.</span> <span class="nav-text">后台保存-bgsave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动执行save"><span class="nav-number">15.2.5.</span> <span class="nav-text">自动执行save</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">15.2.6.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdb特殊启动形式"><span class="nav-number">15.2.7.</span> <span class="nav-text">rdb特殊启动形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">15.3.</span> <span class="nav-text">AOF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">15.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF功能开启"><span class="nav-number">15.3.2.</span> <span class="nav-text">AOF功能开启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写"><span class="nav-number">15.3.3.</span> <span class="nav-text">AOF重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写规则"><span class="nav-number">15.3.4.</span> <span class="nav-text">AOF重写规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写方式"><span class="nav-number">15.3.5.</span> <span class="nav-text">AOF重写方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF-VS-RDB"><span class="nav-number">15.4.</span> <span class="nav-text">AOF VS RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景-1"><span class="nav-number">15.5.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">16.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作-2"><span class="nav-number">16.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作流程"><span class="nav-number">16.2.</span> <span class="nav-text">工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">16.3.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式锁"><span class="nav-number">16.4.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">16.5.</span> <span class="nav-text">死锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除策略"><span class="nav-number">17.</span> <span class="nav-text">删除策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据删除策略"><span class="nav-number">17.1.</span> <span class="nav-text">数据删除策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时删除"><span class="nav-number">17.2.</span> <span class="nav-text">定时删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#惰性删除"><span class="nav-number">17.3.</span> <span class="nav-text">惰性删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定期删除"><span class="nav-number">17.4.</span> <span class="nav-text">定期删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐出算法"><span class="nav-number">17.5.</span> <span class="nav-text">逐出算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器配置"><span class="nav-number">18.</span> <span class="nav-text">服务器配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级数据结构"><span class="nav-number">19.</span> <span class="nav-text">高级数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BitMaps"><span class="nav-number">19.1.</span> <span class="nav-text">BitMaps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HyperLogLog"><span class="nav-number">19.2.</span> <span class="nav-text">HyperLogLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GEO"><span class="nav-number">19.3.</span> <span class="nav-text">GEO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群"><span class="nav-number">20.</span> <span class="nav-text">集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#企业解决方案"><span class="nav-number">21.</span> <span class="nav-text">企业解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存预热"><span class="nav-number">21.1.</span> <span class="nav-text">缓存预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">21.2.</span> <span class="nav-text">缓存雪崩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存击穿"><span class="nav-number">21.3.</span> <span class="nav-text">缓存击穿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透"><span class="nav-number">21.4.</span> <span class="nav-text">缓存穿透</span></a></li></ol></li></ol></div>
             
 
           </div>
