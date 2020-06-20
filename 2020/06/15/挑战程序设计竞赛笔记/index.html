@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,挑战," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第2章 初级篇2.1 最基础的“穷竭搜索”2.1.1 递归函数计算递推式 n! &#x3D; n * (n-1)! 1234567int fact(int n) &amp;#123;	if (n &#x3D;&#x3D; 0) &amp;#123;		return 1;	&amp;#125; else &amp;#123;		n * fact(n - 1);	&amp;#125;&amp;#125;  可以缓存结果 12345678910int memo[MAX_N+1]i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挑战程序设计竞赛笔记">
+<meta property="og:url" content="http://yoursite.com/2020/06/15/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="宋二的小窝">
+<meta property="og:description" content="第2章 初级篇2.1 最基础的“穷竭搜索”2.1.1 递归函数计算递推式 n! &#x3D; n * (n-1)! 1234567int fact(int n) &amp;#123;	if (n &#x3D;&#x3D; 0) &amp;#123;		return 1;	&amp;#125; else &amp;#123;		n * fact(n - 1);	&amp;#125;&amp;#125;  可以缓存结果 12345678910int memo[MAX_N+1]i">
+<meta property="article:published_time" content="2020-06-15T14:35:30.000Z">
+<meta property="article:modified_time" content="2020-06-20T10:03:28.896Z">
+<meta property="article:author" content="宋梓立 sorie">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="挑战">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/15/挑战程序设计竞赛笔记/"/>
+
+
+
+
+
+  <title>挑战程序设计竞赛笔记 | 宋二的小窝</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Ewasong" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">宋二的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/15/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="宋梓立 sorie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋二的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">挑战程序设计竞赛笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-15T22:35:30+08:00">
+                2020-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/06/15/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/06/15/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%AB%9E%E8%B5%9B%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第2章-初级篇"><a href="#第2章-初级篇" class="headerlink" title="第2章 初级篇"></a>第2章 初级篇</h1><h2 id="2-1-最基础的“穷竭搜索”"><a href="#2-1-最基础的“穷竭搜索”" class="headerlink" title="2.1 最基础的“穷竭搜索”"></a>2.1 最基础的“穷竭搜索”</h2><h3 id="2-1-1-递归函数"><a href="#2-1-1-递归函数" class="headerlink" title="2.1.1 递归函数"></a>2.1.1 递归函数</h3><p>计算递推式 n! = n * (n-1)!</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fact</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		n * fact(n - <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以缓存结果</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> memo[MAX_N+<span class="number">1</span>]</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> n;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (memo[n] != <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> memo[n];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> memo[n] = fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-2-栈"><a href="#2-1-2-栈" class="headerlink" title="2.1.2 栈"></a>2.1.2 栈</h3><p>java栈使用如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackUse</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        stack.push(<span class="number">1</span>);  <span class="comment">//&#123;1&#125;</span></span><br><span class="line">        stack.push(<span class="number">2</span>);  <span class="comment">//&#123;1,2&#125;</span></span><br><span class="line">        stack.push(<span class="number">3</span>);  <span class="comment">//&#123;1,2,3&#125;</span></span><br><span class="line">        System.out.println(stack.peek());   <span class="comment">//3</span></span><br><span class="line">        stack.pop();    <span class="comment">// &#123;1,2&#125;</span></span><br><span class="line">        System.out.println(stack.peek());   <span class="comment">// 2</span></span><br><span class="line">        stack.pop();    <span class="comment">// &#123;1&#125;</span></span><br><span class="line">        System.out.println(stack.peek());   <span class="comment">// 1</span></span><br><span class="line">        stack.pop();    <span class="comment">// &#123;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-3-队列"><a href="#2-1-3-队列" class="headerlink" title="2.1.3 队列"></a>2.1.3 队列</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuqueUse</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.offer(<span class="number">1</span>);  <span class="comment">//&#123;1&#125;</span></span><br><span class="line">        queue.offer(<span class="number">2</span>);  <span class="comment">//&#123;1,2&#125;</span></span><br><span class="line">        queue.offer(<span class="number">3</span>);  <span class="comment">//&#123;1,2,3&#125;</span></span><br><span class="line">        System.out.println(queue.toString());</span><br><span class="line">        System.out.println(queue.peek());   <span class="comment">//1</span></span><br><span class="line">        queue.poll();    <span class="comment">// &#123;2,3&#125;</span></span><br><span class="line">        System.out.println(queue.peek());   <span class="comment">// 2</span></span><br><span class="line">        queue.poll();    <span class="comment">// &#123;3&#125;</span></span><br><span class="line">        System.out.println(queue.peek());   <span class="comment">// 3</span></span><br><span class="line">        queue.poll();    <span class="comment">// &#123;&#125;</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-4-深度优先搜索"><a href="#2-1-4-深度优先搜索" class="headerlink" title="2.1.4 深度优先搜索"></a>2.1.4 深度优先搜索</h3><p>​    搜索手段之一。从某个状态开始，不断地转移状态直到无法转移，然后退到前一步的状态，不断重复，直到找到最终解。</p>
+<p>​    通常实现的方式有递归和栈。</p>
+<h3 id="2-1-5-宽度优先搜索"><a href="#2-1-5-宽度优先搜索" class="headerlink" title="2.1.5 宽度优先搜索"></a>2.1.5 宽度优先搜索</h3><p>​    总是先搜索距离初始状态近的状态。</p>
+<p>​    实现方式使用队列。</p>
+<p>​    很容哟用来秋最短路径、最少操作等答案。</p>
+<h3 id="2-1-6-特殊状态枚举"><a href="#2-1-6-特殊状态枚举" class="headerlink" title="2.1.6 特殊状态枚举"></a>2.1.6 特殊状态枚举</h3><p>​    C++提供了next_permutation函数用于生成n个函数的不同的排列。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">	<span class="comment">//do something</span></span><br><span class="line">&#125; <span class="keyword">while</span>(next_permutation(perm2, perm2 + n));</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-7-剪枝"><a href="#2-1-7-剪枝" class="headerlink" title="2.1.7 剪枝"></a>2.1.7 剪枝</h3><p>​    搜索时，有时很早明确知道当前状态无论如何转移都不会存在解。这种情况下，不再继续搜索而是直接跳过，这一方法被称作剪枝。</p>
+<h2 id="2-2-一往直前！-贪心法"><a href="#2-2-一往直前！-贪心法" class="headerlink" title="2.2 一往直前！ 贪心法"></a>2.2 一往直前！ 贪心法</h2><p>​    贪心法就是遵循某种规则，不断贪心地选取当前最优策略的算法设计方法。</p>
+<h3 id="2-2-1-硬币问题"><a href="#2-2-1-硬币问题" class="headerlink" title="2.2.1 硬币问题"></a>2.2.1 硬币问题</h3><p>​    有1元，5元，10元，50元，100元，500元的硬币各C1,C5,C10,C50,C100,C500枚。现在要用这些硬币来支付A元，最少需要多少硬币。</p>
+<p>​    思路：尽可能多地用面值更大的硬币即可。</p>
+<h3 id="2-2-2-区间问题"><a href="#2-2-2-区间问题" class="headerlink" title="2.2.2 区间问题"></a>2.2.2 区间问题</h3><p>​    有n项工作，分别在si时间开始，在ti时间结束。对于每项工作，可以选择是否参加。如果参加就得全程参加。参与工作的时间段不能重叠，那么最多可以参加几项工作。</p>
+<p>​    思路：在可选的工作中，每次都选取结束时间最早的工作。</p>
+<h3 id="2-2-3-字典序最小问题"><a href="#2-2-3-字典序最小问题" class="headerlink" title="2.2.3 字典序最小问题"></a>2.2.3 字典序最小问题</h3><p>​    <strong>POJ 3617</strong></p>
+<p>​    <a href="https://vjudge.net/problem/POJ-3617" target="_blank" rel="noopener">https://vjudge.net/problem/POJ-3617</a></p>
+<pre><code>&gt; 给定长度N的字符串S，要构造一个长度为N的字符串T。起初，T是一个空串，虽有反复进行下列任意操作。
+&gt;
+&gt; * 从S头部删除一个字符，加到T的尾部
+&gt; * 从S的尾部删除一个字符，加到T的尾部
+&gt;
+&gt; 目标是要构造字典序尽量小的的字符串T</code></pre><p>​    思路：</p>
+<ul>
+<li>按照字典序比较S和将S反转后的字符串S1</li>
+<li>如果S较小。就从S的开头取出一个文字，追加到T的末尾</li>
+<li>如果S较小，就从S的末尾取出一个文字，追加到T的末尾</li>
+</ul>
+<h3 id="2-2-4-其他例题"><a href="#2-2-4-其他例题" class="headerlink" title="2.2.4 其他例题"></a>2.2.4 其他例题</h3><p>​    <strong>POJ 3069</strong>    </p>
+<p>​    <a href="https://vjudge.net/problem/POJ-3069" target="_blank" rel="noopener">https://vjudge.net/problem/POJ-3069</a></p>
+<pre><code>&gt; 直线上有N个点。点i的位置是X[i]。从这N个点钟选择若干个，给它们加上标记。对于每一个点，其距离为R以内的区域必须带有标记的点。在满足这个条件的情况下，希望能为尽可能少的点添加标记。请问至少有多少点要被加上标记。</code></pre><p>​    思路：第一个点开始+R，然后找此范围中最右边的点X[i]，然后从X[i+1]开始不断重复该过程。</p>
+<p>​    <strong>POJ 3253</strong></p>
+<p>​        <a href="https://vjudge.net/problem/POJ-3253" target="_blank" rel="noopener">https://vjudge.net/problem/POJ-3253</a></p>
+<pre><code>&gt; 农夫约翰为了修理栅栏，要讲一块很长的木板切割成N块。准备切成的模板的长度为L1、L2、...L[N], 未被切割的木板长度恰好为切割后木板长度的总和。每次切断木板时，需要的开销为这块模板的长度。请求出按目标要求将木板切割完最小的开销是多少？</code></pre><p>​    用二叉树的来模拟切割程序，开销合计就是各个叶子节点就可以这样计算：</p>
+<p>​    木板长度 * 节点的深度。</p>
+<p>​    最佳切割方法首先应该具有如下性质：</p>
+<p>​    最短的板与次短的板的节点应当是兄弟节点。对于最优解来讲，最短的板应当是深度最大的叶子节点之一。</p>
+<p>​    时间复杂度是O（N^2)，不过可以用O(NlogN)，在2.4节介绍</p>
+<h3 id="专栏-Huffman编码"><a href="#专栏-Huffman编码" class="headerlink" title="专栏 Huffman编码"></a>专栏 Huffman编码</h3><p>​    <a href="https://www.cnblogs.com/kubixuesheng/p/4397798.html" target="_blank" rel="noopener">https://www.cnblogs.com/kubixuesheng/p/4397798.html</a></p>
+<h2 id="2-3记录结果再利用的动态规划"><a href="#2-3记录结果再利用的动态规划" class="headerlink" title="2.3记录结果再利用的动态规划"></a>2.3记录结果再利用的动态规划</h2><h3 id="2-3-1-记忆化搜索与动态规划"><a href="#2-3-1-记忆化搜索与动态规划" class="headerlink" title="2.3.1 记忆化搜索与动态规划"></a>2.3.1 记忆化搜索与动态规划</h3><pre><code>&gt; 01背包问题 有n个重量和价值分别w[i],v[i]的物品。从这些武平中挑选出总重量不超过W的物品，求所有挑选方案中价值总和最大的值。</code></pre><p>朴素搜索算法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入</span></span><br><span class="line"><span class="keyword">int</span> n, W;</span><br><span class="line"><span class="keyword">int</span> w[MAX_N], v[MAX_N];</span><br><span class="line"><span class="comment">// 从第i个物品开始挑选总重小于j的部分</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rec</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">if</span> (i == n) &#123;</span><br><span class="line">        <span class="comment">//已经没有物品了</span></span><br><span class="line">        res = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (j &lt; w[i]) &#123;</span><br><span class="line">       	<span class="comment">//无法挑选这个物品</span></span><br><span class="line">        res = rec(i + <span class="number">1</span>, j);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//挑选和不挑选的两种情况都要尝试一下</span></span><br><span class="line">        res = <span class="built_in">max</span>(rec(i + <span class="number">1</span>, j), rec(i + <span class="number">1</span>, j - w[i]) + v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, rec(<span class="number">0</span>, W));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>搜索深度为n，每层搜索都有两个分支，最坏就需要O(2^n)的时间。</p>
+<p>记忆化搜索算法如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入</span></span><br><span class="line"><span class="keyword">int</span> n, W;</span><br><span class="line"><span class="keyword">int</span> w[MAX_N], v[MAX_N];</span><br><span class="line"><span class="keyword">int</span> dp[MAX_N + <span class="number">1</span>][MAX_W + <span class="number">1</span>]; <span class="comment">//记忆化数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 从第i个物品开始挑选总重小于j的部分</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rec</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (dp[i][j] &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> dp[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">if</span> (i == n) &#123;</span><br><span class="line">        <span class="comment">//已经没有物品了</span></span><br><span class="line">        res = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (j &lt; w[i]) &#123;</span><br><span class="line">       	<span class="comment">//无法挑选这个物品</span></span><br><span class="line">        res = rec(i + <span class="number">1</span>, j);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//挑选和不挑选的两种情况都要尝试一下</span></span><br><span class="line">        res = <span class="built_in">max</span>(rec(i + <span class="number">1</span>, j), rec(i + <span class="number">1</span>, j - w[i]) + v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//用-1表示尚未计算过，初始化整个数组</span></span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, rec(<span class="number">0</span>, W));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用memset进行初始化"><a href="#使用memset进行初始化" class="headerlink" title="使用memset进行初始化"></a>使用memset进行初始化</h4><p>​    虽然memset按照1字节单位对内存进行填充，但是-1的每一位进制为都是1，所以可以像0一样用memset进行初始化。注意无法初始化成1之类的数值。</p>
+<p>不用递归的动态规划</p>
+<p>递推式定义dp[i] [j] 为根据rec的定义，从第i个物品开始挑选总重小于j时，总价值的最大值。</p>
+<p>$$<br>dp[n][j] = 0 \<br>\begin{equation}<br>d[i][j]=\left{<br>\begin{array}{lcl}<br>dp[i+1][j] &amp; &amp; {j &lt; w[i]}\<br>max(dp[i+1][j], dp[i+1][j-w[i]] + v[i]) &amp; &amp; {其他}\<br>\end{array} \right.<br>\end{equation}<br>$$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[MAX_N + <span class="number">1</span>][MAX_W + <span class="number">1</span>]; <span class="comment">//记忆化搜索</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= W; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j &lt; w[i]) &#123;</span><br><span class="line">                dp[i][j] = dp[i + <span class="number">1</span>][j]</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i][j] = <span class="built_in">max</span>(dp[i + <span class="number">1</span>][j], dp[i + <span class="number">1</span>][j - w[i]] + v[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, d[<span class="number">0</span>][W]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意不要忘记初始化</strong></p>
+<h4 id="各种各样的dp"><a href="#各种各样的dp" class="headerlink" title="各种各样的dp"></a>各种各样的dp</h4><p>​    刚刚dp关于i的循环是逆向进行的。反之，如果按照如下的方式定义递推关系，就可以正向进行。</p>
+<p>​    定义d[i+1] [j] := 从0到i这i+1个物品中挑选出总重量不超过j的物品时总价值的最大值</p>
+<p>​<br>$$<br>dp[0][j] = 0 \<br>\begin{equation}<br>d[i+1][j]=\left{<br>\begin{array}{lcl}<br>dp[i][j] &amp; &amp; {j &lt; w[i]}\<br>max(dp[i][j], dp[i][j-w[i]] + v[i]) &amp; &amp; {其他}\<br>\end{array} \right.<br>\end{equation}<br>$$</p>
+<p>​    代码略</p>
+<p>​    </p>
+<p>​    还可以想象成从”前i个物品中选取总重要不超过j的状态”向”前i+1个物品中选取总重要不超过j + w[i]的状态”转移。</p>
+<blockquote>
+<p>最长公共子序列问题 给定两个字符串s和t，长度分别为n和m，长度一样，秋出这两个字符串最长子序列。子序列不是连续子序列，注意一下。</p>
+</blockquote>
+<p>递推公式为</p>
+<p>$$<br>dp[i][j] := s[1]…s[i]和t[1]…t[j]对应的LCS长度<br>\begin{equation}<br>dp[i+1][j+1]=\left{<br>\begin{array}{lcl}<br>max(dp[i][j] + 1, dp[i][j+1], d[i+1][j]) &amp; &amp; {s[i+1] = t[j+1]}\<br>max(dp[i][j+1], d[i+1][j]) &amp; &amp; {其他}\<br>\end{array} \right.<br>\end{equation}<br>$$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">稍微思考一下就发现当s[i+1]&#x3D;t[j+1]时，只需令dp[i+1][j+1]&#x3D;d[i][j] + 1 就可以了。</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-2-进一步探讨递推关系"><a href="#2-3-2-进一步探讨递推关系" class="headerlink" title="2.3.2 进一步探讨递推关系"></a>2.3.2 进一步探讨递推关系</h3><blockquote>
+<p>完全背包问题 有n种重量为w[i]价值为v[i]的物品，从这些物品挑选总重量不超过W的物品，求出挑选物品价值总和的最大值。每样物品可以挑选任意多件。</p>
+</blockquote>
+<p>尝试写出递推关系</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dp[i+1][j]:=从前i种物品中挑选出总重量不超过j的总价值的最大值。那么递推关系为:</span><br><span class="line">	dp[0][j]=0</span><br><span class="line">	dp[i+1][j] = max&#123;dp[i][j-k*w[i]] + k * v[i] | k &gt;= 0&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样写出程序的循环成了三重循环，算法复杂度为O(nW^2)</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在dp[i+1][j]计算中选择k的情况，与在dp[i+1][j-w[i]]中选择k-1个的情况是相同的，所以dp[i+1][j]的递推块中k&gt;=1的部分已经在dp[i+1][j-w[i]]中完成了。那么可以按照如下形式进行变形</span><br><span class="line">dp[i+1][j] = max&#123;dp[i][j-k*w[i]] + k * v[i] | k &gt;= 0&#125;</span><br><span class="line">= max(dp[i][j], max&#123;dp[i][j-k*w[i]] + k * v[i] | k &gt;= 1&#125;)</span><br><span class="line">= max(dp[i][j], max&#123;dp[i][(j - w[i])-k*w[i]] + k * v[i] | k &gt;= 0&#125; + v[i])</span><br><span class="line">= max(dp[i][j], d[i+1][j-w[i]] + v[i])</span><br></pre></td></tr></table></figure>
+
+<p>此外，此前提到的01背包问题因为只依赖于前一行以及前一列的数据，所以可以只用一个数组来重复利用实现。</p>
+<p>01背包</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[MAX_W+<span class="number">1</span>]; DP数组</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= w[i]; j--) &#123;</span><br><span class="line">            dp[j] = <span class="built_in">max</span>(dp[j], dp[j-w[i]] + v[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dp[W]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完全背包</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[MAX_W+<span class="number">1</span>]; DP数组</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = w[i]; j &lt;= W; j--) &#123;</span><br><span class="line">           <span class="keyword">if</span> (j &lt; w[i]) &#123;</span><br><span class="line">               dp[j] = max(dp[j], dp[j - w[i]] + v[i]);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(<span class="string">"%d\n"</span>, dp[W]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>01背包问题 限制条件变化 w[i] &lt;= 10^7, W &lt;= 10^9， 1&lt;= n &lt;= 100, 1&lt;= v[i] &lt;= 100</p>
+</blockquote>
+<p>​    之前求解的复杂度是O(nW),如果W很大，就不够用了。</p>
+<p>​    调整一下dp策略即可</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dp[i+1][j]:&#x3D; 前i个物品中挑出总价值为j的总重量最小值。</span><br><span class="line">初始条件</span><br><span class="line">dp[0][0] &#x3D; 0;</span><br><span class="line">dp[0][j] &#x3D; INF;</span><br><span class="line"></span><br><span class="line">dp[i+1][j] &#x3D; min(dp[i][j], dp[i][j-v[i]] + w[i]);</span><br><span class="line">复杂度是O(n*v[i]之和),这里是可以解出来的。 如果价值变大也可能不可行。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>多重部分和问题</p>
+</blockquote>
+<p>略 //todo</p>
+<blockquote>
+<p>最长上升子序列问题</p>
+</blockquote>
+<p>略//todo</p>
+<h3 id="2-3-3-有关计数问题的DP"><a href="#2-3-3-有关计数问题的DP" class="headerlink" title="2.3.3 有关计数问题的DP"></a>2.3.3 有关计数问题的DP</h3><blockquote>
+<p>有n个无区别的物品，将它们划分成不超过m组，求出划分方法数模M的余数。</p>
+</blockquote>
+<p>这种划分被称作n的m划分，特别地，m=n时称作n的划分数。DP不仅对求解最优问题有效，对于各种排列组合的个数、概率或者期望之类的计算同样很有用。</p>
+<p>定义如下：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] =j的i划分总数</span><br><span class="line">有如下递推式</span><br><span class="line">dp[i][j] = dp[i-1][j-k]之和</span><br><span class="line">但是这个递推式不正确，1+1+2和1+2+1划分被当成不同的划分来计数了。</span><br><span class="line">考虑n的m划分a[i](a[i]=n(1~m)之和)，如果对于每个i都有a[i]&gt;0, 那么&#123;a[i] - 1&#125; 就对应了n-m的m划分。另外，如果存在a[i]=0,那么这就对应了n的m-1划分。</span><br><span class="line">dp[i][j] = dp[i][j-i] + dp[i-1][j]</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>多重集组合数，有n个物品，第i种有a[i]个。不同种类的物品可以互相区分但相同种类的无法区分。从这些物品取出m个的话，有多少种取法。求出方案数模M的余数。</p>
+</blockquote>
+<p>​    </p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">定义</span><br><span class="line">dp[i+1][j] := 从前i种物品中取出j个的组合总数</span><br><span class="line">递推式为</span><br><span class="line">dp[i+1][j] = dp[i][j-k]之和(k=0~min(j,a[i]))</span><br><span class="line">这个递推式复杂度是O(nm^2)</span><br><span class="line">不过有</span><br><span class="line">dp[i][j-k]之和(k=0~min(j,a[i])) = dp[i][j-1-k]之和(k=0~min(j-1,a[i])) + dp[i][j] - dp[i][j-1-a[i]]</span><br><span class="line">所以</span><br><span class="line">dp[i+1][j] = dp[i+1][j-1] + dp[i][j] - dp[i][j-1-a[i]];</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-加工并存储数据的数据结构"><a href="#2-4-加工并存储数据的数据结构" class="headerlink" title="2.4 加工并存储数据的数据结构"></a>2.4 加工并存储数据的数据结构</h2><h3 id="2-4-1-树和二叉树"><a href="#2-4-1-树和二叉树" class="headerlink" title="2.4.1 树和二叉树"></a>2.4.1 树和二叉树</h3><p>略</p>
+<h3 id="2-4-2-优先队列和堆"><a href="#2-4-2-优先队列和堆" class="headerlink" title="2.4.2 优先队列和堆"></a>2.4.2 优先队列和堆</h3><p>略</p>
+<h3 id="2-4-3-二叉搜索树"><a href="#2-4-3-二叉搜索树" class="headerlink" title="2.4.3 二叉搜索树"></a>2.4.3 二叉搜索树</h3><p>略</p>
+<h3 id="2-4-4-并查集"><a href="#2-4-4-并查集" class="headerlink" title="2.4.4 并查集"></a>2.4.4 并查集</h3><p><strong>1.并查集是什么</strong></p>
+<p>​    并查集是用来管理分组情况的数据结构。并查集可以高效地进行如下操作。</p>
+<ul>
+<li>查询元素a和元素b是否属于同一组</li>
+<li>合并元素a和元素b所在的组</li>
+</ul>
+<p><strong>2.并查集的结构</strong></p>
+<p>​    并查集也是使用树形结构来实现的</p>
+<p>（1）初始化</p>
+<p>​    准备n个节点代表n个元素</p>
+<p>（2）合并</p>
+<p>​    从一个组的根向另外一个组的根两遍，这两两棵树就变成了一棵树，也就把两个组合并成一个组了</p>
+<p>（3）查询</p>
+<p>​    查询两个组是否属于同一组，沿着树往上走，查询包含这个元素的根是谁，如果是同一个根，那么就可以知道它们我是同一组。</p>
+<p><strong>3.并查集实现中要注意的点</strong></p>
+<p>​    需要注意退化的情况</p>
+<ul>
+<li>对于每棵树，记录这棵树的高度</li>
+<li>合并时如果两棵树的rank不同，那么从rank小的向rankda的连边</li>
+</ul>
+<p>此外，通过路径压缩，可以使得并查集更加高效。对于每个节点，一旦向上走到一次根节点，就把这个点到父亲的边改为直接连向根。</p>
+<p><strong>4.复杂度</strong></p>
+<p>​    比O(log(n))还快</p>
+<p><strong>5.并查集的实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnionFindSet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] par = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] rank = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000</span>];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            par[i] = i;</span><br><span class="line">            rank[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (par[x] == x) &#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> par[x] = find(par[x]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//合并x y的集合</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unite</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        x = find(x);</span><br><span class="line">        y = find(y);</span><br><span class="line">        <span class="keyword">if</span> (x == y) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (rank[x] &lt; rank[y]) &#123;</span><br><span class="line">            par[x] = y;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            par[y] = x;</span><br><span class="line">            <span class="keyword">if</span> (rank[x] == rank[y]) &#123;</span><br><span class="line">                rank[x]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断是否同一集合</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">same</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> find(x) == find(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>6.需要用到并查集的问题</strong></p>
+<p>POJ1182 食物链</p>
+<h2 id="2-5-它们其实都是“图”"><a href="#2-5-它们其实都是“图”" class="headerlink" title="2.5 它们其实都是“图”"></a>2.5 它们其实都是“图”</h2><h3 id="2-5-1-什么是图？"><a href="#2-5-1-什么是图？" class="headerlink" title="2.5.1 什么是图？"></a>2.5.1 什么是图？</h3><p>​    图由顶点和边组成。</p>
+<p><strong>1.图的种类</strong></p>
+<p>​    图大体分为2种。边没有指向性的图叫无向图，边具有指向性的图叫做有向图。</p>
+<p><strong>2.无向图的术语</strong></p>
+<p>​    两个顶点有边连接，视为两个顶点相邻。</p>
+<p>​    相邻顶点的序列称为路径。</p>
+<p>​    起点和终点重合的路径叫做圈。</p>
+<p>​    任意两点之间都有路径的图叫连通图。</p>
+<p>​    没有圈的连通图叫做树。</p>
+<p>​    没有圈的非连通图叫做森林。</p>
+<p>​    一棵树的边前好事顶点-1。</p>
+<p>​    反之，边数等于顶点-1的连通图就是一棵树。</p>
+<p><strong>3.有向图的术语</strong></p>
+<p>​    以顶点v为起点的边的集合记作$\delta_+(v)$,以顶点v为终点的边的集合记作$\delta_-(v)$。</p>
+<p>​    |$\delta_+(v)$|叫做v的出度，|$\delta_-(v)$|叫做v的入度。<br>​    没有圈的有向图叫DAG。</p>
+<p>​    DAG可以按拓扑排序从左到右排序。通过这样的编号方式，有些DAG问题可以用DP来解决。</p>
+<h3 id="2-5-2-图的表示"><a href="#2-5-2-图的表示" class="headerlink" title="2.5.2 图的表示"></a>2.5.2 图的表示</h3><p><strong>1.邻接矩阵</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int g[i][j];</span><br></pre></td></tr></table></figure>
+
+<p>带权图，值可以使权值。</p>
+<p>如果不连通可以选择较大常数INF作为值。</p>
+<p>此外，在带权图中，两点之间有重边或者自环，邻接矩阵可能有点问题（大部分情况下存最小权值或者最大权值就可以了)。</p>
+<p>必须保存所有边可以用邻接表。</p>
+<p><strong>2.邻接表</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; G;</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line">List&lt;List&lt;Edge&gt;&gt; G;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;edge&gt; G[MAX_V];</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-3-图的搜索"><a href="#2-5-3-图的搜索" class="headerlink" title="2.5.3 图的搜索"></a>2.5.3 图的搜索</h3><pre><code>&gt; 2分图，用两种颜色，相邻顶点不能是同一种颜色。</code></pre><p>​    以上面这种叫2分图。</p>
+<h3 id="2-5-4-最短路问题"><a href="#2-5-4-最短路问题" class="headerlink" title="2.5.4 最短路问题"></a>2.5.4 最短路问题</h3><p><strong>单源最短路径(Bellman-Ford算法)</strong></p>
+<p>​    $d[i] = min {d[j] + (从j到i边的权值)|e = (j,i) \in E }$</p>
+<p>​    如果给定图是一个DAG，就可以按拓扑序给顶点编号，并利用这条递推关系计算出d。但是如果图中有圈，就无法依赖这样的顺序进行计算。在这种情况下，记当前顶点i的最短路径为d[i],并设值d[s]=0,d[i]=INF(足够大的常数), 在不断使用这条递推关系式更新d的值，就可以推算出新的d。只要图中不存在负圈，这样的更新操作就是有限的。结束只有d就是所求的最短距离了。</p>
+<p>​    如果途中不存在s可达的负圈，那么最短路不会经过同一个顶点两次(也就是说，通过|V|-1条边), while(true)最多执行|V|-1次，因此，如果复杂度是O(|V|*E)</p>
+<p>​    可以用这个性质来检查负圈，把所有顶点d[i]初始化为0，就可以检查出所有的负圈。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BellmanFord</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Edge</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> from;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> to;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> cost;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Edge edges[] = <span class="keyword">new</span> Edge[<span class="number">1000</span>];</span><br><span class="line">    <span class="comment">//到起点的最短距离</span></span><br><span class="line">    <span class="keyword">int</span> d[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000</span>];</span><br><span class="line">    <span class="keyword">int</span> V, E; <span class="comment">//V是起点数，E是边数。</span></span><br><span class="line">    <span class="keyword">int</span> INF = <span class="number">0x3fffffff</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">shortestPath</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        Arrays.fill(d, <span class="number">0</span>, V, INF);</span><br><span class="line">        d[s] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> updateFlag = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; E; i++) &#123;</span><br><span class="line">                Edge e = edges[i];</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (d[e.from] != INF &amp;&amp; d[e.to] &gt; d[e.from] + e.cost) &#123;</span><br><span class="line">                    d[e.to] = d[e.from] + e.cost;</span><br><span class="line">                    updateFlag = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!updateFlag) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">findNegativeLoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Arrays.fill(d, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; V; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; E; j++) &#123;</span><br><span class="line">                Edge e = edges[j];</span><br><span class="line">                <span class="keyword">if</span> (d[e.to] &gt; d[e.from] + e.cost) &#123;</span><br><span class="line">                    d[e.to] = d[e.from] + e.cost;</span><br><span class="line">                    <span class="keyword">if</span> (i == V - <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.单源最短路径2（Dijkstra算法）</strong></p>
+<p>​    考虑没有负边的情况。</p>
+<pre><code>1. 找到最短距离已经确定的顶点，从它触发更新相邻顶点的最短距离。
+ 2. 此后不需要关系1中的“最短距离已经确定的顶点”</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.graph;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> challenge.commmon.CommonStatic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dijkstra</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>, MAX_E = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">int</span> cost[][] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V][MAX_V];   <span class="comment">//邻接矩阵</span></span><br><span class="line">    <span class="keyword">int</span> d[] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V];   <span class="comment">//最短距离</span></span><br><span class="line">    <span class="keyword">boolean</span> used[] = <span class="keyword">new</span> <span class="keyword">boolean</span>[MAX_V];    <span class="comment">//已经使用过的顶点</span></span><br><span class="line">    <span class="keyword">int</span> V;  <span class="comment">//顶点数</span></span><br><span class="line">    <span class="comment">//求最短路径</span></span><br><span class="line">    <span class="comment">//O(|V|^2)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        Arrays.fill(d, CommonStatic.INF);</span><br><span class="line">        Arrays.fill(used, <span class="keyword">false</span>);</span><br><span class="line">        d[s] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; V; u++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!used[u] &amp;&amp; (v == -<span class="number">1</span> || d[u] &lt; d[v])) &#123;</span><br><span class="line">                    u = v;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (v == -<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            used[v] = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; V; u++) &#123;</span><br><span class="line">                d[u] = Math.min(d[u], d[v] + cost[v][u]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    使用邻接矩阵的Dijkstra算法的复杂度是O(|V|^2)，使用邻接表也是类似。</p>
+<p>​    不过大部分时间花在了查找下一个使用的顶点上，因此需要使PriorityQueue对其进行优化。</p>
+<p>​    元素有O(|V|)个，更新和去除数值的操作有O(|E|)次，因此整个算法的复杂度是O(|E|log(|V|))</p>
+<p>​    下图的算法同时求出了最短的具体路径。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.graph;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> challenge.commmon.CommonStatic;</span><br><span class="line"><span class="keyword">import</span> javafx.util.Pair;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dijkstra2</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>, MAX_E = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">int</span> V;</span><br><span class="line">    List&lt;Edge&gt; G[] = <span class="keyword">new</span> ArrayList[MAX_V];</span><br><span class="line">    <span class="keyword">int</span> d[] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V];</span><br><span class="line">    <span class="keyword">int</span> pre[] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V];</span><br><span class="line">    <span class="comment">//复杂度 O(|E|log|V|)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//key是路径长度，val是顶点</span></span><br><span class="line">        PriorityQueue&lt;Pair&lt;Integer,Integer&gt;&gt; que = <span class="keyword">new</span> PriorityQueue&lt;&gt;(</span><br><span class="line">                <span class="keyword">new</span> Comparator&lt;Pair&lt;Integer,Integer&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Pair&lt;Integer,Integer&gt; o1, Pair&lt;Integer,Integer&gt; o2)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> o1.getKey() - o2.getKey();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        Arrays.fill(d, CommonStatic.INF);</span><br><span class="line">        d[s] = <span class="number">0</span>;</span><br><span class="line">        que.offer(<span class="keyword">new</span> Pair&lt;&gt;(<span class="number">0</span>, s));</span><br><span class="line">        <span class="keyword">while</span> (!que.isEmpty()) &#123;</span><br><span class="line">            Pair&lt;Integer, Integer&gt; p = que.poll();</span><br><span class="line">            <span class="keyword">int</span> v = p.getValue();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (d[v] &lt; p.getKey()) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++) &#123;</span><br><span class="line">                Edge e = G[v].get(i);</span><br><span class="line">                <span class="keyword">if</span> (d[e.to] &gt; d[v] + e.cost) &#123;</span><br><span class="line">                    d[e.to] = d[v] + e.cost;</span><br><span class="line">                    pre[e.to] = v;</span><br><span class="line">                    que.offer(<span class="keyword">new</span> Pair&lt;&gt;(d[e.to], e.to));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">List&lt;Integer&gt; <span class="title">getPath</span><span class="params">(<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; path = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (; t != -<span class="number">1</span>; t = pre[t]) path.add(t);</span><br><span class="line">        Collections.reverse(path);</span><br><span class="line">        <span class="keyword">return</span> path;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 任意两点间的最短路问题（Floyd-warshall算法）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.graph;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FloydWarshall</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>, MAX_E = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">int</span> d[][] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V][MAX_V];</span><br><span class="line">    <span class="keyword">int</span> V;</span><br><span class="line">    <span class="comment">//复杂度O(|V|^3)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">warshallFloyd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; V; k++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; V; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; V; j++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (d[i][k] + d[k][j] &lt; d[i][j]) d[i][j] = d[i][k] + d[k][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>4.路径还原</strong></p>
+<p>​    记录前驱即可。</p>
+<p>​    参考第2点的最后部分代码。</p>
+<h3 id="2-5-5-最小生成树"><a href="#2-5-5-最小生成树" class="headerlink" title="2.5.5  最小生成树"></a>2.5.5  最小生成树</h3><p>​    给定一个无向图，如果它的某个子图中任意两个顶点都互相连通并且是一棵树，那么这棵树就叫生成树。</p>
+<p>​    如果边上有权值，那么使得壁安全和最小的生成树叫做最小生成树。</p>
+<p>​    <strong>1. 最小生成树问题1（Prim算法）</strong></p>
+<p>​    和Dijkstra算法十分相似，都是从某个顶点触发，不断添加边的算法。</p>
+<p>​    假设只包含一个顶点的树T。然后贪心地选取T和其他顶点之间相连的最小权值的边，并把它加到T中。</p>
+<p>​    如果每次遍历未包含在X中的点mincost(v),需要O(|V|^2)的时间。如果用堆来维护minCost时间复杂度就是O(|E|log|V|)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.graph;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> challenge.commmon.CommonStatic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Prime</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>, MAX_E = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">int</span> cost[][] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V][MAX_V];</span><br><span class="line">    <span class="keyword">int</span> mincost[] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V];</span><br><span class="line">    <span class="keyword">boolean</span> used[] = <span class="keyword">new</span> <span class="keyword">boolean</span>[MAX_V];</span><br><span class="line">    <span class="keyword">int</span> V;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">prime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Arrays.fill(mincost, CommonStatic.INF);</span><br><span class="line">        Arrays.fill(used, <span class="keyword">false</span>);</span><br><span class="line">        mincost[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> v = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; V; u ++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!used[u] &amp;&amp; (v == -<span class="number">1</span> || mincost[u] &lt; mincost[v])) v = u;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (v == -<span class="number">1</span>) <span class="keyword">break</span>;</span><br><span class="line">            used[v] = <span class="keyword">true</span>;</span><br><span class="line">            res += mincost[v];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; V; u ++) &#123;</span><br><span class="line">                mincost[u] = Math.min(mincost[u], cost[v][u]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​                                                                                                                                                                                                                                                            </p>
+<p>优先队列实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.graph;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> challenge.commmon.CommonStatic;</span><br><span class="line"><span class="keyword">import</span> javafx.util.Pair;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="comment">// 不太确定写得对不对</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Prime2</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>, MAX_E = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">int</span> V;</span><br><span class="line">    List&lt;Edge&gt; G[] = <span class="keyword">new</span> ArrayList[MAX_V];</span><br><span class="line">    <span class="keyword">int</span> mincost[] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V];</span><br><span class="line">    <span class="keyword">boolean</span> used[] = <span class="keyword">new</span> <span class="keyword">boolean</span>[MAX_V];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">prime2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Arrays.fill(mincost, CommonStatic.INF);</span><br><span class="line">        Arrays.fill(used, <span class="keyword">false</span>);</span><br><span class="line">        mincost[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        PriorityQueue&lt;Pair&lt;Integer,Integer&gt;&gt; que = <span class="keyword">new</span> PriorityQueue&lt;&gt;(</span><br><span class="line">                <span class="keyword">new</span> Comparator&lt;Pair&lt;Integer,Integer&gt;&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Pair&lt;Integer,Integer&gt; o1, Pair&lt;Integer,Integer&gt; o2)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> o1.getKey() - o2.getKey();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">for</span> (Edge e : G[<span class="number">0</span>]) &#123;</span><br><span class="line">            que.offer(<span class="keyword">new</span> Pair&lt;&gt;(e.to, e.cost));</span><br><span class="line">            mincost[e.to] = e.cost;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (!que.isEmpty()) &#123;</span><br><span class="line">            Pair&lt;Integer, Integer&gt; p = que.poll();</span><br><span class="line">            used[p.getKey()] = <span class="keyword">true</span>;</span><br><span class="line">            res += mincost[p.getKey()];</span><br><span class="line">            <span class="keyword">for</span> (Edge e: G[p.getKey()]) &#123;</span><br><span class="line">                mincost[e.to] = Math.min(mincost[e.to], e.cost);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.最小生成树问题2(Kruskal算法）</strong>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           </p>
+<p>​    Kruskal算法按照边的权值顺序从小到大看一遍，如果不产生圈(重边等也算在内)，就把当前这条边加入到生成树中。</p>
+<p>​    算法复杂度是O(|E|log|V|)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.graph;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Kruskal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>, MAX_E = <span class="number">1000</span>;</span><br><span class="line">    List&lt;Edge&gt; edges = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">int</span> V, E;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">kruskal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Collections.sort(edges, <span class="keyword">new</span> Comparator&lt;Edge&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Edge o1, Edge o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o1.cost - o2.cost;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        initUnion(V);</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Edge e : edges) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!same(e.from, e.to)) &#123;</span><br><span class="line">                unite(e.from, e.to);</span><br><span class="line">                res += e.cost;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> par[] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V];</span><br><span class="line">    <span class="keyword">int</span> rank[] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX_V];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">initUnion</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; V; i++) &#123;</span><br><span class="line">            rank[i] = <span class="number">0</span>;</span><br><span class="line">            par[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (par[x] == x) &#123;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;</span><br><span class="line">        par[x] = find(par[x]);</span><br><span class="line">        <span class="keyword">return</span> par[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unite</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> px = find(x);</span><br><span class="line">        <span class="keyword">int</span> py = find(y);</span><br><span class="line">        <span class="keyword">if</span> (px == py) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (rank[py] &lt; rank[px]) &#123;</span><br><span class="line">            par[py] = px;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            par[px] = py;</span><br><span class="line">            <span class="keyword">if</span> (rank[py] == rank[px]) &#123;</span><br><span class="line">                rank[py]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">same</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> find(x) == find(y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-6-应用问题"><a href="#2-5-6-应用问题" class="headerlink" title="2.5.6 应用问题"></a>2.5.6 应用问题</h3><p>//todo 暂略，后面有空做</p>
+<p><strong>POJ 3255</strong></p>
+<p><strong>POJ 3723</strong></p>
+<p><strong>POJ 3169</strong></p>
+<h1 id="2-6-数学问题的解题窍门"><a href="#2-6-数学问题的解题窍门" class="headerlink" title="2.6 数学问题的解题窍门"></a>2.6 数学问题的解题窍门</h1><h3 id="2-6-1-辗转相除法"><a href="#2-6-1-辗转相除法" class="headerlink" title="2.6.1 辗转相除法"></a>2.6.1 辗转相除法</h3><p><strong>1.求最大公约数</strong></p>
+<blockquote>
+<p>线段上格点（横坐标和纵坐标都是整数的点）的个数。</p>
+<p>给定两个平面两个格点P1(x1, y1)和P2(x2, y2)线段上，一共有几个格点。</p>
+</blockquote>
+<p>这道题的答案其实是最大公约数-1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.math;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Gcd</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a % b == <span class="number">0</span> ? b : gcd(b, a % b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.复杂度</strong></p>
+<p>​    复杂度在O(log(max(a,b)))以内。</p>
+<p><strong>3.扩展欧几里得算法</strong></p>
+<p>​    求解ax + by = gcd(a, b)</p>
+<p>​    需要扩展上面的辗转相除法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.math;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exgcd</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> d = a;</span><br><span class="line">        <span class="keyword">if</span> (b != <span class="number">0</span>) &#123;</span><br><span class="line">            d = exgcd(b, a % b);</span><br><span class="line">            y -= (a / b) * x;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            x = <span class="number">1</span>;</span><br><span class="line">            y = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> d;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-6-2-有关素数的基础算法"><a href="#2-6-2-有关素数的基础算法" class="headerlink" title="2.6.2 有关素数的基础算法"></a>2.6.2 有关素数的基础算法</h3><p><strong>1.素数测试</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.math;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedHashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrimeNum</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//素数测试 O(sqrt(n))</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isPrime</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i * i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n % i == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//约数枚举 O(sqrt(n))</span></span><br><span class="line">    <span class="function">List&lt;Integer&gt; <span class="title">divisor</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i * i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (n % i == <span class="number">0</span>) &#123;</span><br><span class="line">                res.add(i);</span><br><span class="line">                <span class="keyword">if</span> (i != n / i) res.add(n / i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 整数分解 O(sqrt(n))</span></span><br><span class="line">    <span class="function">Map&lt;Integer, Integer&gt; <span class="title">primeFactor</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i * i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (n % i == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!map.containsKey(i)) map.put(i, <span class="number">0</span>);</span><br><span class="line">                map.put(i, map.get(i) + <span class="number">1</span>);</span><br><span class="line">                n /= i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n != <span class="number">1</span>) map.put(n, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2.埃氏筛法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.math;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrimeSieve</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 埃氏筛法  O(sqrt(n))</span></span><br><span class="line">    <span class="keyword">int</span> prime[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000</span>];</span><br><span class="line">    <span class="keyword">boolean</span> isPrime[] = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">1000</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 返回n以内素数个数</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sieve</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">        Arrays.fill(isPrime, <span class="keyword">true</span>);</span><br><span class="line">        isPrime[<span class="number">0</span>] = isPrime[<span class="number">1</span>] = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i * i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (isPrime[i]) &#123;</span><br><span class="line">                prime[p++] = i;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span> * i; j &lt;= n; j+= i) isPrime[j] = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.区间筛法</strong></p>
+<p>求解[a,b)区间中素数个数</p>
+<p>a &lt; b &lt;= 10 ^12</p>
+<p>b - a &lt;= 10 ^ 6</p>
+<p>b以内的合数的的最大质因数一定不超过sqrt(b)。有sqrt(b)以内的素数表，就可以把筛法运用在[a,b)上了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.math;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SegmentPrimeSieve</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isPrim[] = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">1000</span>];</span><br><span class="line">    <span class="keyword">boolean</span> isPrimeSmall[] = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">1000</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 求[a,b)以内素数个数</span></span><br><span class="line">    <span class="comment">// isPrime[i - a] = true =&gt; i是素数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">segementSieve</span><span class="params">(<span class="keyword">long</span> a, <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;  (<span class="keyword">long</span>)i * i &lt; b; i++) isPrimeSmall[i] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; b - a; i++) isPrim[i] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; (<span class="keyword">long</span>)i * i &lt; b; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (isPrimeSmall[i]) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span> * i; (<span class="keyword">long</span>) j * j &lt; b; j += i) isPrimeSmall[j] = <span class="keyword">false</span>; <span class="comment">//筛 [2, srqt(b))</span></span><br><span class="line">                <span class="comment">//筛[a,b)</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">long</span> j = Math.max(<span class="number">2L</span>, (a + i -<span class="number">1</span>) / i) * i; j &lt; b; j += b) isPrim[(<span class="keyword">int</span>)(j-a)] = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-6-3-模运算"><a href="#2-6-3-模运算" class="headerlink" title="2.6.3 模运算"></a>2.6.3 模运算</h3><p><strong>1.为什么需要求余数</strong></p>
+<p>​    超出64位整数范围</p>
+<p><strong>2.基本模运算</strong></p>
+<p>假设 $a \equiv c (mod ;m) 且b \equiv d (mod ; m)$</p>
+<p>$a+b \equiv (c+d)(mod;m)$</p>
+<p>$a-b \equiv (c-d)(mod;m)$</p>
+<p>$a<em>b \equiv (c</em>d)(mod;m)$</p>
+<p>$a/b \equiv (c/d)(mod;m)$</p>
+<p>注意事项：</p>
+<ul>
+<li>溢出</li>
+<li>被除数为负数</li>
+</ul>
+<h3 id="2-6-4-快速幂运算"><a href="#2-6-4-快速幂运算" class="headerlink" title="2.6.4 快速幂运算"></a>2.6.4 快速幂运算</h3><p>​    时间复杂度O(logn)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> challenge.math;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModPow</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">modPow</span><span class="params">(<span class="keyword">long</span> x, <span class="keyword">long</span> n, <span class="keyword">long</span> mod)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((n &amp; <span class="number">1</span>) == <span class="number">1</span>) res = res * x % mod;</span><br><span class="line">            x = x * x % mod;</span><br><span class="line">            n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">modPow2</span><span class="params">(<span class="keyword">long</span> x, <span class="keyword">long</span> n, <span class="keyword">long</span> mod)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">long</span> res = modPow2(x * x % mod, n / <span class="number">2</span>, mod);</span><br><span class="line">        <span class="keyword">if</span> ((n &amp; <span class="number">1</span>) == <span class="number">1</span>) res = res * x % mod;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          
+            <a href="/tags/%E6%8C%91%E6%88%98/" rel="tag"># 挑战</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/13/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpg"
+                alt="宋梓立 sorie" />
+            
+              <p class="site-author-name" itemprop="name">宋梓立 sorie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ewasong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:819294006@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-初级篇"><span class="nav-number">1.</span> <span class="nav-text">第2章 初级篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-最基础的“穷竭搜索”"><span class="nav-number">1.1.</span> <span class="nav-text">2.1 最基础的“穷竭搜索”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-递归函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">2.1.1 递归函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-栈"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.1.2 栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-队列"><span class="nav-number">1.1.3.</span> <span class="nav-text">2.1.3 队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-深度优先搜索"><span class="nav-number">1.1.4.</span> <span class="nav-text">2.1.4 深度优先搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5-宽度优先搜索"><span class="nav-number">1.1.5.</span> <span class="nav-text">2.1.5 宽度优先搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-6-特殊状态枚举"><span class="nav-number">1.1.6.</span> <span class="nav-text">2.1.6 特殊状态枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-7-剪枝"><span class="nav-number">1.1.7.</span> <span class="nav-text">2.1.7 剪枝</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-一往直前！-贪心法"><span class="nav-number">1.2.</span> <span class="nav-text">2.2 一往直前！ 贪心法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-硬币问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.2.1 硬币问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-区间问题"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2.2 区间问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-字典序最小问题"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.2.3 字典序最小问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-其他例题"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.2.4 其他例题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专栏-Huffman编码"><span class="nav-number">1.2.5.</span> <span class="nav-text">专栏 Huffman编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3记录结果再利用的动态规划"><span class="nav-number">1.3.</span> <span class="nav-text">2.3记录结果再利用的动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-记忆化搜索与动态规划"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.3.1 记忆化搜索与动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用memset进行初始化"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">使用memset进行初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#各种各样的dp"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">各种各样的dp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-进一步探讨递推关系"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.3.2 进一步探讨递推关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-有关计数问题的DP"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3.3 有关计数问题的DP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-加工并存储数据的数据结构"><span class="nav-number">1.4.</span> <span class="nav-text">2.4 加工并存储数据的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-树和二叉树"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.4.1 树和二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-优先队列和堆"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.4.2 优先队列和堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-3-二叉搜索树"><span class="nav-number">1.4.3.</span> <span class="nav-text">2.4.3 二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-4-并查集"><span class="nav-number">1.4.4.</span> <span class="nav-text">2.4.4 并查集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-它们其实都是“图”"><span class="nav-number">1.5.</span> <span class="nav-text">2.5 它们其实都是“图”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-1-什么是图？"><span class="nav-number">1.5.1.</span> <span class="nav-text">2.5.1 什么是图？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-图的表示"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.5.2 图的表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-3-图的搜索"><span class="nav-number">1.5.3.</span> <span class="nav-text">2.5.3 图的搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-4-最短路问题"><span class="nav-number">1.5.4.</span> <span class="nav-text">2.5.4 最短路问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-5-最小生成树"><span class="nav-number">1.5.5.</span> <span class="nav-text">2.5.5  最小生成树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-6-应用问题"><span class="nav-number">1.5.6.</span> <span class="nav-text">2.5.6 应用问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-6-数学问题的解题窍门"><span class="nav-number">2.</span> <span class="nav-text">2.6 数学问题的解题窍门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-辗转相除法"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.6.1 辗转相除法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-2-有关素数的基础算法"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.6.2 有关素数的基础算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-3-模运算"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.6.3 模运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-4-快速幂运算"><span class="nav-number">2.0.4.</span> <span class="nav-text">2.6.4 快速幂运算</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">宋梓立 sorie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'XTY8e76465N8ugbyhpCoS88f-gzGzoHsz',
+        appKey: 'dwWTNcurePtzzBdMO62hSRMy',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
