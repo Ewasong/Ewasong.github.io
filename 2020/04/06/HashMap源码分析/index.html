@@ -85,9 +85,9 @@
 <meta property="og:url" content="http://yoursite.com/2020/04/06/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="宋二的小窝">
 <meta property="og:description" content="学习视频：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1FE411t7M7 1.HashMap介绍​    基于哈希表的实现的Map接口，是以key-value存储形式存在，即主要用来存放键值对。HashMap的实现不是同步的，这意味着它不是线程安全的。它的key和value都可以为null。此外，HashMap中的映射不是有序的。 ​    JDK1.8之前HasmMap是">
-<meta property="og:image" content="https://raw.githubusercontent.com/Ewasong/picBed/master/20200407231049.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Ewasong/picBed/oligarch/20200407231049.png">
 <meta property="og:image" content="c:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200407235604451.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Ewasong/picBed/master/20200408214748.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Ewasong/picBed/oligarch/20200408214748.png">
 <meta property="article:published_time" content="2020-04-06T14:16:37.000Z">
 <meta property="article:modified_time" content="2020-04-11T03:53:04.396Z">
 <meta property="article:author" content="宋梓立 sorie">
@@ -97,7 +97,7 @@
 <meta property="article:tag" content="Map">
 <meta property="article:tag" content="HashMap">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Ewasong/picBed/master/20200407231049.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Ewasong/picBed/oligarch/20200407231049.png">
 
 
 
@@ -322,7 +322,7 @@
 <p>​    JDK1.8之前HasmMap是由数字+链表组成的。数组是HashMap的主体，链表则是主要为了解决哈希冲突（<strong>两个对象调用的hashCode方法计算的Hash码值一致导致计算的数组的索引值相同</strong>)而存在(“拉链法”解决冲突)。JDK1.8以后在解决哈希冲突时有了比较大的变化。<strong>当链表长度大于阈值(或者红黑树的边界值，默认为8)并且当前数组长度大于64时，此时此索引位置上的所有数据改为使用红黑树存储</strong>。</p>
 <p>​    补充：将链表转换成红黑树前会判断，即使阈值大于8，但是当前数组长度小于64，此时并不会将链表变为红黑树，而是选择进行数组扩容。</p>
 <p>​    这样做的目的是因为数组比较小，尽量避开红黑树结构，这种情况下变为红黑树结构，反而会降低效率，因为红黑树需要进行左旋，右旋，变色这些操作来保持平衡。数组长度小于64时，搜索时间相对要快些，所以综上所述，为了提高性能和减少搜索时间，底层在阈值大于8并且数组长度大于64时，链表才转换为红黑树，具体可以参考 treeifyBin方法。</p>
-<p><img src="https://raw.githubusercontent.com/Ewasong/picBed/master/20200407231049.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/Ewasong/picBed/oligarch/20200407231049.png" alt=""></p>
 <p>特点：</p>
 <ol>
 <li>存取无序的</li>
@@ -361,7 +361,7 @@
 <li>size代表HashMap中KV的实时数量，不等于数组长度</li>
 <li>threshold(临界值) = capacity*loadFactor（加载因子）。size超过这个临界值就重新扩容，扩容后容量是之前两倍。</li>
 </ol>
-<h1 id="3-继承关系"><a href="#3-继承关系" class="headerlink" title="3.继承关系"></a>3.继承关系</h1><p><img src="https://raw.githubusercontent.com/Ewasong/picBed/master/20200408214748.png" alt=""></p>
+<h1 id="3-继承关系"><a href="#3-继承关系" class="headerlink" title="3.继承关系"></a>3.继承关系</h1><p><img src="https://raw.githubusercontent.com/Ewasong/picBed/oligarch/20200408214748.png" alt=""></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
 
 <p>说明：</p>

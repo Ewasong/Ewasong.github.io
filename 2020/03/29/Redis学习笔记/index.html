@@ -1222,26 +1222,26 @@
 </li>
 </ul>
 <h3 id="主从复制简介"><a href="#主从复制简介" class="headerlink" title="主从复制简介"></a>主从复制简介</h3><p><img src="https://pic.imgdb.cn/item/5ed3a554c2a9a83be5796588.jpg" alt=""></p>
-<p>主从复制即将master中数据即时、有效地复制到slave中。</p>
-<p>特征：一个master可以拥有多个slave，一个slave只对应一个master</p>
+<p>主从复制即将oligarch中数据即时、有效地复制到politician中。</p>
+<p>特征：一个oligarch可以拥有多个politician，一个politician只对应一个oligarch</p>
 <p>职责：</p>
 <ul>
-<li>master<ul>
+<li>oligarch<ul>
 <li>写数据</li>
-<li>执行写操作时，将出现变化的数据自动同步到slave</li>
+<li>执行写操作时，将出现变化的数据自动同步到politician</li>
 <li>读数据（可忽略）</li>
 </ul>
 </li>
-<li>slave<ul>
+<li>politician<ul>
 <li>读数据</li>
 <li>写数据（禁止）</li>
 </ul>
 </li>
 </ul>
 <h3 id="主从复制作用"><a href="#主从复制作用" class="headerlink" title="主从复制作用"></a>主从复制作用</h3><ul>
-<li>读写分离：master写，slave读，提高服务器的读写负载能力</li>
-<li>负载均衡：基于主从结构，配合读写分离，由slave分担master负载，并根据需求的变化，改变slave的数量，通过多个从节点分担数据读取负载，大大提高Redis服务器并发量与数据吞吐量。</li>
-<li>故障恢复：当master出现问题时，由slave提供服务，实现快速的故障恢复。</li>
+<li>读写分离：oligarch写，politician读，提高服务器的读写负载能力</li>
+<li>负载均衡：基于主从结构，配合读写分离，由politician分担oligarch负载，并根据需求的变化，改变politician的数量，通过多个从节点分担数据读取负载，大大提高Redis服务器并发量与数据吞吐量。</li>
+<li>故障恢复：当oligarch出现问题时，由politician提供服务，实现快速的故障恢复。</li>
 <li>数据冗余：实现数据热备份，是持久化之外的一种数据冗余方式。</li>
 <li>高可用基石：基于主从复制，构建哨兵模式与集群，实现Redis的高可用方案。</li>
 </ul>
@@ -1253,29 +1253,29 @@
 </ul>
 <p><img src="https://pic.imgdb.cn/item/5ed3a9d6c2a9a83be582e5f0.jpg" alt=""></p>
 <h3 id="阶段1：建立连接阶段"><a href="#阶段1：建立连接阶段" class="headerlink" title="阶段1：建立连接阶段"></a>阶段1：建立连接阶段</h3><ul>
-<li><p>建立slave到master的连接，使master能够识别slave，并保存slave端口号</p>
+<li><p>建立politician到oligarch的连接，使oligarch能够识别politician，并保存politician端口号</p>
 <ol>
-<li><p>slave给master发送指令：slaveof ip port</p>
+<li><p>politician给oligarch发送指令：politicianof ip port</p>
 </li>
-<li><p>master接收命令，响应对方</p>
+<li><p>oligarch接收命令，响应对方</p>
 </li>
-<li><p>slave保存master的IP与端口</p>
-<p>masterhost</p>
-<p>masterport</p>
+<li><p>politician保存oligarch的IP与端口</p>
+<p>oligarchhost</p>
+<p>oligarchport</p>
 </li>
-<li><p>slave根据保存的信息创建连接master的socket</p>
+<li><p>politician根据保存的信息创建连接oligarch的socket</p>
 </li>
 <li><p>salve周期性发送命令：ping</p>
 </li>
-<li><p>master响应pong</p>
+<li><p>oligarch响应pong</p>
 </li>
-<li><p>slave发送指令：auth password</p>
+<li><p>politician发送指令：auth password</p>
 </li>
-<li><p>master授权验证</p>
+<li><p>oligarch授权验证</p>
 </li>
-<li><p>slave发送命令： replconf listening-port <port-number></p>
+<li><p>politician发送命令： replconf listening-port <port-number></p>
 </li>
-<li><p>master保存slave的端口号</p>
+<li><p>oligarch保存politician的端口号</p>
 </li>
 </ol>
 <p><img src="https://pic.imgdb.cn/item/5ed3ab4cc2a9a83be585fd38.jpg" alt=""></p>
@@ -1283,70 +1283,70 @@
 </ul>
 <h3 id="搭建主从结构"><a href="#搭建主从结构" class="headerlink" title="搭建主从结构"></a>搭建主从结构</h3><ul>
 <li><p>方式1：客户端发送命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof &lt;masterip&gt; &lt;masterport&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">politicianof &lt;oligarchip&gt; &lt;oligarchport&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>方式2：启动服务器参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server --slaveof &lt;masterip&gt; &lt;masterport&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server --politicianof &lt;oligarchip&gt; &lt;oligarchport&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>方式3： 服务器配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof &lt;masterip&gt; &lt;masterport&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">politicianof &lt;oligarchip&gt; &lt;oligarchport&gt;</span><br></pre></td></tr></table></figure>
 
 
 
 </li>
 </ul>
 <ul>
-<li><p>slave信息</p>
+<li><p>politician信息</p>
 <ul>
-<li>master_link_down_since_seconds</li>
-<li>masterhost</li>
-<li>masterport</li>
+<li>oligarch_link_down_since_seconds</li>
+<li>oligarchhost</li>
+<li>oligarchport</li>
 </ul>
 </li>
-<li><p>master信息</p>
+<li><p>oligarch信息</p>
 <ul>
-<li>slave_listening_port（多个）</li>
+<li>politician_listening_port（多个）</li>
 </ul>
 </li>
 </ul>
 <p>断开连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaveof no one</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">politicianof no one</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="授权访问"><a href="#授权访问" class="headerlink" title="授权访问"></a>授权访问</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#master设置密码</span><br><span class="line">requirepass &lt;password&gt;</span><br><span class="line"></span><br><span class="line">#master客户端发送命令设置密码</span><br><span class="line">config set requirepass &lt;password&gt;</span><br><span class="line">config get requirepass</span><br><span class="line"></span><br><span class="line">#slave客户端发送命令设置密码</span><br><span class="line">auth &lt;password&gt;</span><br><span class="line"></span><br><span class="line">#客户端配置文件设置密码</span><br><span class="line">masterauth &lt;password&gt;</span><br><span class="line"></span><br><span class="line">#启动客户端设置密码</span><br><span class="line">redis-cli -a &lt;password&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="授权访问"><a href="#授权访问" class="headerlink" title="授权访问"></a>授权访问</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#oligarch设置密码</span><br><span class="line">requirepass &lt;password&gt;</span><br><span class="line"></span><br><span class="line">#oligarch客户端发送命令设置密码</span><br><span class="line">config set requirepass &lt;password&gt;</span><br><span class="line">config get requirepass</span><br><span class="line"></span><br><span class="line">#politician客户端发送命令设置密码</span><br><span class="line">auth &lt;password&gt;</span><br><span class="line"></span><br><span class="line">#客户端配置文件设置密码</span><br><span class="line">oligarchauth &lt;password&gt;</span><br><span class="line"></span><br><span class="line">#启动客户端设置密码</span><br><span class="line">redis-cli -a &lt;password&gt;</span><br></pre></td></tr></table></figure>
 
 
 
 <h3 id="阶段2：-数据同步阶段"><a href="#阶段2：-数据同步阶段" class="headerlink" title="阶段2： 数据同步阶段"></a>阶段2： 数据同步阶段</h3><ul>
-<li>在slave初连接master后，复制master中所有数据到slave</li>
-<li>将slave的数据库状态更新成master当前的数据库状态</li>
+<li>在politician初连接oligarch后，复制oligarch中所有数据到politician</li>
+<li>将politician的数据库状态更新成oligarch当前的数据库状态</li>
 </ul>
 <h4 id="工作流程-1"><a href="#工作流程-1" class="headerlink" title="工作流程"></a>工作流程</h4><p><img src="https://pic.imgdb.cn/item/5eda6329c2a9a83be5c76ef8.jpg" alt=""></p>
-<h4 id="数据同步阶段master说明"><a href="#数据同步阶段master说明" class="headerlink" title="数据同步阶段master说明"></a>数据同步阶段master说明</h4><ol>
-<li><p>如果master数据量巨大，数据同步阶段应避免流量高峰期，避免造成master阻塞，影响业务正常执行</p>
+<h4 id="数据同步阶段oligarch说明"><a href="#数据同步阶段oligarch说明" class="headerlink" title="数据同步阶段oligarch说明"></a>数据同步阶段oligarch说明</h4><ol>
+<li><p>如果oligarch数据量巨大，数据同步阶段应避免流量高峰期，避免造成oligarch阻塞，影响业务正常执行</p>
 </li>
-<li><p>复制缓冲区大小设置不合理，会导致数据溢出，如果全量复制周期太长，进行部分复制时发现数据已经存在丢失的情况，必须进行第二次全量复制，致使slave陷入死循环状态</p>
+<li><p>复制缓冲区大小设置不合理，会导致数据溢出，如果全量复制周期太长，进行部分复制时发现数据已经存在丢失的情况，必须进行第二次全量复制，致使politician陷入死循环状态</p>
 </li>
 </ol>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repl-backlog-size 1mb</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li>master单机内存占用主机内存的比例不应过大，建议使用50%-70%的内存，留下30%-50%内存用于执行bgsave命令和创建缓冲区。</li>
+<li>oligarch单机内存占用主机内存的比例不应过大，建议使用50%-70%的内存，留下30%-50%内存用于执行bgsave命令和创建缓冲区。</li>
 </ol>
-<h4 id="数据同步阶段slave说明"><a href="#数据同步阶段slave说明" class="headerlink" title="数据同步阶段slave说明"></a>数据同步阶段slave说明</h4><ol>
-<li>为避免slave进行全量复制、部分复制时服务器响应阻塞或数据不同步，建议关闭此期间对外服务</li>
+<h4 id="数据同步阶段politician说明"><a href="#数据同步阶段politician说明" class="headerlink" title="数据同步阶段politician说明"></a>数据同步阶段politician说明</h4><ol>
+<li>为避免politician进行全量复制、部分复制时服务器响应阻塞或数据不同步，建议关闭此期间对外服务</li>
 </ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slave-server-stale-data yes|no</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">politician-server-stale-data yes|no</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>数据同步阶段，master发送slave信息可以理解master是slave的一个客户端，主动向slave发送命令</li>
-<li>多个slave同时对master请求数据同步，master发送的RDB文件增多，会对带宽造成巨大冲击，如果master带宽不足，那么数据同步需要根据业务需求，适量错峰。</li>
-<li>slave过多时，建议调整为拓扑结构，从一主多从变为树状结构，中间节点既是master，也是slave，注意使用树状结构时，由于层级深度，导致深度越高的slave与最顶层master间数据同步延迟较大，数据一致性变差，应谨慎选择。</li>
+<li>数据同步阶段，oligarch发送politician信息可以理解oligarch是politician的一个客户端，主动向politician发送命令</li>
+<li>多个politician同时对oligarch请求数据同步，oligarch发送的RDB文件增多，会对带宽造成巨大冲击，如果oligarch带宽不足，那么数据同步需要根据业务需求，适量错峰。</li>
+<li>politician过多时，建议调整为拓扑结构，从一主多从变为树状结构，中间节点既是oligarch，也是politician，注意使用树状结构时，由于层级深度，导致深度越高的politician与最顶层oligarch间数据同步延迟较大，数据一致性变差，应谨慎选择。</li>
 </ol>
 <h3 id="阶段3：命令传播阶段"><a href="#阶段3：命令传播阶段" class="headerlink" title="阶段3：命令传播阶段"></a>阶段3：命令传播阶段</h3><ul>
-<li>当master数据库状态被修改后，导致主从服务器库状态不一致，此时需要让主从同步到一致的状态，同步的动作称为命令传播。</li>
-<li>master将接收到的数据变更命令发给slave，slave接收命令后执行命令。</li>
+<li>当oligarch数据库状态被修改后，导致主从服务器库状态不一致，此时需要让主从同步到一致的状态，同步的动作称为命令传播。</li>
+<li>oligarch将接收到的数据变更命令发给politician，politician接收命令后执行命令。</li>
 </ul>
 <h4 id="命令传播阶段的部分复制"><a href="#命令传播阶段的部分复制" class="headerlink" title="命令传播阶段的部分复制"></a>命令传播阶段的部分复制</h4><ul>
 <li><p>命令传播阶段出现了断网现象</p>
@@ -1372,15 +1372,15 @@
 <li><p>作用：运行id被用于在服务器间进行传输，识别身份。</p>
 <p>​    如果想两次操作均对同一台服务器进行，必须每次操作携带对应的运行id，用于对方识别。</p>
 </li>
-<li><p>实现方式：运行id在每台服务器启动时自动生成的，master在首次连接slave时，会将自己的运行ID发送给slave，slave保存此ID，通过info server命令，可以查看节点runid。</p>
+<li><p>实现方式：运行id在每台服务器启动时自动生成的，oligarch在首次连接politician时，会将自己的运行ID发送给politician，politician保存此ID，通过info server命令，可以查看节点runid。</p>
 </li>
 </ul>
 <h3 id="复制缓冲区"><a href="#复制缓冲区" class="headerlink" title="复制缓冲区"></a>复制缓冲区</h3><ul>
-<li>概念：复制缓冲区，又名复制积压缓冲区，是一个先进先出的(FIFO)的队列，用于存储服务器执行过的命令，每次传播命令，master都会将传播的命令记录下来，并存储在复制缓冲区。</li>
+<li>概念：复制缓冲区，又名复制积压缓冲区，是一个先进先出的(FIFO)的队列，用于存储服务器执行过的命令，每次传播命令，oligarch都会将传播的命令记录下来，并存储在复制缓冲区。</li>
 <li>复制缓冲区默认数据存储空间大小是1M，由于存储空间大小是固定的，当入队的数量大于队列长度时，最先入队的元素会被弹出，而新元素会被放入队列。</li>
-<li>由来：每台服务器启动时，如果开启AOF或被连接成为master节点，即创建复制缓冲区。</li>
-<li>作用：用于保存master收到的所有指令（仅影响数据变更的指令，例如set，select)</li>
-<li>数据来源：当master接收到主客户端指令时，除了将指令执行，会将该指令存储到缓冲区中。</li>
+<li>由来：每台服务器启动时，如果开启AOF或被连接成为oligarch节点，即创建复制缓冲区。</li>
+<li>作用：用于保存oligarch收到的所有指令（仅影响数据变更的指令，例如set，select)</li>
+<li>数据来源：当oligarch接收到主客户端指令时，除了将指令执行，会将该指令存储到缓冲区中。</li>
 </ul>
 <p><img src="C:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200606101537760.png" alt="image-20200606101537760"></p>
 <h4 id="复制缓冲区内部工作原理"><a href="#复制缓冲区内部工作原理" class="headerlink" title="复制缓冲区内部工作原理"></a>复制缓冲区内部工作原理</h4><ul>
@@ -1390,8 +1390,8 @@
 </ul>
 </li>
 <li>工作原理<ul>
-<li>通过offset区分不同slave当前数据传播的差异。</li>
-<li>slave和master都记录offset</li>
+<li>通过offset区分不同politician当前数据传播的差异。</li>
+<li>politician和oligarch都记录offset</li>
 </ul>
 </li>
 </ul>
@@ -1400,52 +1400,52 @@
 <h4 id="主从服务器复制偏移量（offset）"><a href="#主从服务器复制偏移量（offset）" class="headerlink" title="主从服务器复制偏移量（offset）"></a>主从服务器复制偏移量（offset）</h4><ul>
 <li>概念：一个数字，描述复制缓冲区中的指令字节位置</li>
 <li>分类<ul>
-<li>master复制偏移量：记录发送给所有slave的指令字节对应的偏移量（多个）</li>
-<li>slave复制偏移量：记录slave接收master发送过来的指令字节对应的位置（一个）</li>
+<li>oligarch复制偏移量：记录发送给所有politician的指令字节对应的偏移量（多个）</li>
+<li>politician复制偏移量：记录politician接收oligarch发送过来的指令字节对应的位置（一个）</li>
 </ul>
 </li>
 <li>数据来源<ul>
-<li>master端：发送一次记录一次</li>
-<li>slave端：接收节次记录一次</li>
+<li>oligarch端：发送一次记录一次</li>
+<li>politician端：接收节次记录一次</li>
 </ul>
 </li>
-<li>作用：同步信息，比对master与slave的差异，当slave断线后，恢复数据使用</li>
+<li>作用：同步信息，比对oligarch与politician的差异，当politician断线后，恢复数据使用</li>
 </ul>
 <h3 id="数据同步-命令传播阶段工作流程"><a href="#数据同步-命令传播阶段工作流程" class="headerlink" title="数据同步+命令传播阶段工作流程"></a>数据同步+命令传播阶段工作流程</h3><p><img src="C:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200606103802566.png" alt="image-20200606103802566"></p>
 <h3 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h3><ul>
-<li>进入命令传播阶段，master与slave间需要进行信息交换，使用心跳机制进行维护，实现双方连接保持在线。</li>
-<li>master心跳：<ul>
+<li>进入命令传播阶段，oligarch与politician间需要进行信息交换，使用心跳机制进行维护，实现双方连接保持在线。</li>
+<li>oligarch心跳：<ul>
 <li>指令：PING</li>
-<li>周期：由repl-ping-slave-period决定，默认10秒</li>
-<li>作用：判断slave是否在线</li>
-<li>查询：INFO replication             获取slave最后一次连接时间间隔，lag项维持在0或1为正常</li>
+<li>周期：由repl-ping-politician-period决定，默认10秒</li>
+<li>作用：判断politician是否在线</li>
+<li>查询：INFO replication             获取politician最后一次连接时间间隔，lag项维持在0或1为正常</li>
 </ul>
 </li>
-<li>slave心跳任务：<ul>
+<li>politician心跳任务：<ul>
 <li>指令：REPLCONF ACK {offset}</li>
 <li>周期：1秒</li>
-<li>作用1：汇报slave自己的复制偏移量，获取最新的数据变更指令</li>
-<li>作用2：判断master是否在线</li>
+<li>作用1：汇报politician自己的复制偏移量，获取最新的数据变更指令</li>
+<li>作用2：判断oligarch是否在线</li>
 </ul>
 </li>
 </ul>
 <h4 id="心跳阶段的注意事项"><a href="#心跳阶段的注意事项" class="headerlink" title="心跳阶段的注意事项"></a>心跳阶段的注意事项</h4><ul>
-<li>当slave多数掉线或延迟过高时，master为保障数据稳定性，将拒绝所有信息同步操作</li>
+<li>当politician多数掉线或延迟过高时，oligarch为保障数据稳定性，将拒绝所有信息同步操作</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">min-slaves-to-write 2</span><br><span class="line">min-slaves-max-lag 8</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">min-politicians-to-write 2</span><br><span class="line">min-politicians-max-lag 8</span><br></pre></td></tr></table></figure>
 
-<p>slave数量少于2个，或者所有slave的延迟都大于等于8秒时，强制关闭master写功能，停止数据同步。</p>
+<p>politician数量少于2个，或者所有politician的延迟都大于等于8秒时，强制关闭oligarch写功能，停止数据同步。</p>
 <ul>
-<li>slave数量由slave发送 REPLCONF ACK命令做确认</li>
-<li>slave延迟由slave发送REPLCONF ACK命令做确认</li>
+<li>politician数量由politician发送 REPLCONF ACK命令做确认</li>
+<li>politician延迟由politician发送REPLCONF ACK命令做确认</li>
 </ul>
 <p><img src="https://pic.imgdb.cn/item/5edb052fc2a9a83be5c34457.jpg" alt=""></p>
-<h3 id="主从复制常见问题"><a href="#主从复制常见问题" class="headerlink" title="主从复制常见问题"></a>主从复制常见问题</h3><h4 id="频繁的全量复制（1）"><a href="#频繁的全量复制（1）" class="headerlink" title="频繁的全量复制（1）"></a>频繁的全量复制（1）</h4><p>伴随系统的进行，master的数据量会越来越大，一旦master重启，runid会发生变化，会导致全部slave的全量复制操作。</p>
+<h3 id="主从复制常见问题"><a href="#主从复制常见问题" class="headerlink" title="主从复制常见问题"></a>主从复制常见问题</h3><h4 id="频繁的全量复制（1）"><a href="#频繁的全量复制（1）" class="headerlink" title="频繁的全量复制（1）"></a>频繁的全量复制（1）</h4><p>伴随系统的进行，oligarch的数据量会越来越大，一旦oligarch重启，runid会发生变化，会导致全部politician的全量复制操作。</p>
 <p>内部优化方案：</p>
 <ol>
-<li><p>master内部创建master_replid变量，使用runid相同的策略生成，长度41位，并发送给所有slave</p>
+<li><p>oligarch内部创建oligarch_replid变量，使用runid相同的策略生成，长度41位，并发送给所有politician</p>
 </li>
-<li><p>在master关闭时指令指令，shutdown save，进行RDB持久化，将runid与offset保存到RDB文件中</p>
+<li><p>在oligarch关闭时指令指令，shutdown save，进行RDB持久化，将runid与offset保存到RDB文件中</p>
 </li>
 </ol>
 <ul>
@@ -1453,26 +1453,26 @@
 <li>通过redis-check_rdb命令可以查看该信息</li>
 </ul>
 <ol start="3">
-<li>master重启后加载RDB文件，恢复数据</li>
+<li>oligarch重启后加载RDB文件，恢复数据</li>
 <li>重启后，将RDB文件中保存repl-id与repl-offeset加载到内存中。<ul>
-<li>master_repl_id = repl      master_repl_offset = repl-offset</li>
+<li>oligarch_repl_id = repl      oligarch_repl_offset = repl-offset</li>
 <li>通过info命令可以查看该信息</li>
 </ul>
 </li>
 </ol>
 <p>作用：</p>
-<p>​    本机保存上次runid，重启后恢复该值，使所有slave认为还是之前的master</p>
+<p>​    本机保存上次runid，重启后恢复该值，使所有politician认为还是之前的oligarch</p>
 <h4 id="频繁的全量复制（2）"><a href="#频繁的全量复制（2）" class="headerlink" title="频繁的全量复制（2）"></a>频繁的全量复制（2）</h4><ul>
 <li>问题现象<ul>
-<li>网络环境不佳，出现网络中断，slave不提供服务</li>
+<li>网络环境不佳，出现网络中断，politician不提供服务</li>
 </ul>
 </li>
 <li>问题原因<ul>
-<li>复制缓冲区过小，断网后slave的offset越界，触发全量复制</li>
+<li>复制缓冲区过小，断网后politician的offset越界，触发全量复制</li>
 </ul>
 </li>
 <li>最终结果<ul>
-<li>slave反复进行全量复制</li>
+<li>politician反复进行全量复制</li>
 </ul>
 </li>
 <li>解决方案<ul>
@@ -1484,43 +1484,43 @@
 
 <ul>
 <li>建议设置如下：<ol>
-<li>测算从master到slave重连平均时长second</li>
-<li>获取master每秒产生的写数据总量write_size_per_second</li>
+<li>测算从oligarch到politician重连平均时长second</li>
+<li>获取oligarch每秒产生的写数据总量write_size_per_second</li>
 <li>最优复制缓冲区空间 = 2 * second * write_size_per_second</li>
 </ol>
 </li>
 </ul>
 <h4 id="频繁的网络中断（1）"><a href="#频繁的网络中断（1）" class="headerlink" title="频繁的网络中断（1）"></a>频繁的网络中断（1）</h4><ul>
 <li>问题现象<ul>
-<li>master的CPU占用过高或 slave频繁断开连接</li>
+<li>oligarch的CPU占用过高或 politician频繁断开连接</li>
 </ul>
 </li>
 <li>问题原因<ul>
-<li>slave每1秒发送REPLCONF ACK命令到master</li>
-<li>当slave接到慢查询(keys *, hgetall等)，会大量占用CPU性能</li>
-<li>master每1秒调用复制定时函数replicationCron()，比对slave发现长时间没有进行响应。</li>
+<li>politician每1秒发送REPLCONF ACK命令到oligarch</li>
+<li>当politician接到慢查询(keys *, hgetall等)，会大量占用CPU性能</li>
+<li>oligarch每1秒调用复制定时函数replicationCron()，比对politician发现长时间没有进行响应。</li>
 </ul>
 </li>
 <li>最终结果<ul>
-<li>master各种资源（输出缓冲区、带宽、连接等）被严重占用</li>
+<li>oligarch各种资源（输出缓冲区、带宽、连接等）被严重占用</li>
 </ul>
 </li>
 <li>解决方案<ul>
-<li>通过设置合理的超时时间，确认是否释放slave(默认60秒)</li>
+<li>通过设置合理的超时时间，确认是否释放politician(默认60秒)</li>
 </ul>
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repl-timeout</span><br></pre></td></tr></table></figure>
 
-<p>该参数定义了超时时间的阈值（默认60）,超过该值，释放slave</p>
+<p>该参数定义了超时时间的阈值（默认60）,超过该值，释放politician</p>
 <h4 id="频繁的网络中断（2）"><a href="#频繁的网络中断（2）" class="headerlink" title="频繁的网络中断（2）"></a>频繁的网络中断（2）</h4><ul>
 <li>问题现象<ul>
-<li>slave与master连接断开</li>
+<li>politician与oligarch连接断开</li>
 </ul>
 </li>
 <li>问题原因<ul>
-<li>master发送ping命令频度低</li>
-<li>master设定超时时间较短</li>
+<li>oligarch发送ping命令频度低</li>
+<li>oligarch设定超时时间较短</li>
 <li>ping指令在网络中存在丢包</li>
 </ul>
 </li>
@@ -1529,13 +1529,13 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repl-ping-slave-period</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repl-ping-politician-period</span><br></pre></td></tr></table></figure>
 
-<p>超时时间repl-time的时间至少是ping指令频度的5-10倍，否则slave很容易被判定超时。</p>
+<p>超时时间repl-time的时间至少是ping指令频度的5-10倍，否则politician很容易被判定超时。</p>
 <h4 id="数据不一致"><a href="#数据不一致" class="headerlink" title="数据不一致"></a>数据不一致</h4><ul>
 <li><p>问题现象</p>
 <ul>
-<li>多个slave获取相同数据不同步</li>
+<li>多个politician获取相同数据不同步</li>
 </ul>
 </li>
 <li><p>问题原因</p>
@@ -1547,10 +1547,10 @@
 <ul>
 <li><p>优化主从间网络环境，通常放置在同一个机房部署，如使用阿里云等云服务器要注意此现象</p>
 </li>
-<li><p>监控主从节点延迟（通过offset）判断，如果slave延迟过大，暂时屏蔽程序对该slave的数据访问</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slave-serve-stale-data yes|no</span><br></pre></td></tr></table></figure>
+<li><p>监控主从节点延迟（通过offset）判断，如果politician延迟过大，暂时屏蔽程序对该politician的数据访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">politician-serve-stale-data yes|no</span><br></pre></td></tr></table></figure>
 
-<p>开启后仅响应info，slaveof等少数命令（慎用，除非对数据一致性要求很高。</p>
+<p>开启后仅响应info，politicianof等少数命令（慎用，除非对数据一致性要求很高。</p>
 </li>
 </ul>
 </li>
@@ -1558,27 +1558,27 @@
 <h2 id="哨兵"><a href="#哨兵" class="headerlink" title="哨兵"></a>哨兵</h2><p>主机宕机</p>
 <p><img src="https://pic.imgdb.cn/item/5edb1cd6c2a9a83be5f46c3d.jpg" alt=""></p>
 <ul>
-<li>将宕机的master下线</li>
-<li>找一个slave作为master</li>
-<li>通识所有的slave连接新的master</li>
-<li>启动新的master和slave</li>
+<li>将宕机的oligarch下线</li>
+<li>找一个politician作为oligarch</li>
+<li>通识所有的politician连接新的oligarch</li>
+<li>启动新的oligarch和politician</li>
 <li>全量复制xN+ 部分复制xN</li>
-<li>谁来确认master宕机了？</li>
-<li>找一个master？怎么找？</li>
-<li>修改配置后，原始的master恢复了怎么办？</li>
+<li>谁来确认oligarch宕机了？</li>
+<li>找一个oligarch？怎么找？</li>
+<li>修改配置后，原始的oligarch恢复了怎么办？</li>
 </ul>
-<h4 id="哨兵简介"><a href="#哨兵简介" class="headerlink" title="哨兵简介"></a>哨兵简介</h4><p>哨兵（sentinel）是一个分布式系统，用于对主从结构的没台服务器进行监控，当出现故障通过投票机制选择新的master并将所有slave连接到新的master。</p>
+<h4 id="哨兵简介"><a href="#哨兵简介" class="headerlink" title="哨兵简介"></a>哨兵简介</h4><p>哨兵（sentinel）是一个分布式系统，用于对主从结构的没台服务器进行监控，当出现故障通过投票机制选择新的oligarch并将所有politician连接到新的oligarch。</p>
 <p><img src="https://pic.imgdb.cn/item/5edb1e1cc2a9a83be5f7dc43.jpg" alt=""></p>
 <h4 id="哨兵的作用"><a href="#哨兵的作用" class="headerlink" title="哨兵的作用"></a>哨兵的作用</h4><ul>
 <li><p>监控</p>
-<p>​    不断地检查master和slave是否正常进行</p>
-<p>​    master存活检测、master与slave运行情况检测</p>
+<p>​    不断地检查oligarch和politician是否正常进行</p>
+<p>​    oligarch存活检测、oligarch与politician运行情况检测</p>
 </li>
 <li><p>通知（提醒）</p>
 <p>​    当被监控的服务器出现问题时，向其他（哨兵间，客户端）发送通知</p>
 </li>
 <li><p>自动故障转移</p>
-<p>​    断开master与slave连接，选取一个slave作为master，将其他slave连接到新的master，并告知客户端新的服务器地址。</p>
+<p>​    断开oligarch与politician连接，选取一个politician作为oligarch，将其他politician连接到新的oligarch，并告知客户端新的服务器地址。</p>
 </li>
 </ul>
 <p>注意：</p>
@@ -1599,14 +1599,14 @@
 
 <p>sentinel.conf</p>
 <p>输入cat sentinel.conf | grep -v ‘#’ | grep -v “^$”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">daemonize no</span><br><span class="line">pidfile &#x2F;var&#x2F;run&#x2F;redis-sentinel.pid</span><br><span class="line">logfile &quot;&quot;</span><br><span class="line">dir &#x2F;tmp</span><br><span class="line">sentinel monitor mymaster 127.0.0.1 6379 2  # 最后一个参数是多少个哨兵认为这个master挂了，那么就挂了 一般设置为哨兵的一半+1</span><br><span class="line">sentinel down-after-milliseconds mymaster 30000</span><br><span class="line">sentinel parallel-syncs mymaster 1  # master挂了 一次有多少台数据复制</span><br><span class="line">sentinel failover-timeout mymaster 180000  # 超时</span><br><span class="line">sentinel deny-scripts-reconfig yes</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">daemonize no</span><br><span class="line">pidfile &#x2F;var&#x2F;run&#x2F;redis-sentinel.pid</span><br><span class="line">logfile &quot;&quot;</span><br><span class="line">dir &#x2F;tmp</span><br><span class="line">sentinel monitor myoligarch 127.0.0.1 6379 2  # 最后一个参数是多少个哨兵认为这个oligarch挂了，那么就挂了 一般设置为哨兵的一半+1</span><br><span class="line">sentinel down-after-milliseconds myoligarch 30000</span><br><span class="line">sentinel parallel-syncs myoligarch 1  # oligarch挂了 一次有多少台数据复制</span><br><span class="line">sentinel failover-timeout myoligarch 180000  # 超时</span><br><span class="line">sentinel deny-scripts-reconfig yes</span><br></pre></td></tr></table></figure>
 
 <p>复制一份</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">'s/26379/26381/g'</span> sentinel-26379.conf &gt; sentinel-26381.conf</span><br></pre></td></tr></table></figure>
 
 <p>启动后配置文件会发生变化</p>
 <p>哨兵之间可以相互感知</p>
-<p>关掉master后，哨兵投票推举一个slave出来当master</p>
+<p>关掉oligarch后，哨兵投票推举一个politician出来当oligarch</p>
 <p><img src="https://pic.imgdb.cn/item/5edb2610c2a9a83be50e7c48.jpg" alt=""></p>
 <h3 id="哨兵工作原理"><a href="#哨兵工作原理" class="headerlink" title="哨兵工作原理"></a>哨兵工作原理</h3><h4 id="主从切换"><a href="#主从切换" class="headerlink" title="主从切换"></a>主从切换</h4><ul>
 <li>哨兵在进行主从切换过程中经历了三个阶段<ul>
@@ -1621,22 +1621,22 @@
 <ul>
 <li><p>获取各个sentinel的状态（是否在线）</p>
 </li>
-<li><p>获取master的状态</p>
+<li><p>获取oligarch的状态</p>
 <ul>
-<li>master属性<ul>
+<li>oligarch属性<ul>
 <li>runid</li>
-<li>role：master</li>
+<li>role：oligarch</li>
 </ul>
 </li>
-<li>各个slave的详细信息</li>
+<li>各个politician的详细信息</li>
 </ul>
 </li>
-<li><p>获取所有slave的状态（根据master中的slave信息）</p>
+<li><p>获取所有politician的状态（根据oligarch中的politician信息）</p>
 <ul>
-<li>slave属性<ul>
+<li>politician属性<ul>
 <li>runid</li>
-<li>role：slave</li>
-<li>master_host，master_port</li>
+<li>role：politician</li>
+<li>oligarch_host，oligarch_port</li>
 <li>offset</li>
 <li>…….</li>
 </ul>
@@ -1648,7 +1648,7 @@
 </li>
 </ul>
 <p><img src="https://pic.imgdb.cn/item/5edb27ccc2a9a83be513c7f4.jpg" alt=""></p>
-<h4 id="阶段2：通知阶段"><a href="#阶段2：通知阶段" class="headerlink" title="阶段2：通知阶段"></a>阶段2：通知阶段</h4><p>一个哨兵获取到master的信息会传递给其他哨兵</p>
+<h4 id="阶段2：通知阶段"><a href="#阶段2：通知阶段" class="headerlink" title="阶段2：通知阶段"></a>阶段2：通知阶段</h4><p>一个哨兵获取到oligarch的信息会传递给其他哨兵</p>
 <p><img src="C:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200606132238835.png" alt="image-20200606132238835"></p>
 <h4 id="阶段3：故障转移阶段"><a href="#阶段3：故障转移阶段" class="headerlink" title="阶段3：故障转移阶段"></a>阶段3：故障转移阶段</h4><p>发现故障</p>
 <p>一个哨兵发现故障，</p>
@@ -1656,11 +1656,11 @@
 <p>选举哨兵</p>
 <p><img src="C:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200606132715357.png" alt="image-20200606132715357"></p>
 <ul>
-<li><p>服务器列表中挑选备选master</p>
+<li><p>服务器列表中挑选备选oligarch</p>
 <ul>
 <li>在线的</li>
 <li>响应慢的pass掉</li>
-<li>与原来的master断开时间久的</li>
+<li>与原来的oligarch断开时间久的</li>
 <li>优先原则<ul>
 <li>优先级</li>
 <li>offset</li>
@@ -1668,8 +1668,8 @@
 </ul>
 </li>
 <li>发送指令（sentinel）<ul>
-<li>向新的master发送 slaveof no one</li>
-<li>向其他slave发送salveof 新masterIP端口</li>
+<li>向新的oligarch发送 politicianof no one</li>
+<li>向其他politician发送salveof 新oligarchIP端口</li>
 </ul>
 </li>
 </ul>
@@ -1688,8 +1688,8 @@
 <li>故障转移<ul>
 <li>发现问题</li>
 <li>竞选负责人</li>
-<li>优选新master</li>
-<li>新master上任，其他slave切换master，原master作为slave故障回复后连接</li>
+<li>优选新oligarch</li>
+<li>新oligarch上任，其他politician切换oligarch，原oligarch作为politician故障回复后连接</li>
 </ul>
 </li>
 </ul>
@@ -1735,18 +1735,18 @@
 <p>然后复制出来很多个</p>
 <p>启动三主三从</p>
 <p>要基于ruby和rubygem</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb create --replicas 1 127.0.0.1:6379 <span class="comment"># replicas后一个master连n个slave的标记</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb create --replicas 1 127.0.0.1:6379 <span class="comment"># replicas后一个oligarch连n个politician的标记</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://pic.imgdb.cn/item/5edb3136c2a9a83be52ece6e.jpg" alt=""></p>
 <p><img src="https://pic.imgdb.cn/item/5edb3177c2a9a83be52f80d6.jpg" alt=""></p>
 <h4 id="cluster设置与获取数据"><a href="#cluster设置与获取数据" class="headerlink" title="cluster设置与获取数据"></a>cluster设置与获取数据</h4><p><img src="https://pic.imgdb.cn/item/5edb3217c2a9a83be53144c1.jpg" alt=""></p>
 <p><img src="https://pic.imgdb.cn/item/5edb3233c2a9a83be5319da5.jpg" alt=""></p>
 <h4 id="主从下线与主从切换"><a href="#主从下线与主从切换" class="headerlink" title="主从下线与主从切换"></a>主从下线与主从切换</h4><p>从离线直接离线，</p>
-<p>主离线标记离线，从slave推举一个主出来。</p>
-<p>如果原主又上线，只能变成slave</p>
-<h4 id="cluster配置"><a href="#cluster配置" class="headerlink" title="cluster配置"></a>cluster配置</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置加入cluster，成为其中的节点</span></span><br><span class="line">cluster-enabled yes</span><br><span class="line"><span class="comment">#cluster配置文件名，该文件属于自动生成，仅用于快速查找文件并查找文件内容</span></span><br><span class="line">cluster-config-file nodes-6379.conf</span><br><span class="line"><span class="comment"># 节点服务响应超时时间，用于判定该节点是否下线或切换为从节点</span></span><br><span class="line">cluster-node-timeout  10000 <span class="comment">#企业用的时候时间会比较长</span></span><br><span class="line"><span class="comment"># master连接slave最小数量</span></span><br><span class="line">cluster-migration-barrier &lt;count&gt;</span><br></pre></td></tr></table></figure>
+<p>主离线标记离线，从politician推举一个主出来。</p>
+<p>如果原主又上线，只能变成politician</p>
+<h4 id="cluster配置"><a href="#cluster配置" class="headerlink" title="cluster配置"></a>cluster配置</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置加入cluster，成为其中的节点</span></span><br><span class="line">cluster-enabled yes</span><br><span class="line"><span class="comment">#cluster配置文件名，该文件属于自动生成，仅用于快速查找文件并查找文件内容</span></span><br><span class="line">cluster-config-file nodes-6379.conf</span><br><span class="line"><span class="comment"># 节点服务响应超时时间，用于判定该节点是否下线或切换为从节点</span></span><br><span class="line">cluster-node-timeout  10000 <span class="comment">#企业用的时候时间会比较长</span></span><br><span class="line"><span class="comment"># oligarch连接politician最小数量</span></span><br><span class="line">cluster-migration-barrier &lt;count&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="cluster节点操作命令"><a href="#cluster节点操作命令" class="headerlink" title="cluster节点操作命令"></a>cluster节点操作命令</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看集群节点信息</span></span><br><span class="line">cluster nodes</span><br><span class="line"><span class="comment"># 进入一个从节点redis，切换其主节点</span></span><br><span class="line">cluster replicate &lt;master-id&gt;</span><br><span class="line"><span class="comment"># 发现一个新节点，新增主节点</span></span><br><span class="line">cluster meet ip:port</span><br><span class="line"><span class="comment"># 忽略一个没有slot的节点</span></span><br><span class="line">cluster forget &lt;id&gt;</span><br><span class="line"><span class="comment"># 手动故障转移</span></span><br><span class="line">cluster failover</span><br></pre></td></tr></table></figure>
+<h4 id="cluster节点操作命令"><a href="#cluster节点操作命令" class="headerlink" title="cluster节点操作命令"></a>cluster节点操作命令</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看集群节点信息</span></span><br><span class="line">cluster nodes</span><br><span class="line"><span class="comment"># 进入一个从节点redis，切换其主节点</span></span><br><span class="line">cluster replicate &lt;oligarch-id&gt;</span><br><span class="line"><span class="comment"># 发现一个新节点，新增主节点</span></span><br><span class="line">cluster meet ip:port</span><br><span class="line"><span class="comment"># 忽略一个没有slot的节点</span></span><br><span class="line">cluster forget &lt;id&gt;</span><br><span class="line"><span class="comment"># 手动故障转移</span></span><br><span class="line">cluster failover</span><br></pre></td></tr></table></figure>
 
 
 
@@ -1993,11 +1993,11 @@
 <td>客户端连接数</td>
 </tr>
 <tr>
-<td>connected_slaves</td>
+<td>connected_politicians</td>
 <td>Slave数量</td>
 </tr>
 <tr>
-<td>master_last_io_seconds_ago</td>
+<td>oligarch_last_io_seconds_ago</td>
 <td>最近一次主从交互之后的秒数</td>
 </tr>
 <tr>
@@ -2043,7 +2043,7 @@
 <td>Key值查找失败的次数（没有命中）</td>
 </tr>
 <tr>
-<td>master_link_down_since_seconds</td>
+<td>oligarch_link_down_since_seconds</td>
 <td>主从断开的持续时间（以秒为单位）</td>
 </tr>
 </tbody></table>
@@ -2308,7 +2308,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSql"><span class="nav-number">2.</span> <span class="nav-text">NoSql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis介绍"><span class="nav-number">3.</span> <span class="nav-text">Redis介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的应用"><span class="nav-number">3.1.</span> <span class="nav-text">Redis的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis下载"><span class="nav-number">4.</span> <span class="nav-text">Redis下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务启动"><span class="nav-number">5.</span> <span class="nav-text">服务启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis基本操作"><span class="nav-number">6.</span> <span class="nav-text">Redis基本操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">7.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型-5种常用"><span class="nav-number">7.1.</span> <span class="nav-text">数据类型(5种常用)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据存储格式"><span class="nav-number">8.</span> <span class="nav-text">Redis数据存储格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string-类型"><span class="nav-number">8.1.</span> <span class="nav-text">string 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作"><span class="nav-number">8.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单数据操作VS多数据操作"><span class="nav-number">8.1.2.</span> <span class="nav-text">单数据操作VS多数据操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型数据的扩展操作"><span class="nav-number">8.1.3.</span> <span class="nav-text">string 类型数据的扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型数据操作注意事项"><span class="nav-number">8.1.4.</span> <span class="nav-text">string 类型数据操作注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型应用场景"><span class="nav-number">8.1.5.</span> <span class="nav-text">string 类型应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-类型"><span class="nav-number">8.2.</span> <span class="nav-text">hash 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型数据的基本操作"><span class="nav-number">8.2.1.</span> <span class="nav-text">hash类型数据的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型数据的扩展操作"><span class="nav-number">8.2.2.</span> <span class="nav-text">hash类型数据的扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-类型数据操作的注意事项"><span class="nav-number">8.2.3.</span> <span class="nav-text">hash 类型数据操作的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型应用场景"><span class="nav-number">8.2.4.</span> <span class="nav-text">hash类型应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string存对象和hash存对象"><span class="nav-number">8.2.5.</span> <span class="nav-text">string存对象和hash存对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-类型"><span class="nav-number">8.3.</span> <span class="nav-text">list 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据基本操作"><span class="nav-number">8.3.1.</span> <span class="nav-text">list 类型数据基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据扩展操作"><span class="nav-number">8.3.2.</span> <span class="nav-text">list 类型数据扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景1"><span class="nav-number">8.3.3.</span> <span class="nav-text">业务场景1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据操作注意事项"><span class="nav-number">8.3.4.</span> <span class="nav-text">list 类型数据操作注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景-2"><span class="nav-number">8.3.5.</span> <span class="nav-text">业务场景 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set类型"><span class="nav-number">8.4.</span> <span class="nav-text">set类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作-1"><span class="nav-number">8.4.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展操作"><span class="nav-number">8.4.2.</span> <span class="nav-text">扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">8.4.3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">8.4.4.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sorted-set"><span class="nav-number">8.5.</span> <span class="nav-text">sorted_set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础操作"><span class="nav-number">8.5.1.</span> <span class="nav-text">基础操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-number">8.5.2.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项-1"><span class="nav-number">8.5.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型实践案例"><span class="nav-number">9.</span> <span class="nav-text">数据类型实践案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景"><span class="nav-number">9.1.</span> <span class="nav-text">业务背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景-1"><span class="nav-number">9.2.</span> <span class="nav-text">业务背景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用命令"><span class="nav-number">10.</span> <span class="nav-text">通用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#key基本操作"><span class="nav-number">10.1.</span> <span class="nav-text">key基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的扩展-时效性"><span class="nav-number">10.2.</span> <span class="nav-text">key的扩展-时效性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的扩展操作-查询"><span class="nav-number">10.3.</span> <span class="nav-text">key的扩展操作-查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的其他操作"><span class="nav-number">10.4.</span> <span class="nav-text">key的其他操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db基本操作"><span class="nav-number">10.5.</span> <span class="nav-text">db基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db其他操作"><span class="nav-number">10.6.</span> <span class="nav-text">db其他操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis规范"><span class="nav-number">11.</span> <span class="nav-text">Redis规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jedis简介"><span class="nav-number">12.</span> <span class="nav-text">Jedis简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jedis常规操作"><span class="nav-number">13.</span> <span class="nav-text">Jedis常规操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux安装"><span class="nav-number">14.</span> <span class="nav-text">Linux安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指定端口运行"><span class="nav-number">14.1.</span> <span class="nav-text">指定端口运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定配置文件启动"><span class="nav-number">14.2.</span> <span class="nav-text">指定配置文件启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久化"><span class="nav-number">15.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化简介"><span class="nav-number">15.1.</span> <span class="nav-text">持久化简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">15.2.</span> <span class="nav-text">RDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#save指令相关配置"><span class="nav-number">15.2.1.</span> <span class="nav-text">save指令相关配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复"><span class="nav-number">15.2.2.</span> <span class="nav-text">恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#save指令工作原理"><span class="nav-number">15.2.3.</span> <span class="nav-text">save指令工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台保存-bgsave"><span class="nav-number">15.2.4.</span> <span class="nav-text">后台保存-bgsave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动执行save"><span class="nav-number">15.2.5.</span> <span class="nav-text">自动执行save</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">15.2.6.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdb特殊启动形式"><span class="nav-number">15.2.7.</span> <span class="nav-text">rdb特殊启动形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">15.3.</span> <span class="nav-text">AOF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">15.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF功能开启"><span class="nav-number">15.3.2.</span> <span class="nav-text">AOF功能开启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写"><span class="nav-number">15.3.3.</span> <span class="nav-text">AOF重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写规则"><span class="nav-number">15.3.4.</span> <span class="nav-text">AOF重写规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写方式"><span class="nav-number">15.3.5.</span> <span class="nav-text">AOF重写方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF-VS-RDB"><span class="nav-number">15.4.</span> <span class="nav-text">AOF VS RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景-1"><span class="nav-number">15.5.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">16.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作-2"><span class="nav-number">16.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作流程"><span class="nav-number">16.2.</span> <span class="nav-text">工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">16.3.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式锁"><span class="nav-number">16.4.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">16.5.</span> <span class="nav-text">死锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除策略"><span class="nav-number">17.</span> <span class="nav-text">删除策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据删除策略"><span class="nav-number">17.1.</span> <span class="nav-text">数据删除策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时删除"><span class="nav-number">17.2.</span> <span class="nav-text">定时删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#惰性删除"><span class="nav-number">17.3.</span> <span class="nav-text">惰性删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定期删除"><span class="nav-number">17.4.</span> <span class="nav-text">定期删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐出算法"><span class="nav-number">17.5.</span> <span class="nav-text">逐出算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器配置"><span class="nav-number">18.</span> <span class="nav-text">服务器配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级数据结构"><span class="nav-number">19.</span> <span class="nav-text">高级数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BitMaps"><span class="nav-number">19.1.</span> <span class="nav-text">BitMaps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HyperLogLog"><span class="nav-number">19.2.</span> <span class="nav-text">HyperLogLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GEO"><span class="nav-number">19.3.</span> <span class="nav-text">GEO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群"><span class="nav-number">20.</span> <span class="nav-text">集群</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制"><span class="nav-number">20.1.</span> <span class="nav-text">主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制简介"><span class="nav-number">20.1.1.</span> <span class="nav-text">主从复制简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制作用"><span class="nav-number">20.1.2.</span> <span class="nav-text">主从复制作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制工作流程"><span class="nav-number">20.1.3.</span> <span class="nav-text">主从复制工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段1：建立连接阶段"><span class="nav-number">20.1.4.</span> <span class="nav-text">阶段1：建立连接阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建主从结构"><span class="nav-number">20.1.5.</span> <span class="nav-text">搭建主从结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#授权访问"><span class="nav-number">20.1.5.1.</span> <span class="nav-text">授权访问</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段2：-数据同步阶段"><span class="nav-number">20.1.6.</span> <span class="nav-text">阶段2： 数据同步阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作流程-1"><span class="nav-number">20.1.6.1.</span> <span class="nav-text">工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据同步阶段master说明"><span class="nav-number">20.1.6.2.</span> <span class="nav-text">数据同步阶段master说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据同步阶段slave说明"><span class="nav-number">20.1.6.3.</span> <span class="nav-text">数据同步阶段slave说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段3：命令传播阶段"><span class="nav-number">20.1.7.</span> <span class="nav-text">阶段3：命令传播阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令传播阶段的部分复制"><span class="nav-number">20.1.7.1.</span> <span class="nav-text">命令传播阶段的部分复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器运行ID-runid"><span class="nav-number">20.1.7.2.</span> <span class="nav-text">服务器运行ID(runid)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制缓冲区"><span class="nav-number">20.1.8.</span> <span class="nav-text">复制缓冲区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复制缓冲区内部工作原理"><span class="nav-number">20.1.8.1.</span> <span class="nav-text">复制缓冲区内部工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从服务器复制偏移量（offset）"><span class="nav-number">20.1.8.2.</span> <span class="nav-text">主从服务器复制偏移量（offset）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据同步-命令传播阶段工作流程"><span class="nav-number">20.1.9.</span> <span class="nav-text">数据同步+命令传播阶段工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#心跳机制"><span class="nav-number">20.1.10.</span> <span class="nav-text">心跳机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#心跳阶段的注意事项"><span class="nav-number">20.1.10.1.</span> <span class="nav-text">心跳阶段的注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制常见问题"><span class="nav-number">20.1.11.</span> <span class="nav-text">主从复制常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#频繁的全量复制（1）"><span class="nav-number">20.1.11.1.</span> <span class="nav-text">频繁的全量复制（1）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#频繁的全量复制（2）"><span class="nav-number">20.1.11.2.</span> <span class="nav-text">频繁的全量复制（2）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#频繁的网络中断（1）"><span class="nav-number">20.1.11.3.</span> <span class="nav-text">频繁的网络中断（1）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#频繁的网络中断（2）"><span class="nav-number">20.1.11.4.</span> <span class="nav-text">频繁的网络中断（2）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据不一致"><span class="nav-number">20.1.11.5.</span> <span class="nav-text">数据不一致</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哨兵"><span class="nav-number">20.2.</span> <span class="nav-text">哨兵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#哨兵简介"><span class="nav-number">20.2.0.1.</span> <span class="nav-text">哨兵简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哨兵的作用"><span class="nav-number">20.2.0.2.</span> <span class="nav-text">哨兵的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置哨兵"><span class="nav-number">20.2.0.3.</span> <span class="nav-text">配置哨兵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哨兵工作原理"><span class="nav-number">20.2.1.</span> <span class="nav-text">哨兵工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主从切换"><span class="nav-number">20.2.1.1.</span> <span class="nav-text">主从切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段1：监控阶段"><span class="nav-number">20.2.1.2.</span> <span class="nav-text">阶段1：监控阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段2：通知阶段"><span class="nav-number">20.2.1.3.</span> <span class="nav-text">阶段2：通知阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段3：故障转移阶段"><span class="nav-number">20.2.1.4.</span> <span class="nav-text">阶段3：故障转移阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">20.2.1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群-1"><span class="nav-number">20.3.</span> <span class="nav-text">集群</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#集群架构"><span class="nav-number">20.3.0.1.</span> <span class="nav-text">集群架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群作用"><span class="nav-number">20.3.0.2.</span> <span class="nav-text">集群作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群结构设计"><span class="nav-number">20.3.0.3.</span> <span class="nav-text">集群结构设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群内部通讯设计"><span class="nav-number">20.3.0.4.</span> <span class="nav-text">集群内部通讯设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cluster集群搭建"><span class="nav-number">20.3.0.5.</span> <span class="nav-text">cluster集群搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cluster设置与获取数据"><span class="nav-number">20.3.0.6.</span> <span class="nav-text">cluster设置与获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从下线与主从切换"><span class="nav-number">20.3.0.7.</span> <span class="nav-text">主从下线与主从切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cluster配置"><span class="nav-number">20.3.0.8.</span> <span class="nav-text">cluster配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cluster节点操作命令"><span class="nav-number">20.3.0.9.</span> <span class="nav-text">cluster节点操作命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存预热"><span class="nav-number">20.4.</span> <span class="nav-text">缓存预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">20.5.</span> <span class="nav-text">缓存雪崩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存击穿"><span class="nav-number">20.6.</span> <span class="nav-text">缓存击穿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透"><span class="nav-number">20.7.</span> <span class="nav-text">缓存穿透</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标"><span class="nav-number">20.8.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能监控"><span class="nav-number">20.9.</span> <span class="nav-text">性能监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#monitor"><span class="nav-number">20.9.1.</span> <span class="nav-text">monitor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slowlog"><span class="nav-number">20.9.2.</span> <span class="nav-text">slowlog</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#待补充内容"><span class="nav-number">21.</span> <span class="nav-text">待补充内容</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSql"><span class="nav-number">2.</span> <span class="nav-text">NoSql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis介绍"><span class="nav-number">3.</span> <span class="nav-text">Redis介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的应用"><span class="nav-number">3.1.</span> <span class="nav-text">Redis的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis下载"><span class="nav-number">4.</span> <span class="nav-text">Redis下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务启动"><span class="nav-number">5.</span> <span class="nav-text">服务启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis基本操作"><span class="nav-number">6.</span> <span class="nav-text">Redis基本操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据类型"><span class="nav-number">7.</span> <span class="nav-text">Redis数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型-5种常用"><span class="nav-number">7.1.</span> <span class="nav-text">数据类型(5种常用)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis数据存储格式"><span class="nav-number">8.</span> <span class="nav-text">Redis数据存储格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string-类型"><span class="nav-number">8.1.</span> <span class="nav-text">string 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作"><span class="nav-number">8.1.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单数据操作VS多数据操作"><span class="nav-number">8.1.2.</span> <span class="nav-text">单数据操作VS多数据操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型数据的扩展操作"><span class="nav-number">8.1.3.</span> <span class="nav-text">string 类型数据的扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型数据操作注意事项"><span class="nav-number">8.1.4.</span> <span class="nav-text">string 类型数据操作注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类型应用场景"><span class="nav-number">8.1.5.</span> <span class="nav-text">string 类型应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash-类型"><span class="nav-number">8.2.</span> <span class="nav-text">hash 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型数据的基本操作"><span class="nav-number">8.2.1.</span> <span class="nav-text">hash类型数据的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型数据的扩展操作"><span class="nav-number">8.2.2.</span> <span class="nav-text">hash类型数据的扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-类型数据操作的注意事项"><span class="nav-number">8.2.3.</span> <span class="nav-text">hash 类型数据操作的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型应用场景"><span class="nav-number">8.2.4.</span> <span class="nav-text">hash类型应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string存对象和hash存对象"><span class="nav-number">8.2.5.</span> <span class="nav-text">string存对象和hash存对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-类型"><span class="nav-number">8.3.</span> <span class="nav-text">list 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据基本操作"><span class="nav-number">8.3.1.</span> <span class="nav-text">list 类型数据基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据扩展操作"><span class="nav-number">8.3.2.</span> <span class="nav-text">list 类型数据扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景1"><span class="nav-number">8.3.3.</span> <span class="nav-text">业务场景1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-类型数据操作注意事项"><span class="nav-number">8.3.4.</span> <span class="nav-text">list 类型数据操作注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景-2"><span class="nav-number">8.3.5.</span> <span class="nav-text">业务场景 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set类型"><span class="nav-number">8.4.</span> <span class="nav-text">set类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作-1"><span class="nav-number">8.4.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展操作"><span class="nav-number">8.4.2.</span> <span class="nav-text">扩展操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">8.4.3.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">8.4.4.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sorted-set"><span class="nav-number">8.5.</span> <span class="nav-text">sorted_set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础操作"><span class="nav-number">8.5.1.</span> <span class="nav-text">基础操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展"><span class="nav-number">8.5.2.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项-1"><span class="nav-number">8.5.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型实践案例"><span class="nav-number">9.</span> <span class="nav-text">数据类型实践案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景"><span class="nav-number">9.1.</span> <span class="nav-text">业务背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业务背景-1"><span class="nav-number">9.2.</span> <span class="nav-text">业务背景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用命令"><span class="nav-number">10.</span> <span class="nav-text">通用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#key基本操作"><span class="nav-number">10.1.</span> <span class="nav-text">key基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的扩展-时效性"><span class="nav-number">10.2.</span> <span class="nav-text">key的扩展-时效性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的扩展操作-查询"><span class="nav-number">10.3.</span> <span class="nav-text">key的扩展操作-查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key的其他操作"><span class="nav-number">10.4.</span> <span class="nav-text">key的其他操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db基本操作"><span class="nav-number">10.5.</span> <span class="nav-text">db基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#db其他操作"><span class="nav-number">10.6.</span> <span class="nav-text">db其他操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis规范"><span class="nav-number">11.</span> <span class="nav-text">Redis规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jedis简介"><span class="nav-number">12.</span> <span class="nav-text">Jedis简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jedis常规操作"><span class="nav-number">13.</span> <span class="nav-text">Jedis常规操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux安装"><span class="nav-number">14.</span> <span class="nav-text">Linux安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指定端口运行"><span class="nav-number">14.1.</span> <span class="nav-text">指定端口运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定配置文件启动"><span class="nav-number">14.2.</span> <span class="nav-text">指定配置文件启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久化"><span class="nav-number">15.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化简介"><span class="nav-number">15.1.</span> <span class="nav-text">持久化简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">15.2.</span> <span class="nav-text">RDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#save指令相关配置"><span class="nav-number">15.2.1.</span> <span class="nav-text">save指令相关配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#恢复"><span class="nav-number">15.2.2.</span> <span class="nav-text">恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#save指令工作原理"><span class="nav-number">15.2.3.</span> <span class="nav-text">save指令工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台保存-bgsave"><span class="nav-number">15.2.4.</span> <span class="nav-text">后台保存-bgsave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动执行save"><span class="nav-number">15.2.5.</span> <span class="nav-text">自动执行save</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">15.2.6.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdb特殊启动形式"><span class="nav-number">15.2.7.</span> <span class="nav-text">rdb特殊启动形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">15.3.</span> <span class="nav-text">AOF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">15.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF功能开启"><span class="nav-number">15.3.2.</span> <span class="nav-text">AOF功能开启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写"><span class="nav-number">15.3.3.</span> <span class="nav-text">AOF重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写规则"><span class="nav-number">15.3.4.</span> <span class="nav-text">AOF重写规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF重写方式"><span class="nav-number">15.3.5.</span> <span class="nav-text">AOF重写方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF-VS-RDB"><span class="nav-number">15.4.</span> <span class="nav-text">AOF VS RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景-1"><span class="nav-number">15.5.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">16.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作-2"><span class="nav-number">16.1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作流程"><span class="nav-number">16.2.</span> <span class="nav-text">工作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">16.3.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式锁"><span class="nav-number">16.4.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">16.5.</span> <span class="nav-text">死锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除策略"><span class="nav-number">17.</span> <span class="nav-text">删除策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据删除策略"><span class="nav-number">17.1.</span> <span class="nav-text">数据删除策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时删除"><span class="nav-number">17.2.</span> <span class="nav-text">定时删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#惰性删除"><span class="nav-number">17.3.</span> <span class="nav-text">惰性删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定期删除"><span class="nav-number">17.4.</span> <span class="nav-text">定期删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐出算法"><span class="nav-number">17.5.</span> <span class="nav-text">逐出算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器配置"><span class="nav-number">18.</span> <span class="nav-text">服务器配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级数据结构"><span class="nav-number">19.</span> <span class="nav-text">高级数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BitMaps"><span class="nav-number">19.1.</span> <span class="nav-text">BitMaps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HyperLogLog"><span class="nav-number">19.2.</span> <span class="nav-text">HyperLogLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GEO"><span class="nav-number">19.3.</span> <span class="nav-text">GEO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群"><span class="nav-number">20.</span> <span class="nav-text">集群</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制"><span class="nav-number">20.1.</span> <span class="nav-text">主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制简介"><span class="nav-number">20.1.1.</span> <span class="nav-text">主从复制简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制作用"><span class="nav-number">20.1.2.</span> <span class="nav-text">主从复制作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制工作流程"><span class="nav-number">20.1.3.</span> <span class="nav-text">主从复制工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段1：建立连接阶段"><span class="nav-number">20.1.4.</span> <span class="nav-text">阶段1：建立连接阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建主从结构"><span class="nav-number">20.1.5.</span> <span class="nav-text">搭建主从结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#授权访问"><span class="nav-number">20.1.5.1.</span> <span class="nav-text">授权访问</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段2：-数据同步阶段"><span class="nav-number">20.1.6.</span> <span class="nav-text">阶段2： 数据同步阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作流程-1"><span class="nav-number">20.1.6.1.</span> <span class="nav-text">工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据同步阶段oligarch说明"><span class="nav-number">20.1.6.2.</span> <span class="nav-text">数据同步阶段oligarch说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据同步阶段politician说明"><span class="nav-number">20.1.6.3.</span> <span class="nav-text">数据同步阶段politician说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段3：命令传播阶段"><span class="nav-number">20.1.7.</span> <span class="nav-text">阶段3：命令传播阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令传播阶段的部分复制"><span class="nav-number">20.1.7.1.</span> <span class="nav-text">命令传播阶段的部分复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器运行ID-runid"><span class="nav-number">20.1.7.2.</span> <span class="nav-text">服务器运行ID(runid)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制缓冲区"><span class="nav-number">20.1.8.</span> <span class="nav-text">复制缓冲区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复制缓冲区内部工作原理"><span class="nav-number">20.1.8.1.</span> <span class="nav-text">复制缓冲区内部工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从服务器复制偏移量（offset）"><span class="nav-number">20.1.8.2.</span> <span class="nav-text">主从服务器复制偏移量（offset）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据同步-命令传播阶段工作流程"><span class="nav-number">20.1.9.</span> <span class="nav-text">数据同步+命令传播阶段工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#心跳机制"><span class="nav-number">20.1.10.</span> <span class="nav-text">心跳机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#心跳阶段的注意事项"><span class="nav-number">20.1.10.1.</span> <span class="nav-text">心跳阶段的注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主从复制常见问题"><span class="nav-number">20.1.11.</span> <span class="nav-text">主从复制常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#频繁的全量复制（1）"><span class="nav-number">20.1.11.1.</span> <span class="nav-text">频繁的全量复制（1）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#频繁的全量复制（2）"><span class="nav-number">20.1.11.2.</span> <span class="nav-text">频繁的全量复制（2）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#频繁的网络中断（1）"><span class="nav-number">20.1.11.3.</span> <span class="nav-text">频繁的网络中断（1）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#频繁的网络中断（2）"><span class="nav-number">20.1.11.4.</span> <span class="nav-text">频繁的网络中断（2）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据不一致"><span class="nav-number">20.1.11.5.</span> <span class="nav-text">数据不一致</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哨兵"><span class="nav-number">20.2.</span> <span class="nav-text">哨兵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#哨兵简介"><span class="nav-number">20.2.0.1.</span> <span class="nav-text">哨兵简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哨兵的作用"><span class="nav-number">20.2.0.2.</span> <span class="nav-text">哨兵的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置哨兵"><span class="nav-number">20.2.0.3.</span> <span class="nav-text">配置哨兵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哨兵工作原理"><span class="nav-number">20.2.1.</span> <span class="nav-text">哨兵工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主从切换"><span class="nav-number">20.2.1.1.</span> <span class="nav-text">主从切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段1：监控阶段"><span class="nav-number">20.2.1.2.</span> <span class="nav-text">阶段1：监控阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段2：通知阶段"><span class="nav-number">20.2.1.3.</span> <span class="nav-text">阶段2：通知阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段3：故障转移阶段"><span class="nav-number">20.2.1.4.</span> <span class="nav-text">阶段3：故障转移阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">20.2.1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群-1"><span class="nav-number">20.3.</span> <span class="nav-text">集群</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#集群架构"><span class="nav-number">20.3.0.1.</span> <span class="nav-text">集群架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群作用"><span class="nav-number">20.3.0.2.</span> <span class="nav-text">集群作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群结构设计"><span class="nav-number">20.3.0.3.</span> <span class="nav-text">集群结构设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群内部通讯设计"><span class="nav-number">20.3.0.4.</span> <span class="nav-text">集群内部通讯设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cluster集群搭建"><span class="nav-number">20.3.0.5.</span> <span class="nav-text">cluster集群搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cluster设置与获取数据"><span class="nav-number">20.3.0.6.</span> <span class="nav-text">cluster设置与获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主从下线与主从切换"><span class="nav-number">20.3.0.7.</span> <span class="nav-text">主从下线与主从切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cluster配置"><span class="nav-number">20.3.0.8.</span> <span class="nav-text">cluster配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cluster节点操作命令"><span class="nav-number">20.3.0.9.</span> <span class="nav-text">cluster节点操作命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存预热"><span class="nav-number">20.4.</span> <span class="nav-text">缓存预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">20.5.</span> <span class="nav-text">缓存雪崩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存击穿"><span class="nav-number">20.6.</span> <span class="nav-text">缓存击穿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透"><span class="nav-number">20.7.</span> <span class="nav-text">缓存穿透</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标"><span class="nav-number">20.8.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能监控"><span class="nav-number">20.9.</span> <span class="nav-text">性能监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#monitor"><span class="nav-number">20.9.1.</span> <span class="nav-text">monitor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slowlog"><span class="nav-number">20.9.2.</span> <span class="nav-text">slowlog</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#待补充内容"><span class="nav-number">21.</span> <span class="nav-text">待补充内容</span></a></li></ol></div>
             
 
           </div>
