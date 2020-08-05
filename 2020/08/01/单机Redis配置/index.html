@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Redis," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内存分配控制vm.overcommit_memory Redis建议将vm.overcommit_memory设置为1 获取 12# cat &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;overcommit_memory0  设置： 12echo &quot;vm.overcommit_memory&#x3D;1&quot; &gt;&gt; &#x2F;etc&#x2F;s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis配置">
+<meta property="og:url" content="http://yoursite.com/2020/08/01/%E5%8D%95%E6%9C%BARedis%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="宋二的小窝">
+<meta property="og:description" content="内存分配控制vm.overcommit_memory Redis建议将vm.overcommit_memory设置为1 获取 12# cat &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;overcommit_memory0  设置： 12echo &quot;vm.overcommit_memory&#x3D;1&quot; &gt;&gt; &#x2F;etc&#x2F;s">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f255c4214195aa59422fe50.jpg">
+<meta property="article:published_time" content="2020-08-01T12:09:13.000Z">
+<meta property="article:modified_time" content="2020-08-01T12:44:30.366Z">
+<meta property="article:author" content="宋梓立 sorie">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f255c4214195aa59422fe50.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/01/单机Redis配置/"/>
+
+
+
+
+
+  <title>Redis配置 | 宋二的小窝</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Ewasong" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">宋二的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/01/%E5%8D%95%E6%9C%BARedis%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="宋梓立 sorie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋二的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-01T20:09:13+08:00">
+                2020-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/01/%E5%8D%95%E6%9C%BARedis%E9%85%8D%E7%BD%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/01/%E5%8D%95%E6%9C%BARedis%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内存分配控制"><a href="#内存分配控制" class="headerlink" title="内存分配控制"></a>内存分配控制</h1><h2 id="vm-overcommit-memory"><a href="#vm-overcommit-memory" class="headerlink" title="vm.overcommit_memory"></a>vm.overcommit_memory</h2><p><img src="https://pic.imgdb.cn/item/5f255c4214195aa59422fe50.jpg" alt=""></p>
+<p>Redis建议将vm.overcommit_memory设置为1</p>
+<p>获取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cat &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;overcommit_memory</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<p>设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;vm.overcommit_memory&#x3D;1&quot; &gt;&gt; &#x2F;etc&#x2F;sysctl.conf</span><br><span class="line">sysctl vm.overcommit_memory&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<p><strong>最佳实践</strong></p>
+<ul>
+<li>Redis设置合理的maxmemory，保证机器有20%~30%的限制内存</li>
+</ul>
+<p>conf文件中设置(根据实际情况设置)</p>
+<p>注意，在64bit系统下，maxmemory设置为0表示不限制Redis内存使用，在32bit系统下，maxmemory不能超过3GB；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># maxmemory &lt;bytes&gt;</span><br><span class="line">maxmemory 268435456</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置vm.overcommit_memory=1，防止极端情况下会造成fork失败</li>
+</ul>
+<h1 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a><strong>持久化</strong></h1><h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save 900 10</span><br></pre></td></tr></table></figure>
+
+<p><strong>RBD 15分钟如果有10条数据修改就同步一次</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stop-writes-on-bgsave-error yes</span><br></pre></td></tr></table></figure>
+
+<p>说明：后台存储过程中如果出现错误现象，是否停止保存操作</p>
+<p>经验：通常默认为开启状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dbfilename dump.rdb</span><br><span class="line">	说明：设置本地数据库文件名，默认值为dump.rdb</span><br><span class="line">	经验：通常设置为dump-端口号.rdb</span><br><span class="line">dir</span><br><span class="line">	说明：设置存储.rdb的路径</span><br><span class="line">	经验：通常设置成存储空间较大的目录中，目录名称data</span><br><span class="line">rdbcompression yes</span><br><span class="line">	说明：设置存储至本地数据库时是否压缩数据，默认为yes，采用LZF压缩</span><br><span class="line">	经验：通常默认为开启状态，如果设置为no，可以节省CPU运行时间，但会使存储的文件变大（巨大）</span><br><span class="line">rdbchecksum yes</span><br><span class="line">	说明：设置是否进行RDB文件格式校验，该校验过程在写文件和读文件过程中进行。</span><br><span class="line">	经验：通常默认为开启状态，如果设置为no，可以节约读写性过程约10%时间消耗，但存储一定的数据损坏风险。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#开启AOF功能</span><br><span class="line">appendonly yes</span><br><span class="line"></span><br><span class="line">#每一秒写入aof文件，并完成磁盘同步</span><br><span class="line">appendfsync everysec</span><br><span class="line">#AOF之持久化文件名，默认文件名为appendonly.aof, 建议配置为appendonly-端口号.aof</span><br><span class="line">appendfilename filename</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#如果该参数设置为no，是最安全的方式，不会丢失数据，但是要忍受阻塞的问题。如果设#置为yes呢？这就相当于将appendfsync设置为no，这说明并没有执行磁盘操作，只是写入了缓冲区，因此这样并不会造成阻塞（因为没有竞争磁盘），但是如果这个时候redis挂掉，就会丢失数据。丢失多少数据呢？在linux的操作系统的默认设置下，最多会丢失30s的数据</span><br><span class="line">no-appendfsync-on-rewrite yes	</span><br><span class="line"></span><br><span class="line">#比如说上一次AOF rewrite 是100mb，然后就会接着100mb继续写AOF的日志，如果发现增长的比例，超过了之前的100% 也就是200mb，就可能会去触发一次rewrite；</span><br><span class="line">但是此时还要去跟min-size，64mb去比较，200mb &gt; 64mb，才会去触发rewrite。</span><br><span class="line"></span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Redis安全"><a href="#Redis安全" class="headerlink" title="Redis安全"></a>Redis安全</h1><ul>
+<li>密码要足够复杂64字节以上</li>
+<li>不使用默认端口（可以一定程度上降低被攻击概率）</li>
+<li>使用非root启动</li>
+</ul>
+<h1 id="删除策略"><a href="#删除策略" class="headerlink" title="删除策略"></a>删除策略</h1><ul>
+<li>删除策略</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxmemory-policy</span><br></pre></td></tr></table></figure>
+
+<p>达到最大内存后，对被挑选出来的数据进行删除的策略。</p>
+<ul>
+<li>检测易失数据（可能会过期的数据集server.db[i].expires)<ol>
+<li>volatile-lru: 挑选最长时间没有使用的数据淘汰</li>
+<li>volatile-lfu: 挑选最近使用次数最少的数据进行淘汰</li>
+<li>volatile-ttl: 挑选刚要过期的数据淘汰</li>
+<li>volatile-random: 任意选择数据淘汰</li>
+</ol>
+</li>
+<li>检测全库数据（所有数据集server.db[i].dict)<ol start="5">
+<li>allkeys-lru: 挑选最长时间没有使用过的数据淘汰</li>
+<li>allkeys-lfu: 挑选最近使用次数最少的数据进行淘汰</li>
+<li>allkeys-random: 任意选择数据淘汰</li>
+</ol>
+</li>
+<li>放弃数据驱逐<ol start="8">
+<li>no-enviction(驱逐): 禁止驱逐(redis4.0中默认策略)，会引发OOM</li>
+</ol>
+</li>
+</ul>
+<p>采用方案（待讨论）</p>
+<p>挑选最近使用次数最少的数据进行淘汰</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxmemory-policy volatile-lfu</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 设置服务器以守护进程的方式运行</span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line"># 设置端口号</span><br><span class="line">port 6374</span><br><span class="line"></span><br><span class="line"># 设置数据库数量</span><br><span class="line">databases 16</span><br><span class="line"></span><br><span class="line"># 设置服务器以指定日志记录级别</span><br><span class="line">loglevel debug|verbose|notice|warning</span><br><span class="line"></span><br><span class="line"># 日志记录文件名 注意日志级别开发库设置为verbose，生产库设置为notice，简化日志输出量，降低写日志的IO频度</span><br><span class="line">logfile 端口号.log</span><br><span class="line"></span><br><span class="line"># 设置同一时间最大客户端连接数，默认无限制。当客户端连接达到上限，Redis会关闭新的连接</span><br><span class="line">maxclients 0</span><br><span class="line"></span><br><span class="line"># 客户端闲置等待最大时长，达到最大值后关闭连接，如需关闭该功能，设置为0</span><br><span class="line">timeout 300</span><br><span class="line"></span><br><span class="line">#导入并加载指定配置文件信息，用于快速创建redis公共配置较多的redis实例配置文件，便于维护</span><br><span class="line">include &#x2F;path&#x2F;server-端口号.conf</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/01/%E5%9B%BE%E8%A7%A3HTTP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="图解HTTP学习笔记">
+                <i class="fa fa-chevron-left"></i> 图解HTTP学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/01/%E9%B8%9F%E5%93%A5%E7%9A%84linux%E7%A7%81%E6%88%BF%E8%8F%9C%E5%AD%A6%E4%B9%A0/" rel="prev" title="鸟哥的linux私房菜学习">
+                鸟哥的linux私房菜学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpg"
+                alt="宋梓立 sorie" />
+            
+              <p class="site-author-name" itemprop="name">宋梓立 sorie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ewasong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:819294006@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存分配控制"><span class="nav-number">1.</span> <span class="nav-text">内存分配控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vm-overcommit-memory"><span class="nav-number">1.1.</span> <span class="nav-text">vm.overcommit_memory</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久化"><span class="nav-number">2.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB"><span class="nav-number">2.1.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOF"><span class="nav-number">2.2.</span> <span class="nav-text">AOF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis安全"><span class="nav-number">3.</span> <span class="nav-text">Redis安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除策略"><span class="nav-number">4.</span> <span class="nav-text">删除策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他配置"><span class="nav-number">5.</span> <span class="nav-text">其他配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">宋梓立 sorie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'XTY8e76465N8ugbyhpCoS88f-gzGzoHsz',
+        appKey: 'dwWTNcurePtzzBdMO62hSRMy',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

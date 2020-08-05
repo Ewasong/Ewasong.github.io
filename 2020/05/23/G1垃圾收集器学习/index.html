@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="G1,GC,JAVA," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第2章 基本概念2.1分区堆分区类型： 自由分区(Free Heap Region, FHR) 新生代分区(Young Heap Region, YHR) 大对象分区(Humongous Heap Region, HHR) 老生代分区(Old Heap Region, OHR) 默认情况下整个堆空间分为2048个HR。 HR下限1MB,上限32MB 目前版本分为1MB,2MB,4MB,8MB,16">
+<meta property="og:type" content="article">
+<meta property="og:title" content="G1垃圾收集器学习">
+<meta property="og:url" content="http://yoursite.com/2020/05/23/G1%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="宋二的小窝">
+<meta property="og:description" content="第2章 基本概念2.1分区堆分区类型： 自由分区(Free Heap Region, FHR) 新生代分区(Young Heap Region, YHR) 大对象分区(Humongous Heap Region, HHR) 老生代分区(Old Heap Region, OHR) 默认情况下整个堆空间分为2048个HR。 HR下限1MB,上限32MB 目前版本分为1MB,2MB,4MB,8MB,16">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ec8c0edc2a9a83be59cc17f.jpg">
+<meta property="article:published_time" content="2020-05-23T05:34:25.000Z">
+<meta property="article:modified_time" content="2020-06-13T14:21:46.533Z">
+<meta property="article:author" content="宋梓立 sorie">
+<meta property="article:tag" content="G1">
+<meta property="article:tag" content="GC">
+<meta property="article:tag" content="JAVA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5ec8c0edc2a9a83be59cc17f.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/23/G1垃圾收集器学习/"/>
+
+
+
+
+
+  <title>G1垃圾收集器学习 | 宋二的小窝</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Ewasong" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">宋二的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/23/G1%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="宋梓立 sorie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋二的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">G1垃圾收集器学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-23T13:34:25+08:00">
+                2020-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/05/23/G1%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E5%AD%A6%E4%B9%A0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/05/23/G1%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第2章-基本概念"><a href="#第2章-基本概念" class="headerlink" title="第2章 基本概念"></a>第2章 基本概念</h1><h2 id="2-1分区"><a href="#2-1分区" class="headerlink" title="2.1分区"></a>2.1分区</h2><p>堆分区类型：</p>
+<p>自由分区(Free Heap Region, FHR)</p>
+<p>新生代分区(Young Heap Region, YHR)</p>
+<p>大对象分区(Humongous Heap Region, HHR)</p>
+<p>老生代分区(Old Heap Region, OHR)</p>
+<p>默认情况下整个堆空间分为2048个HR。</p>
+<p>HR下限1MB,上限32MB</p>
+<p>目前版本分为1MB,2MB,4MB,8MB,16MB,32MB</p>
+<p>HR大小可以由以下方式确定：</p>
+<p>可以通过参数G1HeapRegionSize来指定大小，这个参数的默认值为0</p>
+<p>启发式推断，即在不指定HR大小的时候，由G1启发式地推断HR大小</p>
+<p>启发式推断根据空间最大值、最小值和HR个数进行推断。</p>
+<p>G1大对象不进入新生代，直接进入老年代。</p>
+<p>大对象就是超过region_size的一半</p>
+<p><strong>新生代大小</strong></p>
+<ul>
+<li>如果设置了新生代最大值(MaxNewSize)和最小值(NewSize)，可以根据这些值计算新生代包含的最大分区和最小分区；Xmn等价设置了MaxNewSize和NewSize，且MaxNewSize = newSize</li>
+<li>如果既设置了最大值最小值又设置了NewRatio，则忽略NewRatio</li>
+<li>否则设置了NewRatio，则新生代最大值、最小值是相同的，都是整个堆空间/ (newRatio + 1)</li>
+<li>如果没有设置最大最小值或者只设置了其中一个，就根据参数G1MaxNewSizePercent(默认值为60)和G1NewSizePercent(默认值为5)占用整个堆空间的比例来计算最大值和最小值。</li>
+</ul>
+<h2 id="2-2G1停顿预测模型"><a href="#2-2G1停顿预测模型" class="headerlink" title="2.2G1停顿预测模型"></a>2.2G1停顿预测模型</h2><p>基于衰减平均值和衰减标准差</p>
+<p>简单来说就是对历史的数据进行一个衰减平均，按收集垃圾的能力大概估算所设置的垃圾收集时间能收集多少垃圾，那么这次收集就收集这么多垃圾。</p>
+<h2 id="2-3卡表和位图"><a href="#2-3卡表和位图" class="headerlink" title="2.3卡表和位图"></a>2.3卡表和位图</h2><p>为了对内存标记的引用关系做标记</p>
+<p>指针+位图</p>
+<p>用一个字节描述512字节的引用关系。</p>
+<p>除了512字节的卡表还有bitMap，例如描述一个分区对另外一个分区的引用情况，还可以描述内存分配情况。</p>
+<h2 id="2-4对象头"><a href="#2-4对象头" class="headerlink" title="2.4对象头"></a>2.4对象头</h2><p>C++完成多台依赖于一个指针：虚指针，指向一个虚表，这个虚表里面存储的是虚函数的地址，通常续表位于程的数据段中。</p>
+<p>Java对象分为三块：对象头，实例数据，对齐填充。</p>
+<p>对象头分为两部分：标记信息和元数据信息。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">oopDesc</span> &#123;</span></span><br><span class="line">  <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">VMStructs</span>;</span></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">volatile</span> markOop  _mark;</span><br><span class="line">  <span class="keyword">union</span> _metadata &#123;</span><br><span class="line">    Klass*      _klass;</span><br><span class="line">    narrowKlass _compressed_klass;</span><br><span class="line">  &#125; _metadata;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Fast access to barrier set.  Must be initialized.</span></span><br><span class="line">  <span class="keyword">static</span> BarrierSet* _bs;</span><br><span class="line">  ...</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>标记信息</strong></p>
+<p>MarkOop</p>
+<p>32位JVM用32位来描述JVM</p>
+<p><img src="https://pic.imgdb.cn/item/5ec8c0edc2a9a83be59cc17f.jpg" alt=""></p>
+<p><strong>元数据</strong></p>
+<p>每一个InstanceKlass都维护了一个Map(OopMapBlock)用于标记Java类里面的字段到底是OOP还是int这样的立即数类型。</p>
+<p>如何区分一个立即数和指针地址？</p>
+<p>简单的办法就是强制转换，但是有缺点。</p>
+<p>JVM维护了一个全局的OOpMap，用于标记Java类里面的字段到底是OOp还是int这样的立即数字段。</p>
+<p>但是JVM里面还是根据Klass指针是否为NULL来判断是不是OOP对象？</p>
+<p>是是因为及时误判也影响不大。</p>
+<h2 id="2-5-内存分配和管理"><a href="#2-5-内存分配和管理" class="headerlink" title="2.5 内存分配和管理"></a>2.5 内存分配和管理</h2><p>首先JVM先通过操作系统的系统调用进行内存申请，典型的就是mmap。</p>
+<p>为什么不直接使用glibc提供的内存管理函数malloc/free/realloc/memcopy/memset等。</p>
+<p>因为GC算法实现了一套自己的管理方式，所以基于malloc/free实现效率肯定不高。</p>
+<p>mmap必须以PAGE_SIZE整数倍为单位进行映射，而内存也只能以页为单位进行映射，若要映射非PAGE_SIZE整倍数的地址范围，要先进行内存对齐，强行以PAGE_SIZE的倍数大小进行映射。还要注意一点，操作系统对内存分配管理典型地分为两个阶段：保留和提交。</p>
+<p>保留阶段告知系统从某一地址开始到后面的dwSize大小的连续虚拟内存需要提供程序使用，进程其他分配内存的操作不得使用这段内存；提交阶段将虚拟地址映射到真实的物理内存中，这样这块内存就可以正常使用。</p>
+<p>JVM常见的对象类型有以下六种：</p>
+<p>ResourceObj：线程有一个资源功空间，一般ResourceObj都位于这里。</p>
+<p>StatckObj：栈对象，声明的对象使用栈管理。栈对象不提供任何功能，禁止New/Delete曹啊哦做。对象分配在线程栈上，或者使用自定义的栈容器进行管理。</p>
+<p>ValueObj：值对象，改对象在对对线进行嵌套时使用，简单地就是对象分配的位置和宿主对象是一样的。</p>
+<p>AllStatic：静态对象，全局对象，只有一个。</p>
+<p>MetaspaceObj：元对象，比如InstantKlass这样的元数据就是元对象</p>
+<p>CHeapObj：堆空间的对象，由new/delete/free/malloc管理。</p>
+<p>JVM准确地描述这些堆中的对象，以方便JVM进行优化，所以又定义了更具体的子类型。</p>
+<h2 id="2-6线程"><a href="#2-6线程" class="headerlink" title="2.6线程"></a>2.6线程</h2><p>线程时程序执行的基本单元。</p>
+<ul>
+<li>JavaThread：就是要执行Java代码的线程。对于Java代码的启动可以通过JNI_CreateJVM来创建一个JavaThread。</li>
+<li>CompilerThread：执行JIT的线程</li>
+<li>WacherThread：执行周期任务，JVM里面有很多周期性任务，例如内存管理中对小对象使用了ChunkPool.</li>
+<li>NameThread：JVM内部使用的线程</li>
+<li>VMThread: JVM执行GC的同步线程，是JVM最关键的线程之一，主要是用于处理垃圾回收。</li>
+<li>ConcurrentGCThread: 并发执行GC任务的线程，比如G1中的ConcurrentMarkThread和ConcurentG1RefineThread，分别处理并发标记和并发Refine，这个线程将在混合垃圾收集和新生代垃圾回收中介绍。</li>
+<li>WorkerThread：工作线程，先G1中使用了FlexibleWorkGang，这个线程是并行执行的（个数一般和CPU个数相关）所以可以认为这是一个线程池。</li>
+</ul>
+<p>JVM为了提供统一处理设计了JVM线程状态</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NEW</td>
+<td>新创建线程</td>
+</tr>
+<tr>
+<td>RUNNABLE</td>
+<td>可运行或者正在运行</td>
+</tr>
+<tr>
+<td>SLEEPING</td>
+<td>调用Thread.sleep()进入睡眠</td>
+</tr>
+<tr>
+<td>IN_OBJECT_WAIT</td>
+<td>Object.wait()</td>
+</tr>
+<tr>
+<td>IN_OBJECT_WAIT_TIMED</td>
+<td>Object.wait(long)</td>
+</tr>
+<tr>
+<td>PARKED</td>
+<td>JVM内部使用LockSupport.park()</td>
+</tr>
+<tr>
+<td>PARKED_TIMED</td>
+<td>JVM内部使用LockSupport.park(long)</td>
+</tr>
+<tr>
+<td>BLOCKED_ON_MONITOR_ENTER</td>
+<td>进入一个同步块</td>
+</tr>
+<tr>
+<td>TERMINATED</td>
+<td>终止</td>
+</tr>
+</tbody></table>
+<p>也统一了操作系统线程状态</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ALLOCATED</td>
+<td>线程已经分配单还没初始化</td>
+</tr>
+<tr>
+<td>INITIALIZD</td>
+<td>已经初始化，还没启动</td>
+</tr>
+<tr>
+<td>RUNNABLE</td>
+<td>线程已经启动并可被执行或者正在执行</td>
+</tr>
+<tr>
+<td>MONITOR_WAIT</td>
+<td>等待一个Monitor</td>
+</tr>
+<tr>
+<td>CONDVAR_WAIT</td>
+<td>等待一个条件变量</td>
+</tr>
+<tr>
+<td>OBJECT_WAIT</td>
+<td>Object.wait()</td>
+</tr>
+<tr>
+<td>BREAKPOINT</td>
+<td>调试状态</td>
+</tr>
+<tr>
+<td>SLEEPING</td>
+<td>Thread.sleep</td>
+</tr>
+<tr>
+<td>ZOMBIE</td>
+<td>僵死状态 等待回收</td>
+</tr>
+</tbody></table>
+<p>线程在Windows和Linux上实现稍有区别。在Linux上创建线程后，虽然设置为NEW，但是创建完后就可以执行，所以为了让在执行Java代码的start之后才执行，当线程初始化后，通过等待一个信号量将线程暂停。</p>
+<h3 id="2-6-1-栈帧"><a href="#2-6-1-栈帧" class="headerlink" title="2.6.1 栈帧"></a>2.6.1 栈帧</h3><p>栈帧是线程执行时和运行工程中用于保存线程那上线文数据，JVM设计了Java栈帧，这是垃圾回收中最重要的根，栈帧结构在不同CPU中并不相同。</p>
+<p>x86包括</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">_pc &#x3D; NULL; &#x2F;&#x2F;程序计数器</span><br><span class="line">_sp &#x3D; NULL; &#x2F;&#x2F;栈顶指针</span><br><span class="line">_unextended_sp &#x3D; NULL; &#x2F;&#x2F; 异常栈顶指针</span><br><span class="line">_fp &#x3D; NULL; &#x2F;&#x2F;栈底指针</span><br><span class="line">_cb &#x3D; NULL; &#x2F;&#x2F; cb是代码块的地址</span><br><span class="line">_deopt_state &#x3D; unknown; &#x2F;&#x2F; 描述从编译代码到解释代码发反优化的状态</span><br></pre></td></tr></table></figure>
+
+
+
+<p>GC过程中，通常第一步就是遍历根，Java线程栈帧就是根元素之一，遍历整个栈帧就是用过 StackFrameStream，封装了一个next指针。</p>
+<h3 id="2-6-2-句柄"><a href="#2-6-2-句柄" class="headerlink" title="2.6.2 句柄"></a>2.6.2 句柄</h3><p>线程既可以支持Java代码的执行也可以执行本地代码。这里指的是JVM里面的本地代码。</p>
+<p>JVM没有区Java栈和本地方法栈，如果通过栈处理则必须要区分这两种情况。</p>
+<p>JVM设计了另外一个概念，handleArea，这是一块线程的资源区，在这个区域分配句柄，并且管理所有的句柄，如果函数含在调用中，那么句柄有效，通常HandleMark分配在栈上，在创建HandleMark标记handleArea对象有效。</p>
+<p>由于所有句柄都行一个链表，那么在访问这个句柄链表就可以获得本地代码执行中对堆对象的引用。</p>
+<p>JNI代码也是本地代码，JVM引入了类似的句柄机制，JNIHandle。但是没设计HandleMark机制，创建时要明确调用make_local，回收时调用destory_local.</p>
+<p>局部JNIHandle通过现场回收，全局的通过全局变量开始回收。</p>
+<h2 id="2-6-3-JVM本地方法栈中的对象"><a href="#2-6-3-JVM本地方法栈中的对象" class="headerlink" title="2.6.3 JVM本地方法栈中的对象"></a>2.6.3 JVM本地方法栈中的对象</h2><p>看不太明白跳过</p>
+<h2 id="2-6-4-Java本地方法栈中的对象"><a href="#2-6-4-Java本地方法栈中的对象" class="headerlink" title="2.6.4 Java本地方法栈中的对象"></a>2.6.4 Java本地方法栈中的对象</h2><p>Java线程使用一个对象句柄存储块JNIHandleBlock来为其在本地方法中申请的临时对象创建对应的句柄。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/G1/" rel="tag"># G1</a>
+          
+            <a href="/tags/GC/" rel="tag"># GC</a>
+          
+            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="并发编程学习笔记">
+                <i class="fa fa-chevron-left"></i> 并发编程学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/30/%E7%BA%BF%E7%A8%8B%E5%85%AB%E5%A4%A7%E6%A0%B8%E5%BF%83-Java%E5%B9%B6%E5%8F%91%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E7%B2%BE%E8%AE%B2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="线程八大核心+Java并发底层原理精讲学习笔记">
+                线程八大核心+Java并发底层原理精讲学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpg"
+                alt="宋梓立 sorie" />
+            
+              <p class="site-author-name" itemprop="name">宋梓立 sorie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ewasong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:819294006@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-基本概念"><span class="nav-number">1.</span> <span class="nav-text">第2章 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1分区"><span class="nav-number">1.1.</span> <span class="nav-text">2.1分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2G1停顿预测模型"><span class="nav-number">1.2.</span> <span class="nav-text">2.2G1停顿预测模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3卡表和位图"><span class="nav-number">1.3.</span> <span class="nav-text">2.3卡表和位图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4对象头"><span class="nav-number">1.4.</span> <span class="nav-text">2.4对象头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-内存分配和管理"><span class="nav-number">1.5.</span> <span class="nav-text">2.5 内存分配和管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6线程"><span class="nav-number">1.6.</span> <span class="nav-text">2.6线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-1-栈帧"><span class="nav-number">1.6.1.</span> <span class="nav-text">2.6.1 栈帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-2-句柄"><span class="nav-number">1.6.2.</span> <span class="nav-text">2.6.2 句柄</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-3-JVM本地方法栈中的对象"><span class="nav-number">1.7.</span> <span class="nav-text">2.6.3 JVM本地方法栈中的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-4-Java本地方法栈中的对象"><span class="nav-number">1.8.</span> <span class="nav-text">2.6.4 Java本地方法栈中的对象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">宋梓立 sorie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'XTY8e76465N8ugbyhpCoS88f-gzGzoHsz',
+        appKey: 'dwWTNcurePtzzBdMO62hSRMy',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

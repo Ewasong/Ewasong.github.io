@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数学,高等数学," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="学习视频：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Vs411w7r2 第一章 函数与极限1.1 实数集1.1.1集合具有某种属性的事物的全体，称为集合。 集合里面的元素称为元素。 a是A的元素：a∈A；a不是A的元素：a∉A。 集合表示法  列举法 {1,2,3}  说明属性 A&#x3D;{x|使x属于A的属性}   集合的运算 并(和): A∪B(A+B);  交(积): A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年高等数学学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/04/25/2020%E5%B9%B4%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="宋二的小窝">
+<meta property="og:description" content="学习视频：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Vs411w7r2 第一章 函数与极限1.1 实数集1.1.1集合具有某种属性的事物的全体，称为集合。 集合里面的元素称为元素。 a是A的元素：a∈A；a不是A的元素：a∉A。 集合表示法  列举法 {1,2,3}  说明属性 A&#x3D;{x|使x属于A的属性}   集合的运算 并(和): A∪B(A+B);  交(积): A">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea59207c2a9a83be51b3c89.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea592a0c2a9a83be51bf805.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea84adcc2a9a83be5360c8d.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea59415c2a9a83be51deb68.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea84b93c2a9a83be536e49a.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea850f5c2a9a83be53d9e4e.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea854e2c2a9a83be5422209.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5ea85584c2a9a83be542e41a.jpg">
+<meta property="article:published_time" content="2020-04-25T11:40:35.000Z">
+<meta property="article:modified_time" content="2020-06-17T13:08:58.937Z">
+<meta property="article:author" content="宋梓立 sorie">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="高等数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5ea59207c2a9a83be51b3c89.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/25/2020年高等数学学习笔记/"/>
+
+
+
+
+
+  <title>2020年高等数学学习笔记 | 宋二的小窝</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Ewasong" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">宋二的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/25/2020%E5%B9%B4%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="宋梓立 sorie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋二的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2020年高等数学学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-25T19:40:35+08:00">
+                2020-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/04/25/2020%E5%B9%B4%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/04/25/2020%E5%B9%B4%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>学习视频：<a href="https://www.bilibili.com/video/BV1Vs411w7r2" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Vs411w7r2</a></p>
+<h1 id="第一章-函数与极限"><a href="#第一章-函数与极限" class="headerlink" title="第一章 函数与极限"></a>第一章 函数与极限</h1><h2 id="1-1-实数集"><a href="#1-1-实数集" class="headerlink" title="1.1 实数集"></a>1.1 实数集</h2><h3 id="1-1-1集合"><a href="#1-1-1集合" class="headerlink" title="1.1.1集合"></a>1.1.1集合</h3><p>具有某种属性的事物的全体，称为<strong>集合</strong>。</p>
+<p>集合里面的元素称为<strong>元素</strong>。</p>
+<p>a是A的元素：a∈A；a不是A的元素：a∉A。</p>
+<p><strong>集合表示法</strong></p>
+<ul>
+<li><p>列举法</p>
+<p>{1,2,3}</p>
+</li>
+<li><p>说明属性</p>
+<p>A={x|使x属于A的属性}</p>
+</li>
+</ul>
+<p><strong>集合的运算</strong></p>
+<p>并(和): A∪B(A+B); </p>
+<p>交(积): A∩B(AB)</p>
+<p>差 : A\B(A-B)</p>
+<h3 id="1-1-2-实数集"><a href="#1-1-2-实数集" class="headerlink" title="1.1.2 实数集"></a>1.1.2 实数集</h3><p>实数集(R)：有理数集(Q) +无理数集</p>
+<p>有理数集的特性：</p>
+<ul>
+<li><p><strong>有序性</strong></p>
+</li>
+<li><p>对加减乘除运算的<strong>封闭性</strong>（构成数域)</p>
+<p>​    四则运算的结果也是有理数</p>
+</li>
+</ul>
+<ul>
+<li><strong>稠密性</strong>(任何两个有理数之间都至少还有一个有理数)</li>
+</ul>
+<p>有理数可以通过数轴上的点表示。</p>
+<p>但是数轴上的点不一定是有理数。</p>
+<p>实数集多一个特性：<strong>完备性</strong>(或者叫连续性)。</p>
+<h3 id="1-1-3-区间"><a href="#1-1-3-区间" class="headerlink" title="1.1.3 区间"></a>1.1.3 区间</h3><p><strong>有界区间</strong></p>
+<p>设 a &lt; b, 那么</p>
+<p>开区间(a,b) = {x | a &lt; x &lt; b, x∈R}</p>
+<p>闭区间[a, b] = {x | a &lt;= x &lt;= b, x∈R}</p>
+<p><strong>无界区间</strong></p>
+<p>(-∞, b) = {x | x &lt; b, x ∈ R}</p>
+<p>一般区间表示:I(大写英文字母)</p>
+<p><strong>领域</strong></p>
+<p>若 a ∈R， δ &gt; 0, 则</p>
+<p>​<br>$$<br>{U}(a, \delta) = (a-\delta, a + \delta):a的领域<br>$$</p>
+<p>$$<br>\mathring{U}(a, \delta) = (a-\delta, a + \delta):a的去心领域<br>$$<br>​    </p>
+<h3 id="1-1-4-一些符号"><a href="#1-1-4-一些符号" class="headerlink" title="1.1.4 一些符号"></a>1.1.4 一些符号</h3><p>$$<br>\in \quad 属于 \<br>\notin \quad 不属于 \<br>\exists \quad 存在 \<br>\forall \quad 任意 \<br>\Rightarrow \quad 蕴含着，必要条件 \<br>\Leftarrow \quad 源于,充分条件 \<br>\Leftrightarrow \quad 等价 \<br>\triangleq \quad  定义为 \<br>max;E \quad E中最大者 \<br>min;E \quad E中最小者<br>$$</p>
+<p>使用逻辑符号表达某些数学语言比较简洁</p>
+<p>例如：</p>
+<p>​    对任意一个实数a，必定存在实数b，是的b&gt;aa</p>
+<p>可以表示为：</p>
+<p>​<br>$$<br>\forall a \in R,\exists b \in R: b&gt;a<br>$$</p>
+<h4 id="不等式"><a href="#不等式" class="headerlink" title="不等式"></a>不等式</h4><p>$$</p>
+<ol>
+<li><p>|x-a| &lt; \delta \Leftrightarrow a-\delta &lt; x &lt; \delta \</p>
+</li>
+<li><p>|x \pm y| \le |x| + |y| \<br>$$</p>
+</li>
+<li><p>三角不等式</p>
+</li>
+</ol>
+<p>$$<br>3.|x - y| \ge ||x|-|y||:三角不等式\<br>$$</p>
+<ol start="4">
+<li>A-G不等式</li>
+</ol>
+<p>$$<br>x_1,x_2,…,x_n 均非负数<br>(x_1+x_2+…+x_n)/n \ge \sqrt[n]{x_1x_2…x_n}<br>$$</p>
+<ol start="5">
+<li>Bernoulli不等式</li>
+</ol>
+<p>$$<br>x \ge 0, 且n为正整数，则<br>(1+x)^n \ge 1 + nx<br>$$</p>
+<p>例:<br>$$<br>\sqrt[n]{a} - 1 \le (a-1)/n (a &gt;1)<br>$$<br>证明:</p>
+<p>记 $ \alpha = \sqrt[n]{a} - 1 \Rightarrow 1 + \alpha = \sqrt[n]{a}$</p>
+<p>$a=(1 + \alpha)^n &gt;= 1+n\alpha \Rightarrow \alpha &lt;= (a-1)/m$</p>
+<h4 id="上界"><a href="#上界" class="headerlink" title="上界"></a>上界</h4><p>设E为非空实数集， $\exists M \in R$,</p>
+<p>$\forall x \in E: x &lt; M$ ，则称M是E的一个上界（下界？）。</p>
+<p>E既有上界又有下界，成为有界的。</p>
+<p>有界等价表达：</p>
+<p>$\exists M &gt; 0, \forall x \in E: |x| \le M $</p>
+<h4 id="上确界-最小上界"><a href="#上确界-最小上界" class="headerlink" title="上确界(最小上界)"></a>上确界(最小上界)</h4><p>E为非空实数集，$\exists \beta \in R$</p>
+<p>(1) $\forall x \in E: x &lt;= \beta（上界)$</p>
+<p>(2)$\forall \delta &gt; 0, \exists x_{\delta} \in E: x_{\delta} &gt; \beta - \delta(上确界)$</p>
+<p>称为$\beta$为E的上确界。</p>
+<p><strong>确界存在性公理</strong></p>
+<p>集合有上界，必有上确界。</p>
+<h2 id="1-2函数"><a href="#1-2函数" class="headerlink" title="1.2函数"></a>1.2函数</h2><h3 id="1-2-1-概念与表示"><a href="#1-2-1-概念与表示" class="headerlink" title="1.2.1 概念与表示"></a>1.2.1 概念与表示</h3><p><strong>什么是函数</strong></p>
+<p>简言之</p>
+<p>​    函数就是数集间的关系。</p>
+<p>设D是一个数集(高等数学指的实数集)</p>
+<p>​    $\forall x \in D, x \stackrel{f}{\longrightarrow} y \in R $</p>
+<p>记为$y=f(x), x \in D$</p>
+<p>x称为自变量，y称为因变量，D称为定义域</p>
+<p>函数在D上$x_0$的对应的$f(x_0)$称为函数在$x_0$的值</p>
+<p>有时记为$f|x_0$</p>
+<p><strong>函数的表示</strong></p>
+<p>只要给出两个要素</p>
+<p>1)定义域</p>
+<p>2)对应关系</p>
+<p>可以用解析式，也可以用图表等方式。</p>
+<p>解析式往往分段表示</p>
+<p>例:随飞机托运行李（千克）与价格（元）的关系。<br>$$<br>\begin{equation}<br>p=\left{<br>\begin{array}{lcl}<br>0 &amp; &amp; {0 \le m \le 20}\<br>7(m-20) &amp; &amp; {20 &lt; m \le 200}\<br>\end{array} \right.<br>\end{equation}<br>$$<br>​                                                              </p>
+<h3 id="1-2-2-函数特性"><a href="#1-2-2-函数特性" class="headerlink" title="1.2.2 函数特性"></a>1.2.2 函数特性</h3><p>奇偶性：</p>
+<p>f(-x) = f(x) 偶函数</p>
+<p>f(-x) = -f(x) 奇函数</p>
+<p>判断一个函数可以按奇偶函数的运算判断，也可以按定义去判断</p>
+<p>有界性:</p>
+<ul>
+<li><p>有界是联系区间的</p>
+</li>
+<li><p>如何叙述无界呢？</p>
+<p>​    $\forall M &gt; 0, \exists x \in D, |f(x)| &gt; M$</p>
+</li>
+</ul>
+<p>单调性:</p>
+<ul>
+<li><p>区别单调与严格单调</p>
+<p>单调递增：自变量大的，函数值不小</p>
+<p>严格单调递增：自变量大的，函数值大</p>
+</li>
+</ul>
+<p>周期性:</p>
+<p>​    $f(x+l) = f(x)$</p>
+<p>我们所说的周期指最小正周期</p>
+<p>不是所有的周期函数都有最小正周期。</p>
+<p>比如常数函数或者</p>
+<p>狄利克雷(Dirichlet)函数<br>$$<br>\begin{equation}<br>D(x)=\left{<br>\begin{array}{lcl}<br>1 &amp; &amp; {x \in Q}\<br>0 &amp; &amp; {x \in Q^C}\<br>\end{array} \right.<br>\end{equation}<br>$$<br>容易验证这是一个周期函数，任何正有力数r都是它的周期。因为不存在最小正有理数，所以它没有最小正周期。</p>
+<h3 id="1-2-3-函数运算"><a href="#1-2-3-函数运算" class="headerlink" title="1.2.3 函数运算"></a>1.2.3 函数运算</h3><p>加减乘除</p>
+<p>f+g, f-g, f*g, f/g</p>
+<p>复合函数</p>
+<p>$f \circ g : (f \circ g)(x) = f(g(x)) $</p>
+<p>例 </p>
+<p>$y = 2*sin3x 由y = 2^u, u = sinv, v=3x复合而成$</p>
+<p>链式结构:y-u-v-x</p>
+<p>例题:2</p>
+<p><img src="https://pic.imgdb.cn/item/5ea59207c2a9a83be51b3c89.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5ea592a0c2a9a83be51bf805.jpg" alt=""></p>
+<p>例3:</p>
+<p><img src="https://pic.imgdb.cn/item/5ea84adcc2a9a83be5360c8d.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5ea59415c2a9a83be51deb68.jpg" alt=""></p>
+<p>例4：</p>
+<p><img src="https://pic.imgdb.cn/item/5ea84b93c2a9a83be536e49a.jpg" alt=""></p>
+<p>1)</p>
+<p>2）反解法:  设置u=(x+1)/(x-2), 然后x用u表达，然后求解</p>
+<p><strong>反函数</strong></p>
+<p> 单射<br>$$<br>设 函数 f:X\rightarrow Y \<br>若x_1,x_2 \in X, x_1 \neq x_2 \Rightarrow f(x_1) \ne f(x_2)<br>$$<br>则称f为单射(不同自变量导致有不同函数值)</p>
+<p>满射</p>
+<p>如果每个可能的像至少有一个变量<a href="https://baike.baidu.com/item/映射/410062" target="_blank" rel="noopener">映射</a>其上(即像<a href="https://baike.baidu.com/item/集合" target="_blank" rel="noopener">集合</a>B中的每个元素在A中都有一个或一个以上的原像)，或者说<a href="https://baike.baidu.com/item/值域/9707225" target="_blank" rel="noopener">值域</a>任何元素都有至少有一个变量与之对应，那这个映射就叫做满射。</p>
+<p>双射</p>
+<p>如果即使单射又是满射就是双射，也叫一一映射。</p>
+<p>单射函数f(x)在其值域R(f)上可定义反函数。</p>
+<p>​    </p>
+<p><img src="https://pic.imgdb.cn/item/5ea850f5c2a9a83be53d9e4e.jpg" alt=""></p>
+<h3 id="1-2-4-初等函数"><a href="#1-2-4-初等函数" class="headerlink" title="1.2.4 初等函数"></a>1.2.4 初等函数</h3><p>略</p>
+<h3 id="1-2-5-隐函数"><a href="#1-2-5-隐函数" class="headerlink" title="1.2.5 隐函数"></a>1.2.5 隐函数</h3><p>函数表达式不是直接给的，而是给的一个方程。</p>
+<p>$x^2 + y^2 = 9$</p>
+<p>参数函数</p>
+<p><img src="https://pic.imgdb.cn/item/5ea854e2c2a9a83be5422209.jpg" alt=""></p>
+<p>极坐标 表示方程</p>
+<p><img src="https://pic.imgdb.cn/item/5ea85584c2a9a83be542e41a.jpg" alt="">:</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+          
+            <a href="/tags/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" rel="tag"># 高等数学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/23/%E4%B9%A6%E5%8D%95/" rel="next" title="书单">
+                <i class="fa fa-chevron-left"></i> 书单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/26/%E5%B8%B8%E7%94%A8sql/" rel="prev" title="常用sql">
+                常用sql <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpg"
+                alt="宋梓立 sorie" />
+            
+              <p class="site-author-name" itemprop="name">宋梓立 sorie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ewasong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:819294006@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-函数与极限"><span class="nav-number">1.</span> <span class="nav-text">第一章 函数与极限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-实数集"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 实数集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1集合"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-实数集"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 实数集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-3-区间"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.1.3 区间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-4-一些符号"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.1.4 一些符号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不等式"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">不等式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上界"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">上界</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上确界-最小上界"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">上确界(最小上界)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2函数"><span class="nav-number">1.2.</span> <span class="nav-text">1.2函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-概念与表示"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 概念与表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-函数特性"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 函数特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-函数运算"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 函数运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-初等函数"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.2.4 初等函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-5-隐函数"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.2.5 隐函数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">宋梓立 sorie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'XTY8e76465N8ugbyhpCoS88f-gzGzoHsz',
+        appKey: 'dwWTNcurePtzzBdMO62hSRMy',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="图解HTTP,HTTP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第1章 了解Web及网络基础1.1 使用HTTP协议访问Web​    输入url时，Web页面如何呈现的呢？  ​    浏览器根据地址栏中的url，从服务器端获取文件资源等信息，从而展示出Web页面。 ​    Web使用一种名为HTTP(HyperText Transfer Protocol, 超文本传输协议)。 1.2 HTTP的诞生1.2.1  为知识共享而规划Web​    1989年">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图解HTTP学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/08/01/%E5%9B%BE%E8%A7%A3HTTP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="宋二的小窝">
+<meta property="og:description" content="第1章 了解Web及网络基础1.1 使用HTTP协议访问Web​    输入url时，Web页面如何呈现的呢？  ​    浏览器根据地址栏中的url，从服务器端获取文件资源等信息，从而展示出Web页面。 ​    Web使用一种名为HTTP(HyperText Transfer Protocol, 超文本传输协议)。 1.2 HTTP的诞生1.2.1  为知识共享而规划Web​    1989年">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2440e314195aa594bd1828.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f24443c14195aa594be1c06.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f256ab114195aa59428ad2b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f256c1d14195aa594293865.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f25746514195aa5942cb550.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f25755514195aa5942d4138.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2577d014195aa5942e4442.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f25781514195aa5942e5ed8.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2579db14195aa5942f0669.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26ddb714195aa594a213e2.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26de0314195aa594a22a73.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26de9014195aa594a25898.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26df5414195aa594a28d3a.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26df8714195aa594a29945.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e04014195aa594a2cd50.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e09614195aa594a2e688.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e0bd14195aa594a2f301.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e3b814195aa594a46a3c.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e3d814195aa594a47342.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e69d14195aa594a53126.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e74414195aa594a55e97.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e75814195aa594a565d5.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e97814195aa594a5f3d9.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26ea0114195aa594a61b6c.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f26e54e14195aa594a4dadb.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2812e614195aa594fb899c.jpg">
+<meta property="og:image" content="c:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200803214248537.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f28197b14195aa594fdba5b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2819a814195aa594fdc655.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2819b514195aa594fdcb26.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f28363714195aa594063b8c.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f28364714195aa59406412b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f28371814195aa594067776.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2837f214195aa59406ad3b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f28386a14195aa59406ca87.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2839f114195aa594072882.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f2839fb14195aa594072bf8.jpg">
+<meta property="article:published_time" content="2020-07-31T16:01:38.000Z">
+<meta property="article:modified_time" content="2020-08-05T14:58:27.842Z">
+<meta property="article:author" content="宋梓立 sorie">
+<meta property="article:tag" content="图解HTTP">
+<meta property="article:tag" content="HTTP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f2440e314195aa594bd1828.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/01/图解HTTP学习笔记/"/>
+
+
+
+
+
+  <title>图解HTTP学习笔记 | 宋二的小窝</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Ewasong" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">宋二的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/01/%E5%9B%BE%E8%A7%A3HTTP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="宋梓立 sorie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋二的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">图解HTTP学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-01T00:01:38+08:00">
+                2020-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/01/%E5%9B%BE%E8%A7%A3HTTP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/01/%E5%9B%BE%E8%A7%A3HTTP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第1章-了解Web及网络基础"><a href="#第1章-了解Web及网络基础" class="headerlink" title="第1章 了解Web及网络基础"></a>第1章 了解Web及网络基础</h1><h2 id="1-1-使用HTTP协议访问Web"><a href="#1-1-使用HTTP协议访问Web" class="headerlink" title="1.1 使用HTTP协议访问Web"></a>1.1 使用HTTP协议访问Web</h2><p>​    输入url时，Web页面如何呈现的呢？</p>
+<p><img src="https://pic.imgdb.cn/item/5f2440e314195aa594bd1828.jpg" alt=""></p>
+<p>​    浏览器根据地址栏中的url，从服务器端获取文件资源等信息，从而展示出Web页面。</p>
+<p>​    Web使用一种名为HTTP(HyperText Transfer Protocol, 超文本传输协议)。</p>
+<h2 id="1-2-HTTP的诞生"><a href="#1-2-HTTP的诞生" class="headerlink" title="1.2 HTTP的诞生"></a>1.2 HTTP的诞生</h2><h3 id="1-2-1-为知识共享而规划Web"><a href="#1-2-1-为知识共享而规划Web" class="headerlink" title="1.2.1  为知识共享而规划Web"></a>1.2.1  为知识共享而规划Web</h3><p>​    1989年3月。</p>
+<p>​    CERN(欧洲核子研究组织)Tim BernerLee。</p>
+<p>​    最初设想：借助多文档之间相互关联形成超文本(HyperText)，连成可相互参阅的WWW(World Wide Web, 万维网)。</p>
+<p>​    现已提出3项WWW构建技术：</p>
+<ul>
+<li>SGML(Standard Generalized Markup Language, 标准通用标记语言)作为页面文本标记语言的HTML；</li>
+<li>作为文档传输协议的HTTP；</li>
+<li>指定文档地址所在的URL(Uniform Resource Locator, 统一资源定位符)。</li>
+</ul>
+<h3 id="1-2-2-Web成长时代"><a href="#1-2-2-Web成长时代" class="headerlink" title="1.2.2  Web成长时代"></a>1.2.2  Web成长时代</h3><p>​    1990年11月。</p>
+<p>​    CERN, 第一台Web服务器和Web浏览器。</p>
+<p>​    1992年9月，日本第一个网站主页上线。</p>
+<h3 id="1-2-3-驻足不前的HTTP"><a href="#1-2-3-驻足不前的HTTP" class="headerlink" title="1.2.3  驻足不前的HTTP"></a>1.2.3  驻足不前的HTTP</h3><h4 id="HTTP-0-9"><a href="#HTTP-0-9" class="headerlink" title="HTTP/0.9"></a>HTTP/0.9</h4><p>​    1990年问世，但是没有作为正式标准被建立，所以是0.9。</p>
+<h4 id="HTTP-1-0"><a href="#HTTP-1-0" class="headerlink" title="HTTP/1.0"></a>HTTP/1.0</h4><p>​    1996年6月，1.0作为正式标准公布，记载于RFC1945。</p>
+<p>​    <a href="http://www.ietf.org/rfc/rfc1945.txt" target="_blank" rel="noopener">http://www.ietf.org/rfc/rfc1945.txt</a></p>
+<h4 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h4><p>​    1997年1月，公布HTTP/1.1。</p>
+<p>​    当初的标准是RFC2068,之后发布的修订版本RFC2616是当前最新版本。</p>
+<p>​    <a href="http://www.ietf.org/rfc/rfc2616.txt" target="_blank" rel="noopener">http://www.ietf.org/rfc/rfc2616.txt</a></p>
+<p>​    新一代的HTTP/2.0正在制定中。</p>
+<h2 id="1-3-网络基础-TCP-IP"><a href="#1-3-网络基础-TCP-IP" class="headerlink" title="1.3 网络基础 TCP/IP"></a>1.3 网络基础 TCP/IP</h2><p>​    通常使用的网络是在TCP/IP协议族的基础上运作的。HTTP是内部的一个子集。</p>
+<h3 id="1-3-1-TCP-IP协议族"><a href="#1-3-1-TCP-IP协议族" class="headerlink" title="1.3.1 TCP/IP协议族"></a>1.3.1 TCP/IP协议族</h3><p><img src="https://pic.imgdb.cn/item/5f24443c14195aa594be1c06.jpg" alt=""></p>
+<p>​    把互联网相关联的协议集合起来总称为TCP/IP。</p>
+<h3 id="1-3-2-TCP-IP的分层协议"><a href="#1-3-2-TCP-IP的分层协议" class="headerlink" title="1.3.2 TCP/IP的分层协议"></a>1.3.2 TCP/IP的分层协议</h3><p>​    应用层、传输层、网络层和数据链路层。</p>
+<h4 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h4><p>​    决定向用户提供应用服务时的通信的活动。</p>
+<p>​    比如FTP(File Transfer Protocol, 文本传输协议)和DNS(Domain Name System, 域名系统)服务就是其中两类。</p>
+<p>​    HTTP协议也处于该层。</p>
+<h4 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h4><p>​    对上层应用层，提供处于网络连接中的两台计算机之间的数据传输。</p>
+<p>​    TCP（Transmission Control Portocol, 传输控制协议)</p>
+<p>​    UDP(User Data protocol, 用户数据报协议)</p>
+<h4 id="网络层（又名网络互连层）"><a href="#网络层（又名网络互连层）" class="headerlink" title="网络层（又名网络互连层）"></a>网络层（又名网络互连层）</h4><p>​    用于处理在网络上流动的数据包。数据包是网络传输的最小数据单位。该层规定了通过怎样的路径（传输路线）到达对方计算机，并把数据包传给对方。</p>
+<h4 id="链路层（又名数据链路层，网络接口层）"><a href="#链路层（又名数据链路层，网络接口层）" class="headerlink" title="链路层（又名数据链路层，网络接口层）"></a>链路层（又名数据链路层，网络接口层）</h4><p>​    用于处理连接网络的硬件部分。</p>
+<p>​    包括操作系统、硬件设备驱动、NIC（网卡)，以及光纤等物理课件部分。</p>
+<h3 id="1-3-3-TCP-IP-通信传输流"><a href="#1-3-3-TCP-IP-通信传输流" class="headerlink" title="1.3.3 TCP/IP 通信传输流"></a>1.3.3 TCP/IP 通信传输流</h3><p><img src="https://pic.imgdb.cn/item/5f256ab114195aa59428ad2b.jpg" alt=""></p>
+<p>​    TCP/IP协议族进行网络通信时，会通过分层顺序与对方进行通信。</p>
+<p>​    以HTTP为例：</p>
+<p><img src="https://pic.imgdb.cn/item/5f256c1d14195aa594293865.jpg" alt=""></p>
+<p>​        把数据信息包装起来的做法称为封装。</p>
+<h2 id="1-4-与HTTP关系密切的协议：IP、TCP和DNS"><a href="#1-4-与HTTP关系密切的协议：IP、TCP和DNS" class="headerlink" title="1.4 与HTTP关系密切的协议：IP、TCP和DNS"></a>1.4 与HTTP关系密切的协议：IP、TCP和DNS</h2><h3 id="1-4-1-负责传输的IP协议"><a href="#1-4-1-负责传输的IP协议" class="headerlink" title="1.4.1 负责传输的IP协议"></a>1.4.1 负责传输的IP协议</h3><p>​    IP(Internet Protocol)网际协议位于网络层。</p>
+<p>​    几乎所有使用网络的系统都会用到IP协议。</p>
+<p>​    作用是把各种数据包传送给对方。</p>
+<p>​    要保证确实传送到对方那里，需要满足各类条件。其中最重要的两个条件是IP地址和MAC地址。</p>
+<p>​    IP地址指明了节点所分配到的地址，MAC地址是指网卡所属的固定地址。</p>
+<h4 id="使用ARP协议凭借MAC地址进行通信"><a href="#使用ARP协议凭借MAC地址进行通信" class="headerlink" title="使用ARP协议凭借MAC地址进行通信"></a>使用ARP协议凭借MAC地址进行通信</h4><p>​    ARP是一种用以解析地址的协议，根据通信方的IP地址就可以反查出对应的MAC地址。</p>
+<h4 id="没有人能过全面掌握互联网中的传输状况"><a href="#没有人能过全面掌握互联网中的传输状况" class="headerlink" title="没有人能过全面掌握互联网中的传输状况"></a>没有人能过全面掌握互联网中的传输状况</h4><p>​    路由选择（routing)。</p>
+<p><img src="https://pic.imgdb.cn/item/5f25746514195aa5942cb550.jpg" alt=""></p>
+<h3 id="1-4-2-确保可靠性的TCP协议"><a href="#1-4-2-确保可靠性的TCP协议" class="headerlink" title="1.4.2 确保可靠性的TCP协议"></a>1.4.2 确保可靠性的TCP协议</h3><p>​    TCP位于传输层，提供可靠的字节流服务。</p>
+<p>​    字节流服务是指，为了方便传输，将大块数据分割成报文段(segment)为单位的数据包进行管理。</p>
+<p>​    可靠性传输服务是指，能够把数据准确可靠的传给对方。</p>
+<h4 id="确保数据能到达目标"><a href="#确保数据能到达目标" class="headerlink" title="确保数据能到达目标"></a>确保数据能到达目标</h4><p>​    采用三次握手协议(three-way handshaking)策略。</p>
+<p>​    如果出现莫名中断，会在以相同的顺序发送相同的数据包。</p>
+<p><img src="https://pic.imgdb.cn/item/5f25755514195aa5942d4138.jpg" alt=""></p>
+<h2 id="1-5-负责域名解析的DNS服务"><a href="#1-5-负责域名解析的DNS服务" class="headerlink" title="1.5 负责域名解析的DNS服务"></a>1.5 负责域名解析的DNS服务</h2><p>​    DNS(Domain Name System)是应用层协议。提供域名到IP地址之间的解析服务。</p>
+<p><img src="https://pic.imgdb.cn/item/5f2577d014195aa5942e4442.jpg" alt=""></p>
+<h2 id="1-6-各种协议与HTTP协议的关系"><a href="#1-6-各种协议与HTTP协议的关系" class="headerlink" title="1.6 各种协议与HTTP协议的关系"></a>1.6 各种协议与HTTP协议的关系</h2><p><img src="https://pic.imgdb.cn/item/5f25781514195aa5942e5ed8.jpg" alt=""></p>
+<h2 id="1-7-URI和URL"><a href="#1-7-URI和URL" class="headerlink" title="1.7 URI和URL"></a>1.7 URI和URL</h2><p>​    URI：统一资源标识符</p>
+<p>​    URL(Uniform Resource Locator): 统一资源定位符</p>
+<h3 id="1-7-1-统一资源标识符"><a href="#1-7-1-统一资源标识符" class="headerlink" title="1.7.1 统一资源标识符"></a>1.7.1 统一资源标识符</h3><h4 id="Uniform"><a href="#Uniform" class="headerlink" title="Uniform"></a>Uniform</h4><p>​    规定统一的格式可以方便处理多种不同类型的资源。加入新增的协议方案也更加容易。比如http:， ftp:</p>
+<h4 id="Resource"><a href="#Resource" class="headerlink" title="Resource"></a>Resource</h4><p>​    资源：可标识的任何东西</p>
+<h4 id="Identifier"><a href="#Identifier" class="headerlink" title="Identifier"></a>Identifier</h4><p>​    标识符。</p>
+<p>​    URI用字符串标识某一互联网资源，而URL标识资源的地点。URL是URI的子集。</p>
+<h3 id="1-7-2-URI格式"><a href="#1-7-2-URI格式" class="headerlink" title="1.7.2 URI格式"></a>1.7.2 URI格式</h3><p><img src="https://pic.imgdb.cn/item/5f2579db14195aa5942f0669.jpg" alt=""></p>
+<h1 id="第2章-简单的HTTP协议"><a href="#第2章-简单的HTTP协议" class="headerlink" title="第2章 简单的HTTP协议"></a>第2章 简单的HTTP协议</h1><p>​    主要讲解HTTP/1.1版本。</p>
+<h2 id="2-1-HTTP协议用于客户端和服务端之间的通信"><a href="#2-1-HTTP协议用于客户端和服务端之间的通信" class="headerlink" title="2.1 HTTP协议用于客户端和服务端之间的通信"></a>2.1 HTTP协议用于客户端和服务端之间的通信</h2><p>​    HTTP协议用于客户端和服务端之间的通信。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f26ddb714195aa594a213e2.jpg" alt=""></p>
+<h2 id="2-2-通过请求和响应的交换达成通信"><a href="#2-2-通过请求和响应的交换达成通信" class="headerlink" title="2.2 通过请求和响应的交换达成通信"></a>2.2 通过请求和响应的交换达成通信</h2><p>​    HTTP规定，请求从客户端发出，最后服务器端响应请求并返回。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f26de0314195aa594a22a73.jpg" alt=""></p>
+<p>​    请求报文是由请求方法、请求URI、协议版本、可选的请求首部字段和内容实体组成。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f26de9014195aa594a25898.jpg" alt=""></p>
+<p>​    </p>
+<p>​    响应报文基本上由协议版本、状态码（表示请求成功或失败的数字代码）、用以解释状态码的原因短语、可选的响应首部字段以及实体主体构成。</p>
+<h2 id="2-3-HTTP是不保存状态的协议"><a href="#2-3-HTTP是不保存状态的协议" class="headerlink" title="2.3 HTTP是不保存状态的协议"></a>2.3 HTTP是不保存状态的协议</h2><p>​    HTTP是不保存状态的协议。但是引入了Cookie技术，有了Cookie再用HTTP协议通信，就可以管理状态了。</p>
+<h2 id="2-4-请求URI定位资源"><a href="#2-4-请求URI定位资源" class="headerlink" title="2.4 请求URI定位资源"></a>2.4 请求URI定位资源</h2><p>​    HTTP协议使用URI定位互联网上的资源。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f26df5414195aa594a28d3a.jpg" alt=""></p>
+<p>​    如果不是访问特定资源而是对服务器本身发起的请求，可以用一个*来代替请求URI</p>
+<p><img src="https://pic.imgdb.cn/item/5f26df8714195aa594a29945.jpg" alt=""></p>
+<h2 id="2-5-告知服务器意图的HTTP方法"><a href="#2-5-告知服务器意图的HTTP方法" class="headerlink" title="2.5 告知服务器意图的HTTP方法"></a>2.5 告知服务器意图的HTTP方法</h2><ul>
+<li><p>GET: 获取资源</p>
+</li>
+<li><p>POST: 传输实体主体</p>
+</li>
+<li><p>PUT:传输文件</p>
+</li>
+<li><p>HEAD:获得报文首部</p>
+<ul>
+<li>用于确认URI的有效性以及资源更新的日期时间等</li>
+</ul>
+</li>
+<li><p>DELETE：删除文件</p>
+</li>
+<li><p>OPTIONS:询问支持的方法</p>
+<p><img src="https://pic.imgdb.cn/item/5f26e04014195aa594a2cd50.jpg" alt=""></p>
+</li>
+<li><p>TRACE:追踪路径（不常用，而且容易引发XST攻击 跨站追踪）</p>
+</li>
+<li><p>CONNECT: 要求用隧道协议连接代理</p>
+<p><img src="https://pic.imgdb.cn/item/5f26e09614195aa594a2e688.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="2-6-使用方法下达命令"><a href="#2-6-使用方法下达命令" class="headerlink" title="2.6 使用方法下达命令"></a>2.6 使用方法下达命令</h2><p><img src="https://pic.imgdb.cn/item/5f26e0bd14195aa594a2f301.jpg" alt=""></p>
+<h2 id="2-7-持久连接节省通信量"><a href="#2-7-持久连接节省通信量" class="headerlink" title="2.7 持久连接节省通信量"></a>2.7 持久连接节省通信量</h2><p>​    HTTP初始版本中，每进行一次HTTP通信就要断开一次TCP连接。</p>
+<p>​    以前通信都是容量很小的文件传输，所以没问题，但是现在有比较多的图片就有问题。</p>
+<h3 id="2-7-1-持久连接"><a href="#2-7-1-持久连接" class="headerlink" title="2.7.1 持久连接"></a>2.7.1 持久连接</h3><p>​    HTTP/1.1和一部分的HTTP/1.0想出了持久连接(HTTP Persistent Connection, 也称为 HTTP keep-alive 或 HTTP connection reuse)的方法。</p>
+<p>​    特点是：只要任意一段没有明确提出断开连接，则保持TCP连接状态。</p>
+<p>​    在HTTP/1.1中，所有的连接都是持久连接。</p>
+<h3 id="2-7-2-管线化"><a href="#2-7-2-管线化" class="headerlink" title="2.7.2 管线化"></a>2.7.2 管线化</h3><p>​    持久连接使得多数请求与以管线化(pipelining)方式发送称为可能。</p>
+<p>​    管线化技术出现后，不用等待响应亦可直接发送下一个请求。</p>
+<p>​    管线化技术比持久连接还要快。</p>
+<h2 id="2-8-使用Cookie的状态管理"><a href="#2-8-使用Cookie的状态管理" class="headerlink" title="2.8 使用Cookie的状态管理"></a>2.8 使用Cookie的状态管理</h2><p>​    无状态协议可以减少服务器CPU以及内存资源的消耗。</p>
+<p>​    为了解决矛盾，引入Cookie信息。</p>
+<p>​    Cookkie信息从服务端发送的响应报文中一个叫做Set-Cookie的字段首部信息，通知客户端保存Cookie。</p>
+<p>​    下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值后发送出去。</p>
+<p><img src="https://pic.imgdb.cn/item/5f26e3b814195aa594a46a3c.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5f26e3d814195aa594a47342.jpg" alt=""></p>
+<h1 id="第3章-HTTP的报文内的HTTP信息"><a href="#第3章-HTTP的报文内的HTTP信息" class="headerlink" title="第3章 HTTP的报文内的HTTP信息"></a>第3章 HTTP的报文内的HTTP信息</h1><h2 id="3-1-HTTP报文"><a href="#3-1-HTTP报文" class="headerlink" title="3.1  HTTP报文"></a>3.1  HTTP报文</h2><p>​    HTTP协议交互的信息被称为HTTP报文。</p>
+<p>​    请求端的报文叫做请求报文。</p>
+<p>​    响应端的叫做响应报文。</p>
+<p>​    报文本身是多行(用CR+LF作换行符)数据构成的字符串文本。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f26e69d14195aa594a53126.jpg" alt=""></p>
+<h2 id="3-2-请求报文及响应报文的结构"><a href="#3-2-请求报文及响应报文的结构" class="headerlink" title="3.2 请求报文及响应报文的结构"></a>3.2 请求报文及响应报文的结构</h2><p><img src="https://pic.imgdb.cn/item/5f26e74414195aa594a55e97.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5f26e75814195aa594a565d5.jpg" alt=""></p>
+<h4 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h4><p>​    包含用于请求的方法，请求的URI和HTTP版本。</p>
+<h4 id="状态行"><a href="#状态行" class="headerlink" title="状态行"></a>状态行</h4><p>​     包含表明响应结果的状态码，原因短语和HTTP版本。</p>
+<h4 id="首部字段"><a href="#首部字段" class="headerlink" title="首部字段"></a>首部字段</h4><p>​    包含表示请求和响应的各种条件和属性的各类首部。</p>
+<p>​    一般有4种首部，分别是：通用首部、请求首部、响应首部和实体首部</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>​    可能包含HTTP的RFC里未定义的首部(Cookie等)</p>
+<h2 id="3-3-编码提升传输速率"><a href="#3-3-编码提升传输速率" class="headerlink" title="3.3  编码提升传输速率"></a>3.3  编码提升传输速率</h2><p>​    通过再传输时编码，能有效地处理大量的访问请求。但是编码操作会消耗更多的CPU等资源。</p>
+<h3 id="3-3-1-报文主题和实体主体的差异"><a href="#3-3-1-报文主题和实体主体的差异" class="headerlink" title="3.3.1 报文主题和实体主体的差异"></a>3.3.1 报文主题和实体主体的差异</h3><ul>
+<li><p>报文</p>
+<p>是HTTP通信的基本单位，以8位组字节流(octet sequence,其中octet为8个比特)。</p>
+</li>
+</ul>
+<ul>
+<li><p>实体</p>
+<p>作为请求或相应的有效负荷数据被传输，其内容由实体首部和实体主体组成。</p>
+</li>
+</ul>
+<h3 id="3-3-2-压缩传输的内容编码"><a href="#3-3-2-压缩传输的内容编码" class="headerlink" title="3.3.2 压缩传输的内容编码"></a>3.3.2 压缩传输的内容编码</h3><p>​    HTTP协议中有一种被称为内容编码的功能。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f26e97814195aa594a5f3d9.jpg" alt=""></p>
+<h3 id="3-3-3-分割发送的分块传输编码"><a href="#3-3-3-分割发送的分块传输编码" class="headerlink" title="3.3.3 分割发送的分块传输编码"></a>3.3.3 分割发送的分块传输编码</h3><p>​    通信过程中，实体资源没全部传输完成之前，浏览器无法显示请求页面。传输大容量数据，通过把数据分割成多块，能够让浏览器逐步显示页面。</p>
+<p>​    这个功能称为分块传输编码(Chunked Transfer Coding)。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f26ea0114195aa594a61b6c.jpg" alt=""></p>
+<p>​    分块传输编码会将实体主题分成多个部分。每一块都会用十六进制来标记块的大小，而实体主题的最后一块会使用”0(CR+LF)”来标记。</p>
+<p>​    接收的客户端负责解码，恢复到编码前的实体主题。</p>
+<p>​    HTTP/1.1中存在一种被称为传输编码 （Transfer Coding）的机制，它可以在通信时按某种编码传输，但只定义作用于分块编码中。</p>
+<h2 id="3-4-发送多种数据的多部分对象集合"><a href="#3-4-发送多种数据的多部分对象集合" class="headerlink" title="3.4 发送多种数据的多部分对象集合"></a>3.4 发送多种数据的多部分对象集合</h2><p>​    HTTP协议也采纳了多部分对象集合，发送的一份报文主题中可含有多类型的实体。通常是在图片或文本文件等上传时使用。</p>
+<p>​    多部分对象集合包含的对象如下。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f26e54e14195aa594a4dadb.jpg" alt=""></p>
+<p>​    在使用多部分对象集合时，需要在首部字段里加上Content-type。</p>
+<p>​    使用boundary字符串划分多部分对象实体集合致命各类实体。在boundary字符串的各个实体的是起航之前加入”–”标记。</p>
+<p>​    而在多部分集合对应的字符串最后插入”–”标记作为结束。</p>
+<h2 id="3-5-获取部分内容的范围请求"><a href="#3-5-获取部分内容的范围请求" class="headerlink" title="3.5 获取部分内容的范围请求"></a>3.5 获取部分内容的范围请求</h2><p>​    下载尺寸较大的内容遇到网络中断的情况，需要一种可恢复的机制。需要指定下载的实体范围，指定范围发送的请求叫做范围请求（Range Request）。</p>
+<p>​    对一份10000字节的内容，使用范围请求可以只请求5001~10000字节内的资源。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f2812e614195aa594fb899c.jpg" alt=""></p>
+<p><img src="C:%5CUsers%5C81929%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200803214248537.png" alt="image-20200803214248537"></p>
+<p>​    针对范围请求，响应会返回状态码为206 Partial Content的响应报文。</p>
+<p>​    多重范围的范围请求，响应会在首部字段Content-Type标明multipart/byteranges后返回响应报文。</p>
+<p>​    如果无法响应范围请求，就会返回200 OK和完整的实体内容。</p>
+<h2 id="3-6-内容协商返回最合适的内容"><a href="#3-6-内容协商返回最合适的内容" class="headerlink" title="3.6 内容协商返回最合适的内容"></a>3.6 内容协商返回最合适的内容</h2><p>​    访问相同的URI，显示对应的中文版或英文版的Web页面。这样的机制称为内容协商(Content Neotiation)。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f28197b14195aa594fdba5b.jpg" alt=""></p>
+<p>​    包含在请求报文中的某些首部字段就是判断基准。</p>
+<p><img src="https://pic.imgdb.cn/item/5f2819a814195aa594fdc655.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5f2819b514195aa594fdcb26.jpg" alt=""></p>
+<p>​    内容协商技术有以下三种类型：</p>
+<ul>
+<li><p>服务器驱动协商(Server-driven Negotiation)</p>
+<p>由服务器端进行内容协商，以请求的首部字段为参考，在服务器端自动处理，并不一定能筛选出最优内容。</p>
+</li>
+<li><p>客户端驱动协商(Agent-driven Negotiation)</p>
+<p>由客户端进行内容协商的方式。用户从浏览器显示的可选项列表中手动选择。比如按OS类型或浏览器类型自行切换成PC版页面或手机页面。</p>
+</li>
+<li><p>透明协商(Transparent Negotiation)</p>
+<p>以上两种结合体。</p>
+</li>
+</ul>
+<h1 id="第4章-返回结果的HTTP状态码"><a href="#第4章-返回结果的HTTP状态码" class="headerlink" title="第4章 返回结果的HTTP状态码"></a>第4章 返回结果的HTTP状态码</h1><h2 id="4-1-状态码告知从服务器端返回的请求结果"><a href="#4-1-状态码告知从服务器端返回的请求结果" class="headerlink" title="4.1 状态码告知从服务器端返回的请求结果"></a>4.1 状态码告知从服务器端返回的请求结果</h2><p><img src="https://pic.imgdb.cn/item/5f28363714195aa594063b8c.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5f28364714195aa59406412b.jpg" alt=""></p>
+<h2 id="4-2-2XX成功"><a href="#4-2-2XX成功" class="headerlink" title="4.2 2XX成功"></a>4.2 2XX成功</h2><h3 id="4-2-1-200-OK"><a href="#4-2-1-200-OK" class="headerlink" title="4.2.1 200 OK"></a>4.2.1 200 OK</h3><p>​    正常处理</p>
+<h3 id="4-2-2-204-No-Content"><a href="#4-2-2-204-No-Content" class="headerlink" title="4.2.2 204 No Content"></a>4.2.2 204 No Content</h3><p>​    成功处理，返回的响应报文不含实体的主体部分。</p>
+<h3 id="4-2-3-206-Partical-Content"><a href="#4-2-3-206-Partical-Content" class="headerlink" title="4.2.3 206 Partical Content"></a>4.2.3 206 Partical Content</h3><p>​    成功执行了范围请求部分的GET请求。响应报文包含Content-Range指定范围的实体内容。</p>
+<h2 id="4-3-3-XX重定向"><a href="#4-3-3-XX重定向" class="headerlink" title="4.3.3 XX重定向"></a>4.3.3 XX重定向</h2><h3 id="4-3-1-301-Moved-Permanently"><a href="#4-3-1-301-Moved-Permanently" class="headerlink" title="4.3.1 301 Moved Permanently"></a>4.3.1 301 Moved Permanently</h3><p>​    永久性重定向，表示请求资源被分配了新的URI。以后应使用资源现在所指的URI。</p>
+<p><img src="https://pic.imgdb.cn/item/5f28371814195aa594067776.jpg" alt=""></p>
+<h3 id="4-3-2-302-Found"><a href="#4-3-2-302-Found" class="headerlink" title="4.3.2 302 Found"></a>4.3.2 302 Found</h3><p>​    临时性重定向。表示请求资源被分配了新的URI。希望用户这次用新的URI。</p>
+<h3 id="4-3-3-303-See-Other"><a href="#4-3-3-303-See-Other" class="headerlink" title="4.3.3 303 See Other"></a>4.3.3 303 See Other</h3><p>​    表示由于请求对应的资源存在着另一个URI，赢使用GET方法定向获取请求的资源。</p>
+<p>​    和302相同，只是明确表示应当采取GET方法获取资源。</p>
+<p><img src="https://pic.imgdb.cn/item/5f2837f214195aa59406ad3b.jpg" alt=""></p>
+<h3 id="4-3-4-304-Not-Modified"><a href="#4-3-4-304-Not-Modified" class="headerlink" title="4.3.4 304 Not Modified"></a>4.3.4 304 Not Modified</h3><p>​    表示客户端发送附带条件的请求时，服务器端允许请求访问资源，但因发生请求为满足条件的情况后，直接返回304（服务器资源未改变，可直接使用客户端未过期的缓存）。304其实和重定向没有关系。</p>
+<p><img src="https://pic.imgdb.cn/item/5f28386a14195aa59406ca87.jpg" alt=""></p>
+<h3 id="4-3-5-307-Temporary-Redirect"><a href="#4-3-5-307-Temporary-Redirect" class="headerlink" title="4.3.5 307 Temporary Redirect"></a>4.3.5 307 Temporary Redirect</h3><p>​    临时重定向。与302相同含义。尽管302禁止POST变换成GET，但实际使用时大家并不遵守。</p>
+<p>​    307会遵守浏览器标准，不会从POST变成GET。但是处理响应时的行为，各个浏览器可能不一样。</p>
+<h2 id="4-4-4XX客户端错误"><a href="#4-4-4XX客户端错误" class="headerlink" title="4.4 4XX客户端错误"></a>4.4 4XX客户端错误</h2><h3 id="4-4-1-400-Bad-Request"><a href="#4-4-1-400-Bad-Request" class="headerlink" title="4.4.1 400 Bad Request"></a>4.4.1 400 Bad Request</h3><p>​    请求报文存在语法错误。</p>
+<h3 id="4-4-2-401-Unauthorized"><a href="#4-4-2-401-Unauthorized" class="headerlink" title="4.4.2 401 Unauthorized"></a>4.4.2 401 Unauthorized</h3><p>​    未通过HTTP认证。</p>
+<h3 id="4-4-3-403-Forbidden"><a href="#4-4-3-403-Forbidden" class="headerlink" title="4.4.3 403 Forbidden"></a>4.4.3 403 Forbidden</h3><p>​    不允许这个资源。</p>
+<h3 id="4-4-4-404-Not-Found"><a href="#4-4-4-404-Not-Found" class="headerlink" title="4.4.4 404 Not Found"></a>4.4.4 404 Not Found</h3><p>​    无法找到请求的资源</p>
+<h2 id="4-5-5XX服务器错误"><a href="#4-5-5XX服务器错误" class="headerlink" title="4.5 5XX服务器错误"></a>4.5 5XX服务器错误</h2><h3 id="4-5-1-500-Internal-Server-Error"><a href="#4-5-1-500-Internal-Server-Error" class="headerlink" title="4.5.1 500 Internal Server Error"></a>4.5.1 500 Internal Server Error</h3><p>​    请求发生了错误，可能是Web应用存在bug或者临时故障</p>
+<h3 id="4-5-2-503-Service-Unavailable"><a href="#4-5-2-503-Service-Unavailable" class="headerlink" title="4.5.2 503 Service Unavailable"></a>4.5.2 503 Service Unavailable</h3><p>​    服务器暂时处于超复杂或者正在进行停机维护，无法处理其你去。</p>
+<p><img src="https://pic.imgdb.cn/item/5f2839f114195aa594072882.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5f2839fb14195aa594072bf8.jpg" alt=""></p>
+<blockquote>
+<p><strong>状态码和状况不一致</strong></p>
+<p>不少返回的状态码响应都是错误的，用户可能察觉不到这一点。比如程序内部发生错误，状态码依然返回200 OK， 这种情况经常遇到。</p>
+</blockquote>
+<h1 id="第5章"><a href="#第5章" class="headerlink" title="第5章"></a>第5章</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%9B%BE%E8%A7%A3HTTP/" rel="tag"># 图解HTTP</a>
+          
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/21/spring-cloud-stream-with-rocketmq/" rel="next" title="spring cloud stream with rocketmq">
+                <i class="fa fa-chevron-left"></i> spring cloud stream with rocketmq
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/01/%E5%8D%95%E6%9C%BARedis%E9%85%8D%E7%BD%AE/" rel="prev" title="Redis配置">
+                Redis配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpg"
+                alt="宋梓立 sorie" />
+            
+              <p class="site-author-name" itemprop="name">宋梓立 sorie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ewasong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:819294006@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-了解Web及网络基础"><span class="nav-number">1.</span> <span class="nav-text">第1章 了解Web及网络基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-使用HTTP协议访问Web"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 使用HTTP协议访问Web</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-HTTP的诞生"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 HTTP的诞生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-为知识共享而规划Web"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1  为知识共享而规划Web</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-Web成长时代"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2  Web成长时代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-驻足不前的HTTP"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3  驻足不前的HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-0-9"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">HTTP&#x2F;0.9</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-1-0"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">HTTP&#x2F;1.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-1-1"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">HTTP&#x2F;1.1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-网络基础-TCP-IP"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 网络基础 TCP&#x2F;IP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-TCP-IP协议族"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 TCP&#x2F;IP协议族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-TCP-IP的分层协议"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 TCP&#x2F;IP的分层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用层"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传输层"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络层（又名网络互连层）"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">网络层（又名网络互连层）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链路层（又名数据链路层，网络接口层）"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">链路层（又名数据链路层，网络接口层）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-TCP-IP-通信传输流"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3 TCP&#x2F;IP 通信传输流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-与HTTP关系密切的协议：IP、TCP和DNS"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 与HTTP关系密切的协议：IP、TCP和DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-负责传输的IP协议"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.4.1 负责传输的IP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ARP协议凭借MAC地址进行通信"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">使用ARP协议凭借MAC地址进行通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有人能过全面掌握互联网中的传输状况"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">没有人能过全面掌握互联网中的传输状况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-确保可靠性的TCP协议"><span class="nav-number">1.4.2.</span> <span class="nav-text">1.4.2 确保可靠性的TCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#确保数据能到达目标"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">确保数据能到达目标</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-负责域名解析的DNS服务"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 负责域名解析的DNS服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-各种协议与HTTP协议的关系"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 各种协议与HTTP协议的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-URI和URL"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 URI和URL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-1-统一资源标识符"><span class="nav-number">1.7.1.</span> <span class="nav-text">1.7.1 统一资源标识符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Uniform"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">Uniform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Resource"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">Resource</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Identifier"><span class="nav-number">1.7.1.3.</span> <span class="nav-text">Identifier</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-2-URI格式"><span class="nav-number">1.7.2.</span> <span class="nav-text">1.7.2 URI格式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-简单的HTTP协议"><span class="nav-number">2.</span> <span class="nav-text">第2章 简单的HTTP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-HTTP协议用于客户端和服务端之间的通信"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 HTTP协议用于客户端和服务端之间的通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-通过请求和响应的交换达成通信"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 通过请求和响应的交换达成通信</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-HTTP是不保存状态的协议"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 HTTP是不保存状态的协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-请求URI定位资源"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 请求URI定位资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-告知服务器意图的HTTP方法"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 告知服务器意图的HTTP方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-使用方法下达命令"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 使用方法下达命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-持久连接节省通信量"><span class="nav-number">2.7.</span> <span class="nav-text">2.7 持久连接节省通信量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-1-持久连接"><span class="nav-number">2.7.1.</span> <span class="nav-text">2.7.1 持久连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-2-管线化"><span class="nav-number">2.7.2.</span> <span class="nav-text">2.7.2 管线化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-使用Cookie的状态管理"><span class="nav-number">2.8.</span> <span class="nav-text">2.8 使用Cookie的状态管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-HTTP的报文内的HTTP信息"><span class="nav-number">3.</span> <span class="nav-text">第3章 HTTP的报文内的HTTP信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-HTTP报文"><span class="nav-number">3.1.</span> <span class="nav-text">3.1  HTTP报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-请求报文及响应报文的结构"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 请求报文及响应报文的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求行"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">请求行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态行"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">状态行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#首部字段"><span class="nav-number">3.2.0.3.</span> <span class="nav-text">首部字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">3.2.0.4.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-编码提升传输速率"><span class="nav-number">3.3.</span> <span class="nav-text">3.3  编码提升传输速率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-报文主题和实体主体的差异"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 报文主题和实体主体的差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-压缩传输的内容编码"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 压缩传输的内容编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-分割发送的分块传输编码"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3 分割发送的分块传输编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-发送多种数据的多部分对象集合"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 发送多种数据的多部分对象集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-获取部分内容的范围请求"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 获取部分内容的范围请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-内容协商返回最合适的内容"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 内容协商返回最合适的内容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-返回结果的HTTP状态码"><span class="nav-number">4.</span> <span class="nav-text">第4章 返回结果的HTTP状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-状态码告知从服务器端返回的请求结果"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 状态码告知从服务器端返回的请求结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-2XX成功"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 2XX成功</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-200-OK"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 200 OK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-204-No-Content"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 204 No Content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-3-206-Partical-Content"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 206 Partical Content</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-3-XX重定向"><span class="nav-number">4.3.</span> <span class="nav-text">4.3.3 XX重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-301-Moved-Permanently"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1 301 Moved Permanently</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-302-Found"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2 302 Found</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3-303-See-Other"><span class="nav-number">4.3.3.</span> <span class="nav-text">4.3.3 303 See Other</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-4-304-Not-Modified"><span class="nav-number">4.3.4.</span> <span class="nav-text">4.3.4 304 Not Modified</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-5-307-Temporary-Redirect"><span class="nav-number">4.3.5.</span> <span class="nav-text">4.3.5 307 Temporary Redirect</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-4XX客户端错误"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 4XX客户端错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-1-400-Bad-Request"><span class="nav-number">4.4.1.</span> <span class="nav-text">4.4.1 400 Bad Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-2-401-Unauthorized"><span class="nav-number">4.4.2.</span> <span class="nav-text">4.4.2 401 Unauthorized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-3-403-Forbidden"><span class="nav-number">4.4.3.</span> <span class="nav-text">4.4.3 403 Forbidden</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-4-404-Not-Found"><span class="nav-number">4.4.4.</span> <span class="nav-text">4.4.4 404 Not Found</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-5XX服务器错误"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 5XX服务器错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-1-500-Internal-Server-Error"><span class="nav-number">4.5.1.</span> <span class="nav-text">4.5.1 500 Internal Server Error</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-2-503-Service-Unavailable"><span class="nav-number">4.5.2.</span> <span class="nav-text">4.5.2 503 Service Unavailable</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5章"><span class="nav-number">5.</span> <span class="nav-text">第5章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">宋梓立 sorie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'XTY8e76465N8ugbyhpCoS88f-gzGzoHsz',
+        appKey: 'dwWTNcurePtzzBdMO62hSRMy',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
