@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一部分 基础篇第1章 MySQL的安装与配置1.1 MySQL的下载1.1.1 在Window平台下下载MySQL​    直接搜索Mysql官网下载即可。 1.1.2 在Linux平台下下载Mysql1.通过网页直接下载​    在网页下载后用FTP等工具传送到Linux服务器上。 2.通过命令行方式下载​    wget + url的形式。 1.2 MySQL的安装1.2.1 在Wiindo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出MySQL学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/08/24/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAMySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="宋二的小窝">
+<meta property="og:description" content="第一部分 基础篇第1章 MySQL的安装与配置1.1 MySQL的下载1.1.1 在Window平台下下载MySQL​    直接搜索Mysql官网下载即可。 1.1.2 在Linux平台下下载Mysql1.通过网页直接下载​    在网页下载后用FTP等工具传送到Linux服务器上。 2.通过命令行方式下载​    wget + url的形式。 1.2 MySQL的安装1.2.1 在Wiindo">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f45218e160a154a677a2b8f.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f452158160a154a6779f8a9.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f45227e160a154a677b0767.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f464f3d160a154a67890a8d.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f4653cc160a154a678b9c5a.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f4653da160a154a678ba3cb.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f465937160a154a678e5f3d.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f4659ce160a154a678eb77e.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f465a5e160a154a678f074f.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f465c78160a154a67901409.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f465d5b160a154a67908550.jpg">
+<meta property="article:published_time" content="2020-08-24T13:45:40.000Z">
+<meta property="article:modified_time" content="2020-08-26T13:24:05.747Z">
+<meta property="article:author" content="宋梓立 sorie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f45218e160a154a677a2b8f.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/08/24/深入浅出MySQL学习笔记/"/>
+
+
+
+
+
+  <title>深入浅出MySQL学习笔记 | 宋二的小窝</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Ewasong" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">宋二的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/24/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAMySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="宋梓立 sorie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋二的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深入浅出MySQL学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-24T21:45:40+08:00">
+                2020-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/24/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAMySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/24/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAMySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第一部分-基础篇"><a href="#第一部分-基础篇" class="headerlink" title="第一部分 基础篇"></a>第一部分 基础篇</h1><h1 id="第1章-MySQL的安装与配置"><a href="#第1章-MySQL的安装与配置" class="headerlink" title="第1章 MySQL的安装与配置"></a>第1章 MySQL的安装与配置</h1><h2 id="1-1-MySQL的下载"><a href="#1-1-MySQL的下载" class="headerlink" title="1.1 MySQL的下载"></a>1.1 MySQL的下载</h2><h3 id="1-1-1-在Window平台下下载MySQL"><a href="#1-1-1-在Window平台下下载MySQL" class="headerlink" title="1.1.1 在Window平台下下载MySQL"></a>1.1.1 在Window平台下下载MySQL</h3><p>​    直接搜索Mysql官网下载即可。</p>
+<h3 id="1-1-2-在Linux平台下下载Mysql"><a href="#1-1-2-在Linux平台下下载Mysql" class="headerlink" title="1.1.2 在Linux平台下下载Mysql"></a>1.1.2 在Linux平台下下载Mysql</h3><h4 id="1-通过网页直接下载"><a href="#1-通过网页直接下载" class="headerlink" title="1.通过网页直接下载"></a>1.通过网页直接下载</h4><p>​    在网页下载后用FTP等工具传送到Linux服务器上。</p>
+<h4 id="2-通过命令行方式下载"><a href="#2-通过命令行方式下载" class="headerlink" title="2.通过命令行方式下载"></a>2.通过命令行方式下载</h4><p>​    wget + url的形式。</p>
+<h2 id="1-2-MySQL的安装"><a href="#1-2-MySQL的安装" class="headerlink" title="1.2 MySQL的安装"></a>1.2 MySQL的安装</h2><h3 id="1-2-1-在Wiindows平台下安装MySQL"><a href="#1-2-1-在Wiindows平台下安装MySQL" class="headerlink" title="1.2.1 在Wiindows平台下安装MySQL"></a>1.2.1 在Wiindows平台下安装MySQL</h3><p>​    略</p>
+<h3 id="1-2-2-在Linux平台下安装MySQL"><a href="#1-2-2-在Linux平台下安装MySQL" class="headerlink" title="1.2.2 在Linux平台下安装MySQL"></a>1.2.2 在Linux平台下安装MySQL</h3><p>​    也略</p>
+<h2 id="1-3-MySQL的配置"><a href="#1-3-MySQL的配置" class="headerlink" title="1.3 MySQL的配置"></a>1.3 MySQL的配置</h2><h3 id="1-3-1-Windows平台下配置MySQL"><a href="#1-3-1-Windows平台下配置MySQL" class="headerlink" title="1.3.1 Windows平台下配置MySQL"></a>1.3.1 Windows平台下配置MySQL</h3><p>​    略</p>
+<h3 id="1-3-2-Linux平台下配置MySQL"><a href="#1-3-2-Linux平台下配置MySQL" class="headerlink" title="1.3.2 Linux平台下配置MySQL"></a>1.3.2 Linux平台下配置MySQL</h3><p>​    通过修改cnf文件。</p>
+<h2 id="1-4-启动和关闭MySQL服务"><a href="#1-4-启动和关闭MySQL服务" class="headerlink" title="1.4 启动和关闭MySQL服务"></a>1.4 启动和关闭MySQL服务</h2><h3 id="1-4-1-在Windows平台下启动和关闭MySQL服务"><a href="#1-4-1-在Windows平台下启动和关闭MySQL服务" class="headerlink" title="1.4.1 在Windows平台下启动和关闭MySQL服务"></a>1.4.1 在Windows平台下启动和关闭MySQL服务</h3><p>​    略</p>
+<h3 id="1-4-2-在Linux平台下启动和关闭MySQL服务"><a href="#1-4-2-在Linux平台下启动和关闭MySQL服务" class="headerlink" title="1.4.2 在Linux平台下启动和关闭MySQL服务"></a>1.4.2 在Linux平台下启动和关闭MySQL服务</h3><h4 id="1-命令行方式"><a href="#1-命令行方式" class="headerlink" title="1.命令行方式"></a>1.命令行方式</h4><ul>
+<li><p>启动服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /user/bing</span><br><span class="line">./mysqld_safe &amp;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -uroot shutdown</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="2-服务的方式"><a href="#2-服务的方式" class="headerlink" title="2.服务的方式"></a>2.服务的方式</h4><p>如果mysql是用RPM包安装的</p>
+<ul>
+<li><p>启动服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭服务</p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql stop</span><br></pre></td></tr></table></figure>
+
+<h2 id="第2章-SQL基础"><a href="#第2章-SQL基础" class="headerlink" title="第2章 SQL基础"></a>第2章 SQL基础</h2><h2 id="2-1-SQL简介"><a href="#2-1-SQL简介" class="headerlink" title="2.1 SQL简介"></a>2.1 SQL简介</h2><p>​    略</p>
+<h2 id="2-2-MySQL使用入门"><a href="#2-2-MySQL使用入门" class="headerlink" title="2.2 MySQL使用入门"></a>2.2 MySQL使用入门</h2><h3 id="2-2-1-SQL分类"><a href="#2-2-1-SQL分类" class="headerlink" title="2.2.1 SQL分类"></a>2.2.1 SQL分类</h3><ul>
+<li>DDL：数据定义语言，主要定义不同的数据段、数据库、表、列、索引等数据库对象。</li>
+<li>DML: 增删改查</li>
+<li>DCL: 数据库控制语句，比如grant，revoke等。</li>
+</ul>
+<h3 id="2-2-2-DDL语句"><a href="#2-2-2-DDL语句" class="headerlink" title="2.2.2 DDL语句"></a>2.2.2 DDL语句</h3><h4 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1.创建数据库"></a>1.创建数据库</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line"><span class="comment">#-u后面跟连接的数据库用户 -p表示需要输入密码</span></span><br><span class="line">CREATE DATABASE dbname</span><br><span class="line"><span class="comment">#展示有哪些数据库</span></span><br><span class="line">show databases</span><br><span class="line"><span class="comment">#选择数据库</span></span><br><span class="line">use dbname</span><br><span class="line"><span class="comment">#展示数据表</span></span><br><span class="line">show tables</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-删除数据库"><a href="#2-删除数据库" class="headerlink" title="2.删除数据库"></a>2.删除数据库</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop databse test1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-创建表"><a href="#3-创建表" class="headerlink" title="3.创建表"></a>3.创建表</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create table tablename (</span><br><span class="line">	col_name_1 col_type_1 constraints,</span><br><span class="line">	col_name_2 col_type_2 constraints,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看表定义</span></span><br><span class="line">desc tablename</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看创建表的sql语句</span></span><br><span class="line">show create table tablename;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-删除表"><a href="#4-删除表" class="headerlink" title="4.删除表"></a>4.删除表</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop table tablename;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-修改表"><a href="#5-修改表" class="headerlink" title="5.修改表"></a>5.修改表</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改表类型</span></span><br><span class="line">ALTER TABLE tablename MODIFY [COLUMN] column_ definition [FIRST | AFTER col_ name];</span><br><span class="line">alter table emp modify ename varchar(20);</span><br><span class="line"></span><br><span class="line"><span class="comment">#增加表字段</span></span><br><span class="line">ALTER TABLE tablename ADD [COLUMN] column_ definition [FIRST | AFTER col_ name];</span><br><span class="line"></span><br><span class="line"><span class="comment">#删除表字段</span></span><br><span class="line">ALTER TABLE tablename DROP [COLUMN] col_ name;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字段改名</span></span><br><span class="line">ALTER TABLE tablename CHANGE [COLUMN] old_ col_ name column_ definition [FIRST| AFTER col_ name]</span><br><span class="line">alter table emp change age age1 int(4) ;</span><br><span class="line"><span class="comment">#修改字段排序顺序</span></span><br><span class="line"><span class="comment">#放在某个字段后面</span></span><br><span class="line">alter table emp add birth date after ename;</span><br><span class="line"><span class="comment">#放在最前面</span></span><br><span class="line">alter table emp modify age int(3) first;</span><br><span class="line"></span><br><span class="line"><span class="comment">#改表名</span></span><br><span class="line">ALTER TABLE tablename RENAME [TO] new_tablename</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-3-DML语句"><a href="#2-2-3-DML语句" class="headerlink" title="2.2.3 DML语句"></a>2.2.3 DML语句</h3><h4 id="1-插入记录"><a href="#1-插入记录" class="headerlink" title="1.插入记录"></a>1.插入记录</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 插入记录</span></span><br><span class="line">INSERT INTO tablename (field1, field2,…, fieldn) VALUES( value1, value2,…, valuen);</span><br><span class="line"><span class="comment"># 不指定字段名称，values和字段排序一样</span></span><br><span class="line">insert into emp values(<span class="string">'lisa'</span>,<span class="string">' 2003- 02- 01'</span>,<span class="string">' 3000'</span>, 2);</span><br><span class="line"><span class="comment">#可以一次性插入多条记录</span></span><br><span class="line">INSERT INTO tablename (field1, field2, …, fieldn) VALUES (record1_ value1, record1_ value2, …, record1_ valuesn), </span><br><span class="line">(record2_ value1, record2_ value2, …, valuesn2);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-更新语句"><a href="#2-更新语句" class="headerlink" title="2. 更新语句"></a>2. 更新语句</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE tablename SET field1= value1, field2.= value2,…, fieldn= valuen [WHERE CONDITION]</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-删除记录"><a href="#3-删除记录" class="headerlink" title="3.删除记录"></a>3.删除记录</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM tablename [WHERE CONDITION]</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-查询记录"><a href="#4-查询记录" class="headerlink" title="4.查询记录"></a>4.查询记录</h4><p>这里只介绍最基本的语法</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM tablename [WHERE CONDITION]</span><br><span class="line"><span class="comment">#查询不重复记录</span></span><br><span class="line">select distinct deptno from emp;</span><br><span class="line"><span class="comment">#条件查询</span></span><br><span class="line">select * from emp <span class="built_in">where</span> deptno= 1;</span><br><span class="line"><span class="comment">#多字段条件查询</span></span><br><span class="line">select * from emp <span class="built_in">where</span> deptno= 1 and sal&lt; 3000;</span><br><span class="line"><span class="comment">#排序和限制</span></span><br><span class="line">SELECT * FROM tablename [WHERE CONDITION] [ORDER BY field1 [DESC| ASC]， field2 [DESC| ASC],…, fieldn [DESC| ASC]]</span><br><span class="line">select * from emp order by sal;</span><br><span class="line"><span class="comment">#限制一部分</span></span><br><span class="line">SELECT …[LIMIT offset_ start, row_ count]</span><br><span class="line"><span class="comment">#前三条</span></span><br><span class="line">select * from emp order by sal <span class="built_in">limit</span> 3;</span><br><span class="line"><span class="comment">#第二条记录开始的3条</span></span><br><span class="line">select * from emp order by sal <span class="built_in">limit</span> 1, 3;</span><br><span class="line"></span><br><span class="line"><span class="comment">#聚合</span></span><br><span class="line"><span class="comment">#聚合常用的有sum count max min</span></span><br><span class="line"><span class="comment">#group by是聚合字段</span></span><br><span class="line"><span class="comment">#WITH ROLLUP是可选语法，表明是否对分类聚合后的结果进行再汇总</span></span><br><span class="line"><span class="comment">#HAVING表示对分类后的结果再进行条件的过滤</span></span><br><span class="line"><span class="comment">#建议先用where过滤在用having过滤，可以提高效率</span></span><br><span class="line">SELECT [field1, field2,…, fieldn] fun_ name FROM tablename [WHERE where_ contition] [GROUP BY field1, field2,…, fieldn [WITH ROLLUP]] [HAVING where_ contition]</span><br><span class="line"></span><br><span class="line"><span class="comment">#表连接</span></span><br><span class="line"><span class="comment">#分为内连接和外连接</span></span><br><span class="line"><span class="comment">#内连接仅选出两张表相互匹配的字段</span></span><br><span class="line"><span class="comment">#外连接会选出其他不匹配的记录</span></span><br><span class="line"><span class="comment">#常用内连接</span></span><br><span class="line">select ename, deptname from emp, dept <span class="built_in">where</span> emp. deptno= dept. deptno;</span><br><span class="line"><span class="comment"># 左连接和右连接</span></span><br><span class="line">select ename, deptname from emp left join dept on emp. deptno= dept. deptno;</span><br><span class="line">select ename, deptname from dept right join emp on dept. deptno= emp. deptno;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 子查询</span></span><br><span class="line">select * from emp <span class="built_in">where</span> deptno <span class="keyword">in</span>( select deptno from dept);</span><br><span class="line"><span class="comment">#如果子查询记录数唯一可以用=代替</span></span><br><span class="line">select * from emp <span class="built_in">where</span> deptno = (select deptno from dept);</span><br><span class="line"><span class="comment">#某些情况自连接可以转化为表连接</span></span><br><span class="line"><span class="comment">#mysql4.1之前不支持子查询</span></span><br><span class="line"><span class="comment">#表连接在很多情况下用于优化子查询</span></span><br><span class="line">select emp.* from emp ,dept <span class="built_in">where</span> emp. deptno= dept. deptno;</span><br><span class="line"></span><br><span class="line"><span class="comment">#记录联合</span></span><br><span class="line"><span class="comment"># UNION是取并集去重</span></span><br><span class="line"><span class="comment"># UNION ALL是不去重</span></span><br><span class="line">SELECT * FROM t1</span><br><span class="line">UNION| UNION ALL</span><br><span class="line">SELECT * FROM t2 </span><br><span class="line">…</span><br><span class="line">UNION| UNION ALL </span><br><span class="line">SELECT * FROM tn;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-4-DCL语句"><a href="#2-2-4-DCL语句" class="headerlink" title="2.2.4 DCL语句"></a>2.2.4 DCL语句</h3><p>​    DBA用来管理系统中的对象权限时使用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个用户z1，具有对sakila数据库中所有表的SELECT/INSERT权限</span></span><br><span class="line">grant select, insert on sakila.* to <span class="string">'z1'</span>@<span class="string">' localhost'</span> identified by <span class="string">'123'</span>;</span><br><span class="line"><span class="comment"># 回收insert权限</span></span><br><span class="line">revoke insert on sakila.* from <span class="string">'z1'</span>@<span class="string">' localhost'</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-帮助的使用"><a href="#2-3-帮助的使用" class="headerlink" title="2.3 帮助的使用"></a>2.3 帮助的使用</h2><p>​    使用MySQL安装后自带的帮助文档</p>
+<h3 id="2-3-1-按照层次看帮助"><a href="#2-3-1-按照层次看帮助" class="headerlink" title="2.3.1 按照层次看帮助"></a>2.3.1 按照层次看帮助</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不知道帮助能够提供什么 以下命令显示所有可供查询的分类</span></span><br><span class="line">? contents</span><br><span class="line"><span class="comment"># 对于列出的分类， 使用"? 类别名称" 方式进一步查看</span></span><br><span class="line"><span class="comment"># 可以使用? 一层层往下查询</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-2-快速查阅帮助"><a href="#2-3-2-快速查阅帮助" class="headerlink" title="2.3.2 快速查阅帮助"></a>2.3.2 快速查阅帮助</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果需要快速查阅某项语法，比如show命令</span></span><br><span class="line">? show</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-3-常用网络资源"><a href="#2-3-3-常用网络资源" class="headerlink" title="2.3.3 常用网络资源"></a>2.3.3 常用网络资源</h3><pre><code>http:// dev. mysql. com/ downloads 是 MySQL 的 官方 网 站， 可以 下载 到 各个 版本 的 MySQL 以及 相关 客户 端 开发 工具 等。
+http:// dev. mysql. com/ doc 提供 了 目前 最 权威 的 MySQL 数据库 及 工具 的 在 线 手册。 
+http:// bugs. mysql. com 这里 可以 查看 到 MySQL 已经 发布 的 bug 列表， 或者 向 MySQL 提交 bug 报告。 
+http:// www. mysql. com/ news- and- events/ newsletter 通常 会 发布 各种 关于 MySQL 的 最新消息。</code></pre><h2 id="2-4-查询元数据信息"><a href="#2-4-查询元数据信息" class="headerlink" title="2.4 查询元数据信息"></a>2.4 查询元数据信息</h2><p>​    mysql5.0以后，提供了一个新的数据库information_schema，用来记录MySQL中元数据信息。比如表名，列名。</p>
+<p>​    它是一个虚拟库，物理上不存在相关的目录和文件。库里show tables 显示的各种表也并不是实际存在的物理表，而全部是视图。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除 数据库 test1 下 所有 前缀 为 tmp 的 表； </span></span><br><span class="line">select concat(<span class="string">' drop table test1.'</span>, table_ name,<span class="string">';'</span>) from tables <span class="built_in">where</span> table_ schema=<span class="string">' test1'</span> and table_ name like <span class="string">'tmp%'</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">#将 数据库 test1 下 所有 存储 引擎 为 myisam 的 表 改为 innodb。</span></span><br><span class="line">select concat(<span class="string">' alter table test1.'</span>, table_ name,<span class="string">' engine= innodb;'</span>) from tables <span class="built_in">where</span> table_ schema=<span class="string">' test1'</span> and engine=<span class="string">' MyISAM'</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第3章-MySQL-支持的数据类型"><a href="#第3章-MySQL-支持的数据类型" class="headerlink" title="第3章 MySQL 支持的数据类型"></a>第3章 MySQL 支持的数据类型</h1><h2 id="3-1-数值类型"><a href="#3-1-数值类型" class="headerlink" title="3.1 数值类型"></a>3.1 数值类型</h2><p><img src="https://pic.imgdb.cn/item/5f45218e160a154a677a2b8f.jpg" alt=""></p>
+<p>​    包含严格数值类型</p>
+<p>​    INTEGER,SMALLINT,DECIMAL,NUMERIC</p>
+<p>​    以及近似数值数据类型</p>
+<p>​    FLOAT, REAL, DOUBLE PRECISION</p>
+<p>​    并在此基础上做了扩展</p>
+<p>​    TINYINT,MEDIUMINT,BIGINT</p>
+<p>​    对于整数类型，还支持在类型后面的小括号内指定显示宽度。int默认为int(11)。可以配合zerofill使用，数字位数不够填充前置0。</p>
+<p>​    整数类型有一个可选属性 UNSIGNED，保存非负数或者较大上限值，可以用此选项。取值是正常值的下限取0，上限取原值的2倍。</p>
+<p>​    整数类型还有一个属性 AUTO_INCREMENT，插入NULL到AUTO_INCREMENT列时，插入一个比该列当前最大值大1的值。</p>
+<p>​    对于任何想要使用AUTO_INCREMENT的列，应该定义为NOT NULL，并定义为PRIMARY KEY或定义为UNIQUE键。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE AI (ID INT AUTO_ INCREMENT NOT NULL PRIMARY KEY); </span><br><span class="line">CREATE TABLE AI( ID INT AUTO_ INCREMENT NOT NULL ,PRIMARY KEY( ID));</span><br><span class="line">CREATE TABLE AI (ID INT AUTO_ INCREMENT NOT NULL ,UNIQUE( ID));</span><br></pre></td></tr></table></figure>
+
+
+
+<p>​    对于小数，有浮点数和定点数。浮点数包括float和double，定点数则只有decimal一种，定点数在MySQL内部以字符串形式存放，比浮点数精确。浮点数和定点数都可以在类型名称后面加(M,D)表示M位数字，其中D位小数位于小数点后面。</p>
+<p>​    浮点数跟(M,D)是非标准用法，最好不用这么使用。</p>
+<p>​    decimal默认10位，默认小数位为0。</p>
+<p>​    BIT(位)类型，用于存放字段值，BIT可以用来存放多位二进制数，M范围从1~64,不写默认1位。直接使用SELECT 不会看到结果，可以使用bin()或者hex()查看二进制数或者16进制结果。</p>
+<h2 id="3-2-日期时间类型"><a href="#3-2-日期时间类型" class="headerlink" title="3.2 日期时间类型"></a>3.2 日期时间类型</h2><p>​    <img src="https://pic.imgdb.cn/item/5f452158160a154a6779f8a9.jpg" alt=""></p>
+<p>​    如果经常插入或更新日期为当前系统时间，通常使用TIMESTAMP来表示，它返回后显示为”YYYY-MM-DD HH:MM:SS”格式字符串，显示固定宽度为19个字符。如果想获得数字值，应该在列上”+0”</p>
+<p>​    如果只是表示年份，可以用YEAR来表示，比DATE占用更少空间。有2位或者4位，4位允许值是1901~2155和0000。2位允许的是70到69，表示从1970到2069。</p>
+<p>​    从5.5.27,2为格式的year不被支持。</p>
+<p>​    零值显示方式</p>
+<p><img src="https://pic.imgdb.cn/item/5f45227e160a154a677b0767.jpg" alt=""></p>
+<p>​    </p>
+<p>​    可以用now()函数插入当前日期。</p>
+<p>​    创建测试表t, id1为TIMESTAMP类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># create table t (id1 timestamp);</span><br></pre></td></tr></table></figure>
+
+<p>​    会发现，系统给tm自动创建了默认值CURRENT_TIMESTAMP,并且设置了not null和 on update CURRENT_TIMESTAMP属性。</p>
+<p>​    插入NULL值时，会自动插入系统日期。MySQL只给表的第一个TIMESTAMP字段设置默认值为系统日期，如果有第二个，设置默认值为0值。</p>
+<p>​    MySQL5.6之前，可以修改id2的日期为其他常量日期，但是不能再修改为current_timestamp, 之后的版本这个限制已经去掉。</p>
+<p>​    如果将explicit_defaults_for_timestamp设置为on，那么刚才哪些默认值和属性都不会设置，需要手动操作。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前时区 如果值为'SYSTEM'就和主机的时区一样</span></span><br><span class="line">show variables like <span class="string">'time_zone'</span>;</span><br><span class="line"><span class="comment"># 修改为东9区</span></span><br><span class="line"><span class="built_in">set</span> time_zone = <span class="string">'+9:00'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>TIMESTAMP支持的时间范围较小，DATETIME的范围更大。两者都可以设置 ON UPDATE CURRENT_TIMESTAMP属性，使得日期列可以随其他列的更新而自动更新为最新的时间</li>
+<li>TIMESTAMP在5.6.6版本只有添加了控制参数explicit_defauts_for_timestamp，如果为on，timestamp需要显式指定默认值和ON UPDATE CURRENT_TIMESTAMP，并且设置为not null。8.0.2版本之后默认为on，之前为off。</li>
+<li>explicit_defauts_for_timestamp为off，第一个TIMESTAMP列自动设置为系统时间，如果插入NULL，自动设置为当前的日期和时间，在插入或更新一行， 没有显式给定值，也会设置为当前日期和时间。如果查出取值范围，会认为该值溢出，使用0值进行填补。</li>
+<li>TIMESTAMP的插入和查询都受当地时区的影响，更能反映出实际的日期，而DATETIME则只能反映出插入时地区的当地的时区，其他时区的人查看数据必然会有误差。</li>
+<li>TIMESTAMP属性受版本和服务器SQLMode的影响很大，本章都是以MySQL5.7为例进行介绍。</li>
+</ul>
+<p>​    插入日期的支持的格式很多，以DATETIME为例：</p>
+<ul>
+<li>YYYY-MM-DD HH:MM:SS或YY-MM-DD HH:MM:SS的字符串，允许不严格语法，任何标点都可以用作日期部门或时间部分之间的分隔符，如果日和月小于10，不需要指定两位数。时分秒小于10也不需要指定两位数。</li>
+<li>YYYYMMDDHHMMSS或YYMMDDHHMMSS格式的字符串，假定字符串对日期类型是有意义的,就比较严格。数字值应为6、8、12或14位长，8或者14位，则假定为YYYYMMDD或YYYYMMDDHHMMSS。如果是6位或者12位，则认为是YYMMDD或YYMMDDHHMMSS。其他数字被解释仿佛用零填充到了最近的长度。</li>
+</ul>
+<h2 id="3-3-字符串类型"><a href="#3-3-字符串类型" class="headerlink" title="3.3 字符串类型"></a>3.3 字符串类型</h2><p><img src="https://pic.imgdb.cn/item/5f464f3d160a154a67890a8d.jpg" alt=""></p>
+<h3 id="3-3-1-CHAR和VARCHAR型"><a href="#3-3-1-CHAR和VARCHAR型" class="headerlink" title="3.3.1 CHAR和VARCHAR型"></a>3.3.1 CHAR和VARCHAR型</h3><p>​    两者存储方式不同，在检索时CHAR删除了尾部空格,VARCHAR保留</p>
+<h3 id="3-3-2-BINARY和VARBINARY类型"><a href="#3-3-2-BINARY和VARBINARY类型" class="headerlink" title="3.3.2 BINARY和VARBINARY类型"></a>3.3.2 BINARY和VARBINARY类型</h3><p>​    类似于CHAR和VARCHAR型，不同的是它们包含二进制字符串，而不包含非二进制字符串。</p>
+<pre><code>CREATE TABLE t (c BINARY( 3));
+INSERT INTO t SET c=&apos; a&apos;;
+select *,hex( c), c=&apos; a&apos;, c=&apos; a\ 0&apos;, c=&apos; a\ 0\ 0&apos; from t;
+
+最终结果是
+a | 610000 | 0 | 0| 1
+在保存BINARY值时，在值的最后填充&apos;0x00&apos;(零字节)以达到指定字符长度。</code></pre><p>对比</p>
+<p><a href="https://www.cnblogs.com/zejin2008/p/6606120.html" target="_blank" rel="noopener">https://www.cnblogs.com/zejin2008/p/6606120.html</a></p>
+<p><img src="https://pic.imgdb.cn/item/5f4653cc160a154a678b9c5a.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5f4653da160a154a678ba3cb.jpg" alt=""></p>
+<h3 id="3-3-3-ENUM类型"><a href="#3-3-3-ENUM类型" class="headerlink" title="3.3.3 ENUM类型"></a>3.3.3 ENUM类型</h3><p>​    枚举类型，值范围在创建表时，需要显示指定，1~255个成员需要1个字节存储，255到65536个成员需要两个字节。</p>
+<p>​    </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table t (gender enum(<span class="string">'M'</span>,<span class="string">'F'</span>));</span><br><span class="line">INSERT INTO t VALUES(<span class="string">' M'</span>),(<span class="string">' 1'</span>),(<span class="string">' f'</span>),( NULL);</span><br><span class="line">select * from t;</span><br><span class="line">| M|</span><br><span class="line">| M | </span><br><span class="line">| F|</span><br><span class="line">| NULL |</span><br></pre></td></tr></table></figure>
+
+<p>​    enum忽略大小写，如果不在取值范围内，默认为第一个值。</p>
+<h3 id="3-3-4-SET类型"><a href="#3-3-4-SET类型" class="headerlink" title="3.3.4 SET类型"></a>3.3.4 SET类型</h3><p>​    和ENUM类型类似，也是一个字符串对象，可以包含0~64成员</p>
+<ul>
+<li>1~8成员 1字节</li>
+<li>9~16 2字节</li>
+<li>17~24 3字节</li>
+<li>25~32 4字节</li>
+<li>33~64 8字节</li>
+</ul>
+<p>​    区别在于SET类型可以一次选取多个成员</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Create table t (col <span class="built_in">set</span>（<span class="string">' a'</span>,<span class="string">' b'</span>,<span class="string">' c'</span>,<span class="string">' d'</span>）; </span><br><span class="line">insert into t values(<span class="string">' a, b'</span>),(<span class="string">' a, d, a'</span>),(<span class="string">' a, b'</span>),(<span class="string">' a, c'</span>),(<span class="string">' a'</span>);</span><br><span class="line">select * from t; </span><br><span class="line">+------+ </span><br><span class="line">| col | </span><br><span class="line">+------+ </span><br><span class="line">| a, b | </span><br><span class="line">| a, d | </span><br><span class="line">| a, b | </span><br><span class="line">| a, c | </span><br><span class="line">| a |</span><br></pre></td></tr></table></figure>
+
+<p>​    只允许插入允许的值，多个值合并为一个值。</p>
+<h2 id="3-4-JSON类型"><a href="#3-4-JSON类型" class="headerlink" title="3.4 JSON类型"></a>3.4 JSON类型</h2><p>​    从5.7.8之后支持</p>
+<ul>
+<li>插入时会自动校验数据是否json格式，不是就报错</li>
+<li>提供了相关的内置函数吗，可以方便地提取各类数据，可以修改特定的值</li>
+<li>优化存储格式，存储在json格式中的数据会被转换成内部的存储格式，允许快速读取。</li>
+</ul>
+<p>​    支持的数据类型包括NUMBER、STRING、BOOLEAN、NULL、ARRAYA、OBJECT 6种。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[&quot;abc&quot;, 10, null, true, false]</span><br><span class="line">&#123;&quot;k1&quot;: &quot;value&quot;, &quot;k2&quot;: 10&#125;</span><br><span class="line">[99, &#123;&quot;id&quot;: &quot;hk500&quot;, &quot;cost&quot;: 75.99&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>常见null,true,false必须小写才合法，’null’, ‘false’合法, ‘NULL’或者’FALSE’不合法。</p>
+<p>如果要包含单引号或者双引号，需要反斜线转义。</p>
+<p>json不可有默认值，最大长度取决于max_allowed_packet(存储时限制，内存中计算允许超过该值)。</p>
+<h1 id="第4章-MySQL中的运算符"><a href="#第4章-MySQL中的运算符" class="headerlink" title="第4章 MySQL中的运算符"></a>第4章 MySQL中的运算符</h1><h2 id="4-1-算术运算符"><a href="#4-1-算术运算符" class="headerlink" title="4.1 算术运算符"></a>4.1 算术运算符</h2><p><img src="https://pic.imgdb.cn/item/5f465937160a154a678e5f3d.jpg" alt=""></p>
+<p>​    在除法和模运算中，如果除数为0，返回结果为NULL。</p>
+<p>​    模运算可以用MOD(a,b)函数。</p>
+<h2 id="4-2-比较运算符"><a href="#4-2-比较运算符" class="headerlink" title="4.2 比较运算符"></a>4.2 比较运算符</h2><p><img src="https://pic.imgdb.cn/item/5f4659ce160a154a678eb77e.jpg" alt=""></p>
+<p>​    注意：NULL不能用=比较</p>
+<h2 id="4-3-逻辑运算符"><a href="#4-3-逻辑运算符" class="headerlink" title="4.3 逻辑运算符"></a>4.3 逻辑运算符</h2><p><img src="https://pic.imgdb.cn/item/5f465a5e160a154a678f074f.jpg" alt=""></p>
+<ul>
+<li>逻辑非，当操作数为0返回1,1返回0，NULL返回NULL</li>
+<li>逻辑与，操作数有一个为NULL就为NULL</li>
+<li>逻辑或，两个全为NULL，或者有一个为NULL其他全是0，结果为NULL。</li>
+<li>逻辑异或，有NULL则返回NULL。</li>
+</ul>
+<h2 id="4-4-位运算符"><a href="#4-4-位运算符" class="headerlink" title="4.4 位运算符"></a>4.4 位运算符</h2><p>​    <img src="https://pic.imgdb.cn/item/5f465c78160a154a67901409.jpg" alt=""></p>
+<p>​    是将给定的操作数转换成二进制进行计算</p>
+<h2 id="4-5-运算符优先级"><a href="#4-5-运算符优先级" class="headerlink" title="4.5 运算符优先级"></a>4.5 运算符优先级</h2><p><img src="https://pic.imgdb.cn/item/5f465d5b160a154a67908550.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/01/%E9%B8%9F%E5%93%A5%E7%9A%84linux%E7%A7%81%E6%88%BF%E8%8F%9C%E5%AD%A6%E4%B9%A0/" rel="next" title="鸟哥的linux私房菜学习">
+                <i class="fa fa-chevron-left"></i> 鸟哥的linux私房菜学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpg"
+                alt="宋梓立 sorie" />
+            
+              <p class="site-author-name" itemprop="name">宋梓立 sorie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ewasong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:819294006@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一部分-基础篇"><span class="nav-number">1.</span> <span class="nav-text">第一部分 基础篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-MySQL的安装与配置"><span class="nav-number">2.</span> <span class="nav-text">第1章 MySQL的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-MySQL的下载"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 MySQL的下载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-在Window平台下下载MySQL"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 在Window平台下下载MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-在Linux平台下下载Mysql"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2 在Linux平台下下载Mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-通过网页直接下载"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">1.通过网页直接下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-通过命令行方式下载"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">2.通过命令行方式下载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-MySQL的安装"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 MySQL的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-在Wiindows平台下安装MySQL"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 在Wiindows平台下安装MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-在Linux平台下安装MySQL"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 在Linux平台下安装MySQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-MySQL的配置"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 MySQL的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-Windows平台下配置MySQL"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.3.1 Windows平台下配置MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-Linux平台下配置MySQL"><span class="nav-number">2.3.2.</span> <span class="nav-text">1.3.2 Linux平台下配置MySQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-启动和关闭MySQL服务"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 启动和关闭MySQL服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-在Windows平台下启动和关闭MySQL服务"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.4.1 在Windows平台下启动和关闭MySQL服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-在Linux平台下启动和关闭MySQL服务"><span class="nav-number">2.4.2.</span> <span class="nav-text">1.4.2 在Linux平台下启动和关闭MySQL服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-命令行方式"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">1.命令行方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-服务的方式"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">2.服务的方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-SQL基础"><span class="nav-number">2.5.</span> <span class="nav-text">第2章 SQL基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-SQL简介"><span class="nav-number">2.6.</span> <span class="nav-text">2.1 SQL简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-MySQL使用入门"><span class="nav-number">2.7.</span> <span class="nav-text">2.2 MySQL使用入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-SQL分类"><span class="nav-number">2.7.1.</span> <span class="nav-text">2.2.1 SQL分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-DDL语句"><span class="nav-number">2.7.2.</span> <span class="nav-text">2.2.2 DDL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建数据库"><span class="nav-number">2.7.2.1.</span> <span class="nav-text">1.创建数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-删除数据库"><span class="nav-number">2.7.2.2.</span> <span class="nav-text">2.删除数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-创建表"><span class="nav-number">2.7.2.3.</span> <span class="nav-text">3.创建表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-删除表"><span class="nav-number">2.7.2.4.</span> <span class="nav-text">4.删除表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-修改表"><span class="nav-number">2.7.2.5.</span> <span class="nav-text">5.修改表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-DML语句"><span class="nav-number">2.7.3.</span> <span class="nav-text">2.2.3 DML语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-插入记录"><span class="nav-number">2.7.3.1.</span> <span class="nav-text">1.插入记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-更新语句"><span class="nav-number">2.7.3.2.</span> <span class="nav-text">2. 更新语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-删除记录"><span class="nav-number">2.7.3.3.</span> <span class="nav-text">3.删除记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查询记录"><span class="nav-number">2.7.3.4.</span> <span class="nav-text">4.查询记录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-DCL语句"><span class="nav-number">2.7.4.</span> <span class="nav-text">2.2.4 DCL语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-帮助的使用"><span class="nav-number">2.8.</span> <span class="nav-text">2.3 帮助的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-按照层次看帮助"><span class="nav-number">2.8.1.</span> <span class="nav-text">2.3.1 按照层次看帮助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-快速查阅帮助"><span class="nav-number">2.8.2.</span> <span class="nav-text">2.3.2 快速查阅帮助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-常用网络资源"><span class="nav-number">2.8.3.</span> <span class="nav-text">2.3.3 常用网络资源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-查询元数据信息"><span class="nav-number">2.9.</span> <span class="nav-text">2.4 查询元数据信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-MySQL-支持的数据类型"><span class="nav-number">3.</span> <span class="nav-text">第3章 MySQL 支持的数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-数值类型"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 数值类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-日期时间类型"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 日期时间类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-字符串类型"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 字符串类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-CHAR和VARCHAR型"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 CHAR和VARCHAR型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-BINARY和VARBINARY类型"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 BINARY和VARBINARY类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-ENUM类型"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3 ENUM类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-4-SET类型"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.3.4 SET类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-JSON类型"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 JSON类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-MySQL中的运算符"><span class="nav-number">4.</span> <span class="nav-text">第4章 MySQL中的运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-算术运算符"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 算术运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-比较运算符"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 比较运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-逻辑运算符"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 逻辑运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-位运算符"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 位运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-运算符优先级"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 运算符优先级</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">宋梓立 sorie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'XTY8e76465N8ugbyhpCoS88f-gzGzoHsz',
+        appKey: 'dwWTNcurePtzzBdMO62hSRMy',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
