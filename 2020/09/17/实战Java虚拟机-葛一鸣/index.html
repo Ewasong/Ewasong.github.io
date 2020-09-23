@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java虚拟机," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第1章 初探Java虚拟机略 第2章 认识Java虚拟机的基本结构本章 涉及 的 主要 知识 点 有：   认识 Java 虚拟 机 中的 堆。  了解 有关 栈 的 概念 和 使用。  了解 存放 类型 描述 的 永久 区 和 元 数据区。  2.1 谋全局者才能成大器：看穿Java虚拟机的架构 ​     ​    类加载子系统负责从文件系统或网络中加载Class信息，加载的类信息存放于一块称">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实战Java虚拟机(葛一鸣)">
+<meta property="og:url" content="http://yoursite.com/2020/09/17/%E5%AE%9E%E6%88%98Java%E8%99%9A%E6%8B%9F%E6%9C%BA-%E8%91%9B%E4%B8%80%E9%B8%A3/index.html">
+<meta property="og:site_name" content="宋二的小窝">
+<meta property="og:description" content="第1章 初探Java虚拟机略 第2章 认识Java虚拟机的基本结构本章 涉及 的 主要 知识 点 有：   认识 Java 虚拟 机 中的 堆。  了解 有关 栈 的 概念 和 使用。  了解 存放 类型 描述 的 永久 区 和 元 数据区。  2.1 谋全局者才能成大器：看穿Java虚拟机的架构 ​     ​    类加载子系统负责从文件系统或网络中加载Class信息，加载的类信息存放于一块称">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f635904160a154a67efeade.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f635f97160a154a67f1a941.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6362d4160a154a67f2a435.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f636489160a154a67f323c5.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6365e5160a154a67f37a5b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f636661160a154a67f39849.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6366f0160a154a67f3bc4e.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6367fa160a154a67f4095b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f63695e160a154a67f46726.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f636951160a154a67f4639b.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66e6e7160a154a67dc971d.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66e7b0160a154a67dcc91a.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66e837160a154a67dce821.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66eb10160a154a67dd99aa.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66eda5160a154a67de3862.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f076160a154a67df1f02.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f3b0160a154a67dff7df.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f3f6160a154a67e00800.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f48f160a154a67e02703.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f79a160a154a67e0c6d6.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f8cd160a154a67e10eed.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f8f3160a154a67e1195a.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f952160a154a67e12fd9.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f983160a154a67e13bb6.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66f9ed160a154a67e15329.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66fa5e160a154a67e16d56.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f66fb8a160a154a67e1b492.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f68960a160a154a679c2ec7.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f68996a160a154a679f1344.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f689a09160a154a679f960f.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f689c3c160a154a67a169f9.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f689ca0160a154a67a1bbb9.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f689e46160a154a67a313df.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f689ead160a154a67a3738c.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f68a036160a154a67a46732.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f68a826160a154a67aaf771.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f69f9e2160a154a67573d4c.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f69fabc160a154a6757a32c.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f69fd2a160a154a6758af56.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f69fddf160a154a6759083d.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f69ff4a160a154a6759d87c.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6a016c160a154a675b1bc4.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6a02a1160a154a675bd3d5.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6a02b2160a154a675bdddd.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6a0303160a154a675c110f.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6a0320160a154a675c2354.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6b3d5d160a154a67d76a1d.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/5f6b414d160a154a67d971aa.jpg">
+<meta property="article:published_time" content="2020-09-17T12:35:22.000Z">
+<meta property="article:modified_time" content="2020-09-23T13:22:05.038Z">
+<meta property="article:author" content="宋梓立 sorie">
+<meta property="article:tag" content="Java虚拟机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/5f635904160a154a67efeade.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/09/17/实战Java虚拟机-葛一鸣/"/>
+
+
+
+
+
+  <title>实战Java虚拟机(葛一鸣) | 宋二的小窝</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Ewasong" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">宋二的小窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/17/%E5%AE%9E%E6%88%98Java%E8%99%9A%E6%8B%9F%E6%9C%BA-%E8%91%9B%E4%B8%80%E9%B8%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="宋梓立 sorie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋二的小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实战Java虚拟机(葛一鸣)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-17T20:35:22+08:00">
+                2020-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/09/17/%E5%AE%9E%E6%88%98Java%E8%99%9A%E6%8B%9F%E6%9C%BA-%E8%91%9B%E4%B8%80%E9%B8%A3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/09/17/%E5%AE%9E%E6%88%98Java%E8%99%9A%E6%8B%9F%E6%9C%BA-%E8%91%9B%E4%B8%80%E9%B8%A3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第1章-初探Java虚拟机"><a href="#第1章-初探Java虚拟机" class="headerlink" title="第1章 初探Java虚拟机"></a>第1章 初探Java虚拟机</h1><p>略</p>
+<h1 id="第2章-认识Java虚拟机的基本结构"><a href="#第2章-认识Java虚拟机的基本结构" class="headerlink" title="第2章 认识Java虚拟机的基本结构"></a>第2章 认识Java虚拟机的基本结构</h1><p>本章 涉及 的 主要 知识 点 有： </p>
+<ul>
+<li>认识 Java 虚拟 机 中的 堆。 </li>
+<li>了解 有关 栈 的 概念 和 使用。 </li>
+<li>了解 存放 类型 描述 的 永久 区 和 元 数据区。</li>
+</ul>
+<h2 id="2-1-谋全局者才能成大器：看穿Java虚拟机的架构"><a href="#2-1-谋全局者才能成大器：看穿Java虚拟机的架构" class="headerlink" title="2.1 谋全局者才能成大器：看穿Java虚拟机的架构"></a>2.1 谋全局者才能成大器：看穿Java虚拟机的架构</h2><p><img src="https://pic.imgdb.cn/item/5f635904160a154a67efeade.jpg" alt=""></p>
+<p>​    </p>
+<p>​    类加载子系统负责从文件系统或网络中加载Class信息，加载的类信息存放于一块称为方法去的内存空间中。除了类信息，方法去还会存放运行时常量池信息，包括字符串字面量和数字常量。</p>
+<p>​    Java堆在虚拟机启动的时候建立，是Java程序最主要的工作区域。几乎所有的Java实例都存放在Java堆中。堆空间是所有线程共享的。</p>
+<p>​    Java的NIO库允许Java程序使用直接内存。是存在与Java堆外、直接向系统申请的内存区域。通常，访问直接内存的速度会优先于Java堆。受限于系统的最大内存。</p>
+<p>​    垃圾回收系统是Java虚拟机的重要组成部分，垃圾回收器可以对方法区、Java堆和直接内存进行回收。其中，Java堆是垃圾收集器的工作重点。</p>
+<p>​    每一个Java虚拟机线程都有一个私有的Java栈。一个线程的Java栈在线程启动的时候被创建。Java栈中保存着帧信息，Java栈中保存着局部变量、方法参数，同时和Java方法的调用、返回密切相关。</p>
+<p>​    本地方法栈和Java栈特别类似，最大不同在于Java栈用于Java方法的调用，本地方法栈则用于本地方法的调用。</p>
+<p>​    PC寄存器也是每个线程私有的空间，Java虚拟机会为每一个Java线程创建PC寄存器。在任意时刻，一个Java线程总是在执行一个方法，这个方法被称为当前方法。如果当前方法不是本地方法，就会指向被执行的命令，如果是，值就是undefined。</p>
+<h2 id="2-2-小参数能解决大问题：学会设置Java虚拟机参数"><a href="#2-2-小参数能解决大问题：学会设置Java虚拟机参数" class="headerlink" title="2.2 小参数能解决大问题：学会设置Java虚拟机参数"></a>2.2 小参数能解决大问题：学会设置Java虚拟机参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java [-options] class [args...]</span><br></pre></td></tr></table></figure>
+
+<p>-options表示Java虚拟机的启动参数， args表示传递给主函数main()的参数。</p>
+<p>如果需要设定特定的Java虚拟机参数，在options处指定即可。</p>
+<h2 id="2-3-对象去哪儿：辨清Java堆"><a href="#2-3-对象去哪儿：辨清Java堆" class="headerlink" title="2.3 对象去哪儿：辨清Java堆"></a>2.3 对象去哪儿：辨清Java堆</h2><p>​    几乎所有对象都是存放在堆中，通过垃圾回收机制，垃圾对象会被自动清理。</p>
+<p>​    垃圾回收机制不同，可能有不同的结构，最常见的如下:</p>
+<p><img src="https://pic.imgdb.cn/item/5f635f97160a154a67f1a941.jpg" alt=""></p>
+<p>​    绝大多数情况下，对手首先在eden区分配，在一次新生代回收后，如果对象还存活，则会进入s0或s1。每次经过一次新生代回收，如果对象存活，年龄就+1。到达一定条件后，进入老年代。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.sorie;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleHeap</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SimpleHeap</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"My ID is"</span> + id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SimpleHeap s1 = <span class="keyword">new</span> SimpleHeap(<span class="number">1</span>);</span><br><span class="line">        SimpleHeap s2 = <span class="keyword">new</span> SimpleHeap(<span class="number">2</span>);</span><br><span class="line">        s1.show();</span><br><span class="line">        s2.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    SimpleHeap实例本身在堆中分配，描述SimpleHeap类的信息存放在方法区，main()函数中的s1和s2局部变量存放在Java栈中，并且指向堆中的两个实例。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6362d4160a154a67f2a435.jpg" alt=""></p>
+<h2 id="2-4-函数如何调用：出入Java栈"><a href="#2-4-函数如何调用：出入Java栈" class="headerlink" title="2.4 函数如何调用：出入Java栈"></a>2.4 函数如何调用：出入Java栈</h2><p>​    Java栈是一块线程私有的内存空间。线程执行的基本行为是函数调用，每次函数调用都是通过Java栈传递的。</p>
+<p>​    是一块先进后入的数据结构，只支持出栈和入栈两种操作。Java栈中保存的主要内容为栈帧。当前正在执行的函数所对应的帧就是当前的帧(位于栈顶)，它保存着当前函数的局部变量、中间运算结果等数据。</p>
+<p>​    函数返回时，栈帧从Java栈中被弹出。Java有两种返回函数的方式，一种是正常的函数返回，使用return指令；另外一种是抛出异常。</p>
+<p>​    一个栈帧中，至少要包含局部变量表、操作数栈和帧数据区几部分。</p>
+<p><img src="https://pic.imgdb.cn/item/5f636489160a154a67f323c5.jpg" alt=""></p>
+<p>​    如果栈空间不足，那么函数调用自然无法继续进行。当前请求的栈深度大于最大可用栈深度，就会抛出StackOverflowError栈溢出错误。</p>
+<p>​    通过参数-Xss128K，可以调整栈大小。</p>
+<h3 id="2-4-1-局部变量表"><a href="#2-4-1-局部变量表" class="headerlink" title="2.4.1 局部变量表"></a>2.4.1 局部变量表</h3><p>​    是栈帧的重要组成部分一直，用于保存函数的参数及局部变量、局部变量表中的变量只在函数调用中有效，调用结束，栈帧就销毁，局部变量表也会销毁。</p>
+<p>​    如果函数的参数和局部变量较多，会使局部变量表膨胀，最终导致函数嵌套次数减少。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6365e5160a154a67f37a5b.jpg" alt=""></p>
+<p>局部变量表的变量也是重要的垃圾回收根节点，被局部变量表中直接或间接引用的对应都不会被回收。</p>
+<h3 id="2-4-2-操作数栈"><a href="#2-4-2-操作数栈" class="headerlink" title="2.4.2 操作数栈"></a>2.4.2 操作数栈</h3><p>​    栈帧中重要内容之一，用于保存计算中间结果，通识作为计算过程中变量临时的计算存储空间。</p>
+<p><img src="https://pic.imgdb.cn/item/5f636661160a154a67f39849.jpg" alt=""></p>
+<h3 id="2-4-3-帧数据区"><a href="#2-4-3-帧数据区" class="headerlink" title="2.4.3 帧数据区"></a>2.4.3 帧数据区</h3><p>​    除了局部变量表和操作数栈，Java栈帧还需要一些数据来支持常量池解析、正常方法返回和异常处理操作。大部分Java字节码指令需要进行常量池访问，在帧数据区中国保存着访问常量池的指针，方便访问常量池。</p>
+<p>​    此外，函数如果出现异常，虚拟机必须回复调用者函数的栈帧，并且让调用者函数继续执行。对于异常处理，虚拟机必须有一个异常处理表，方便在异常时找到处理异常的代码。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6366f0160a154a67f3bc4e.jpg" alt=""></p>
+<p>​    第一行表示4到16字节可能抛出任意异常，如果遇到则跳转到字节码偏移19处执行。</p>
+<h3 id="2-4-4-栈上分配"><a href="#2-4-4-栈上分配" class="headerlink" title="2.4.4 栈上分配"></a>2.4.4 栈上分配</h3><p>​    是Java虚拟机提供的一项优化技术，基本思想是，对于那些线程私有(不会被其他线程访问的对象)，可以将它们打散分配在栈上，而不是在堆上。好处是可以自行销毁，不需要垃圾回收器的接入。</p>
+<p>​    一个技术基础是进行逃逸分析。目的是判断对象的作用于是否有可能逃出函数体。</p>
+<p>​    对于没有逃逸的对象，虚拟机可能将其分配在栈上。</p>
+<p>​    在Server模式(-server)下，才可以启用逃逸分析。参数-XX:+DoEscapeAnalysis启用逃逸分析。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6367fa160a154a67f4095b.jpg" alt=""></p>
+<p>​    关闭逃逸分析或标量替换中的任何一个，就会看到大量日志。栈上分配依赖逃逸分析和标量替换的实现。</p>
+<p>​    对于大量零散的小对象，栈上分配提供了一种很好的对象分配优化策略，栈上分配速度很快，并且可以有效避免垃圾回收带来的负面影响。大对象无法也不合适在栈上分配。</p>
+<h2 id="2-5-类去哪儿了：识别方法区"><a href="#2-5-类去哪儿了：识别方法区" class="headerlink" title="2.5 类去哪儿了：识别方法区"></a>2.5 类去哪儿了：识别方法区</h2><p>​    所有线程共享。保存类信息，比如字段、方法、常量池。大小决定系统可以保存多少个类，如果定义了太多类，导致方法区溢出，会抛出内存溢出错误。</p>
+<p>​    JDK1.6,1.7中，方法去可以理解为永久区。永久区可以使用参数-XX:PermSize和-XX:MaxPermSize指定。默认-XX:MaxPermSize为64MB。如果系统使用了一些动态大力，这是需要设置一个合适的永久区大小，确保不会发生内存溢出。</p>
+<p>​    JDK1.8之后，永久区已经被彻底移除，取而代之的是元数据区，通过参数-XX:MaxMetaspaceSize指定，默认情况下会耗尽所有系统内存。</p>
+<p><img src="https://pic.imgdb.cn/item/5f63695e160a154a67f46726.jpg" alt=""></p>
+<p>​    元数据区发生溢出会抛出异常。</p>
+<p><img src="https://pic.imgdb.cn/item/5f636951160a154a67f4639b.jpg" alt=""></p>
+<h1 id="第3章-常用Java虚拟机参数"><a href="#第3章-常用Java虚拟机参数" class="headerlink" title="第3章 常用Java虚拟机参数"></a>第3章 常用Java虚拟机参数</h1><p>本章知识点：</p>
+<ul>
+<li>跟踪Java虚拟机的垃圾回收和类加载等信息。</li>
+<li>配置Java虚拟机的堆空间</li>
+<li>配置永久区和Java栈</li>
+<li>学习虚拟机的服务器和客户端模式</li>
+</ul>
+<h2 id="3-1-一切运行都有迹可循：掌握跟踪调试参数"><a href="#3-1-一切运行都有迹可循：掌握跟踪调试参数" class="headerlink" title="3.1 一切运行都有迹可循：掌握跟踪调试参数"></a>3.1 一切运行都有迹可循：掌握跟踪调试参数</h2><p>​    如果可以跟踪系统的运行状态，对故障排查会有一定帮助。</p>
+<h3 id="3-1-1-跟踪垃圾回收——读懂虚拟机日志"><a href="#3-1-1-跟踪垃圾回收——读懂虚拟机日志" class="headerlink" title="3.1.1 跟踪垃圾回收——读懂虚拟机日志"></a>3.1.1 跟踪垃圾回收——读懂虚拟机日志</h3><p>​    Java一大特色就是支持自动垃圾回收(GC)。但是垃圾回收频繁，或者占用了太长CPU时间，就要引起重视。</p>
+<p>​    最简单的一个GC参数就是-XX:+PrintGC(在JDK9, JDK10中建议使用-Xlog:gc), 加了参数后，只要遇到GC，就会打印日志。如下：</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f66e6e7160a154a67dc971d.jpg" alt=""></p>
+<p>​    日志显示，一共进行了4次GC，每次GC占一行。GC前，堆空间使用量4MB，在GC后，堆空间使用量为377K, 当前可用给的堆空间总和约为16MB(15935KB)。最后显示的是本次GC所花的时间。</p>
+<p>​    JDK9, JDK10默认使用G1作为垃圾回收器。使用参数-Xlog:gc来打印GC日志。</p>
+<p><img src="https://pic.imgdb.cn/item/5f66e7b0160a154a67dcc91a.jpg" alt=""></p>
+<p>​    一共进行了1次GC，GC前，堆空间使用量16MB，GC后，堆空间使用量7MB。当前可用堆空间综合34MB。最后显示GC耗时，23.511。</p>
+<p>​    如果需要更详尽的信息，可以使用-XX:+PrintGCDetails。JDK8(JDK9和JDK10建议使用-Xlog:gc*)的输出如下：</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f66e837160a154a67dce821.jpg" alt=""></p>
+<p>​    经历了3次GC，第一次仅为新生代GC，回收效果是新生代回收前从8MB左右降到了1MB。整个堆从22MB左右降低到17MB。</p>
+<p>​    第2次(加粗部门)为Full GC，它同时回收了新生代、老年代和永久区。新生代在这次GC中没有释放空间(严格来说是GC日志的一个小bug事实上，这次Full GC后，新生代被清空，由于GC日志输出的时机，各个版本JDK日志多多少少有些不太精确的地方), 老年代从16MB降低到13MB。整个堆大小从26MB左右降低到13MB左右(大小完全与老年代时机大小相等，因此可以推断，新生代实际上已经被清空)。永久区没有发生变化。日志最后显示了GC所花时间，user表示用户态耗时，sys表示系统CPU耗时，real表示GC实际经历的时间。</p>
+<p>​    该参数还会使虚拟机在退出前打印对的详细信息。详细信息描述了各个区间的使用情况。如上输出所示，当前新生代(new generation)总大小为9792KB, 已使用4586KB。紧跟其后的3个16进制数字表示新生代的下界、当前上界和上界。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f66eb10160a154a67dd99aa.jpg" alt=""></p>
+<p>​    使用上界减去下界就能得到当前堆空间的最大值，使用当前上界减去下界，就是当前虚拟机已经为程序分配的空间。如果当前上界等于下界，说明当前的堆空间已经没有扩大的可能性。</p>
+<p>​    可能性。 在 本例 中（ 0x00000000f98a0000- 0x00000000f8e00000）/ 1024= 10880KB。 这块 空间 正好 等于 eden+ from+ to 的 总和。 而可 用的 新生代 9792KB 为 eden+ from（ to） 的 总和， 对于 两者 出现 差异 的 原因， 可以 参考 本书 第 4 章。</p>
+<p>​    JDK9、JDK10使用参数-Xlog:gc*来打印更详细的GC日志，如下所示：</p>
+<p><img src="https://pic.imgdb.cn/item/5f66eda5160a154a67de3862.jpg" alt=""></p>
+<p>​    从输出中可以看到，堆最大可用大小为32MB, 系统经历了1次GC，为新生代GC，回收的效果是整个堆从14MB左右降到了1MB。JDK9、JDK10中，除了新生代、老年代，还新增了一个巨型区域，即上述输出中的Humongous regions。</p>
+<p>​    另外，日志有详细的时间信息，第一列显Java程序的运行时间，Pause Young(G1 Evacuation Pause) 14-&gt;1M(32M) 7.028ms表示新生代垃圾回收花了7.028ms。</p>
+<p>​    Pre Evacuate Collection Set, Evacuate Collection Set, Post Evacuate Collection Set, Other 代表G1垃圾回收标记-清除算法不同阶段所花费的时间。</p>
+<p>​    如果需要更全面的堆信息，还可以使用-XX:+PrintHeapAtGC(考虑到兼容性，JDK9开始已经删除此参数，查看堆信息可以使用VisualVM)。它会在每次GC前、后分别打印对的信息。</p>
+<p>​    如果需要GC发生时间，还可以使用-XX:PrintGCTimeStamps(JDK9, JDK10中使用-Xlog:gc*已经默认打印出时间)。</p>
+<p><img src="https://pic.imgdb.cn/item/5f66f076160a154a67df1f02.jpg" alt=""></p>
+<p>​    由于GC会引起应用程序停顿，因此还需要特别关注应用程序的执行时间和停顿时间。使用参数-XX:+PrintGCApplicationConcurrentTime可以打印应用执行时间，使用参数-XX:+PrintGCApplicationStoppedTime可以打印应用程序由于GC而产生的停顿时间，如下所示：如果想跟踪系统内的软引用、弱引用、虚引用和Finallize队列，可以打开-XX:+PrintReferenceGC(考虑到兼容性，JDK9已经删除此参数)开关。</p>
+<p>​    默认情况下，GC日志会在控制台输出，不便于后续分析和定位问题，所以虚拟机允许将GC日志以文件形式输出，可以使用-Xloggc指定。比如使用参数-Xloggc:log/gc.log(JDK9,10建议使用-Xlog:gc:log/gc.log)启动虚拟机。</p>
+<h3 id="3-1-2-类加载-卸载的追踪"><a href="#3-1-2-类加载-卸载的追踪" class="headerlink" title="3.1.2 类加载/卸载的追踪"></a>3.1.2 类加载/卸载的追踪</h3><p>​    一般情况下，系统加载的类存在于文件系统中，以jar的形式打包或以class文件的形式存在，可以直接通过文件系统查看。</p>
+<p>​    但是伴随动态代理，AOP等技术的普遍使用，系统也极有可能在运行时动态生成某些类，这些类相对比较隐蔽，无法通过文件系统找到。</p>
+<p>​    使用参数-verbos:class最终类的加载/卸载。</p>
+<p>​    也可以单独使用参数-XX:+TraceClassLoding(在JDK9, 10中建议使用-Xlog:class+load=info, 就跟JDK8中的参数-XX:+TraceClassLoding效果一样)跟踪类加载。</p>
+<p>​    使用参数-XX:+TraceClassUnloading(在JDK9, JDK10中建议使用-Xlog:class+unload=info)跟踪类的加载。</p>
+<p>​    下面代码使用ASM动态生成名为Example类，将其反复加载到系统中。</p>
+<p><img src="https://pic.imgdb.cn/item/5f66f3b0160a154a67dff7df.jpg" alt=""></p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f66f3f6160a154a67e00800.jpg" alt=""></p>
+<p>​    日志中可以看到，先加载了Object类，作为所有类的父类。后半部分显示，对Example类先后进行了10次加载和9次卸载</p>
+<p>​    注意：动态类的加载非常隐蔽，由代码逻辑控制，不出现文件系统中。</p>
+<p>​    Java虚拟机还允许研发人员在运行时打印、查看系统中类的分布情况，只要在系统启动时加上-XX:+PrintClassHistogram参数。然后在Java控制台中按下Ctrl+Break组合键，控制台就会显示当前类信息柱状图。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f66f48f160a154a67e02703.jpg" alt=""></p>
+<h3 id="3-1-3-查看系统参数"><a href="#3-1-3-查看系统参数" class="headerlink" title="3.1.3 查看系统参数"></a>3.1.3 查看系统参数</h3><p>​    由于系统支持众多可配置参数，不同参数对系统的执行效果有较大的影响，有必要确定当前系统实际运行参数。</p>
+<p>​    参数-XX:+PrintVMOptions可以在程序运行时，打印虚拟机接收到的命令行显示参数。</p>
+<p>​    参数-XX:+PrintCommandLineFlags可以打印传递给虚拟机的显示和隐式参数，隐式参数未必是通过命令行直接给出的，它可能是在虚拟机器启动时自动设置的。</p>
+<p>​    另外一个有用的参数是-XX:+PrintFlagsFinal，它会打印所有的系统参数的值。开启这个参数后，可能会产生500多行参数。</p>
+<h2 id="3-2-让性能飞起来：学习堆的配置参数"><a href="#3-2-让性能飞起来：学习堆的配置参数" class="headerlink" title="3.2 让性能飞起来：学习堆的配置参数"></a>3.2 让性能飞起来：学习堆的配置参数</h2><h3 id="3-2-1-最大堆和初始堆的设置"><a href="#3-2-1-最大堆和初始堆的设置" class="headerlink" title="3.2.1 最大堆和初始堆的设置"></a>3.2.1 最大堆和初始堆的设置</h3><p>​    Java进程启动时，虚拟机就会分配一块初始堆大小，可以使用参数-Xms指定这块空间的大小。如果初始堆空间耗尽，将会对堆空间进行扩展，其扩展的上限为最大对抗空间。最大堆空间可以使用参数-Xmx指定。</p>
+<p>​    最大内存由-XX:MaxHeapSize=20971520指定。而打印的最大可用内存比设定值略少。因为分配给堆空间和实际的内存空间并非一个概念。由于垃圾回收需要，会对堆空间进行分区管理，一些算法会使用空间换时间的策略，因此会存在可用内存的损失。</p>
+<p>​    最终结果就是实际可用内存会浪费大小等于from/to的空间。因此最大可用内存为-Xmx减去from的值。这样算下来可能还会有偏差，是因为虚拟机内存进一步对堆的from/to做了对齐操作。对于串行GC的情况，虚拟机使用一下方法估算from/to的大小。</p>
+<p><img src="https://pic.imgdb.cn/item/5f66f79a160a154a67e0c6d6.jpg" alt=""></p>
+<p>​    提示：在实际工作中，也可以将初始堆和最大堆设置为相等，这样的好处是，可以减少程序运行时，进行垃圾回收的次数，从而提高程序的性能。</p>
+<h3 id="3-2-2-新生代的配置"><a href="#3-2-2-新生代的配置" class="headerlink" title="3.2.2 新生代的配置"></a>3.2.2 新生代的配置</h3><p>​    参数-Xmn可以用于设置新生代的大小。设置一个新生代会减少老年代的大小，这个参数对系统性能有很大影响。新生代大小一般为整个堆空间的1/3到1/4.</p>
+<p>​    参数-XX:SurvivorRatio用来设置新生代中eden区和from/to区的比例。</p>
+<p><img src="https://pic.imgdb.cn/item/5f66f8cd160a154a67e10eed.jpg" alt=""></p>
+<p>(1)使用- Xmx20m- Xms20m- Xmn1m- XX: SurvivorRatio= 2- XX:+ PrintGCDetails 运行 上述 Java 程序。</p>
+<p><img src="https://pic.imgdb.cn/item/5f66f8f3160a154a67e1195a.jpg" alt=""></p>
+<p>​    eden 区 与 from 区 的 比值 为 2 ∶ 1， 故 eden 区 为 512KB。 总可 用 新生代 大小 为 512KB+ 256KB= 768KB， 新生代 总大小 为 512KB+ 256KB+ 256KB= 1024KB= 1MB。</p>
+<p>​     由于 eden 区 无法 容纳 任何 一个 程序 中 分配 的 1MB 数组， 故 触发 了 一次 新生代 GC， 对 eden 区 进行 了 部分 回收。 同时， 这个 偏小 的 新生代 无法 为 1MB 数组 预留 空间， 故 所有 的 数组 都 分配 在 老 年代， 老年 代 最终 占用 10354KB 空间。</p>
+<p>（2） 使用 参数- Xmx20m- Xms20m- Xmn7m- XX: SurvivorRatio= 2- XX:+ PrintGCDetails 运行 上述 程序， 将 新生代 扩大 为 7MB。</p>
+<p><img src="https://pic.imgdb.cn/item/5f66f952160a154a67e12fd9.jpg" alt=""></p>
+<p>​    在这 个 参数 下， 由于 eden 区 有 足够 的 空间， 因此 所有 的 数组 都 分配 在 eden 区。 但 eden 区 并不 足以 预留 10MB 的 空间， 故在 程序 运行 期间 出现 了 3 次 新生代 GC。 由于 每 申请 一次 空间， 同时 也 废弃 了 上一次 申请 的 空间（ 上一次 申请 的 内存 失去 了 引用）， 故在 新生代 GC 中， 有效 回收 了 这些 失效 的 内存。 最终 结果是： 所有 的 内存 分配 都在 新生代 进行， 通过 GC 保证 了 新生代 有 足够 的 空间， 而 老年 代 没有 为 这些 数组 预留 任何 空间， 只是 在 GC 过程中， 部分 新生代 对象 晋升 到 老 年代。</p>
+<p>（3） 使用 参数- Xmx20m- Xms20m- Xmn15m- XX: SurvivorRatio= 8- XX:+ PrintGCDetails 运行</p>
+<p><img src="https://pic.imgdb.cn/item/5f66f983160a154a67e13bb6.jpg" alt=""></p>
+<p>​    在这 次 执行 中， 由于 新生代 使用 15MB 空间， 其中 eden 区 占用 了 12288KB， 完全 满足 10MB 数组 的 分配， 因此 所有 的 分配 行为 都在 eden 区 直接进行， 且 没有 触发 任何 GC 行为。 因此 from/ to 和 老 年代 tenured 的 使用 率 都为 0。</p>
+<p>​    在实际工作中，应该根据系统特点做合理设置，基本策略是：尽可能将对象预留在新生代，减少老年代GC的次数。</p>
+<p>​    除了可以使用参数-Xmn指定新生代的大小，还可以试用参数-XX:NewRatio来设置新生代和老年代的比例。</p>
+<p><img src="https://pic.imgdb.cn/item/5f66f9ed160a154a67e15329.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5f66fa5e160a154a67e16d56.jpg" alt=""></p>
+<h3 id="3-2-3-堆溢出处理"><a href="#3-2-3-堆溢出处理" class="headerlink" title="3.2.3 堆溢出处理"></a>3.2.3 堆溢出处理</h3><p>​    如果堆空间不足，则有可能OOM。</p>
+<p>​    如果发生在生产环境，可能会引起严重的业务中断。为了能够不断改善系统，要获取尽可能多的现场信息，以帮助研发人员排查问题。</p>
+<p>​    提供了参数-XX:+HeapDumpOnOutOfMemeoryError，可以在内存溢出时导出整个堆的信息。可以配合使用的还有-XX:HeapDumpPath。</p>
+<p>​    除了在OOM导出堆信息，还允许在发生错误时执行一个脚本。可以用于崩溃的程序自救、报警或通知。可以帮助开发人员获得更多的系统信息，比如完整的系统转存文件。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f66fb8a160a154a67e1b492.jpg" alt=""></p>
+<h2 id="3-3-别让性能有缺口：了解非堆内存的参数配置"><a href="#3-3-别让性能有缺口：了解非堆内存的参数配置" class="headerlink" title="3.3 别让性能有缺口：了解非堆内存的参数配置"></a>3.3 别让性能有缺口：了解非堆内存的参数配置</h2><h3 id="3-3-1-方法区配置"><a href="#3-3-1-方法区配置" class="headerlink" title="3.3.1 方法区配置"></a>3.3.1 方法区配置</h3><p>​    方法 区 主要 存放 类 的 元 信息。 在 JDK 1. 6 和 JDK 1. 7 等 版本 中， 可以 使用- XX: PermSize 和- XX: MaxPermSize 配置 永久 区 大小。 其中，- XX: PermSize 表示 初始 的 永久 区 大小，- XX: MaxPermSize 表示 最大 永久 区 大小。 </p>
+<p>​    从 JDK 1. 8 开始， 永久 区 被 彻底 移 除， 使用 了 新的 元 数据区 存放 类 的 元 数据。 在 默认 情况下， 元 数据区 只 受 系统 可用 内存 的 限制， 但 依然 可以 使用 参数- XX: MaxMetaspaceSize 指定 永久 区 的 最大 可用 值。 方法 区 的 详细 使用 和 配置 可以 参考 2. 5 节。</p>
+<h3 id="3-3-2-栈配置"><a href="#3-3-2-栈配置" class="headerlink" title="3.3.2 栈配置"></a>3.3.2 栈配置</h3><p>​    可以用-Xss参数指定线程的栈大小。</p>
+<h3 id="3-3-3-直接内存配置"><a href="#3-3-3-直接内存配置" class="headerlink" title="3.3.3 直接内存配置"></a>3.3.3 直接内存配置</h3><p>​    武断 地 认为 使用 直接 内存 一定 可以 提高 内存 访问 速度 也是 不正确 的。</p>
+<p>​    最大 可用 直接 内存 可以 使用 参数- XX: MaxDirectMemorySize 设置， 如果不 设置， 默认值 为最 大堆 空间， 即- Xmx 的 值。 当 直接 内存 使用 量 达到- XX: MaxDirectMemorySize 时， 就会 触发 垃圾 回收， 如果 垃圾 回收 不能 有效 释放 足够 的 空间， 直接 内存 溢出 依然 会 引起 系统 的 OOM。</p>
+<p>​    虽然 在 访问 读写 上 直接 内存 有 较大 的 优势， 但是 在内 存 空间 申请 时， 直接 内存 毫无 优势 可言。在 申请 内存 空间 时， 堆 空间 的 速度 远远 快于 直接 内存。</p>
+<p>​    结论： 直接 内存 适合 申请 次数 较少、 访问 较 频繁 的 场合。 如果 需要 频繁 申请 内存 空间， 则 并不 适合 使用 直接 内存。</p>
+<h2 id="3-4-Client和Server二选一：虚拟机工作模式"><a href="#3-4-Client和Server二选一：虚拟机工作模式" class="headerlink" title="3.4 Client和Server二选一：虚拟机工作模式"></a>3.4 Client和Server二选一：虚拟机工作模式</h2><p>​    参数-client指定Client模式，-server指定server模式。</p>
+<p>​    与 Client 模式 相比， Server 模式 的 启动 比较慢， 因为 Server 模式 会 尝试 收集 更多 的 系统 性能 信息， 使用 更 复杂 的 优化 算法 对 程序 进行 优化。因此， 当 系统 完全 启动 并进 入 运行 稳 定期 后， Server 模式 的 执行 速度 会 远远 快于Client 模式。 所以， 对于 后台 长期 运行 的 系统 来说， 使用- server 参数 启动 对 系统 的 整体 性能 可以 有不 小的 帮助。 但对 于 用户 界面 程序 而言， 运行 时间 不长， 又 追求 启动 速度， Client 模式 也是 不错 的 选择。</p>
+<p>​    在64位系统中，虚拟机更倾向于使用Server模式。</p>
+<p>​    虚拟 机 在 Server 模式 和 Client 模式 下 的 各种 参数 可能 会有 很大 的 不同， 读者 如果 需要 查看 给定 参数 的 默认值， 可以 使用- XX:+ PrintFlagsFinal 参数。 这里 以 JIT 编译 阈值 和 最大 堆 为例， 展示 Client 模式 和 Server 模式 的 区别。</p>
+<p>​    在 Client 模式 下， CompileThreshold 的 默认值 为 1500， 即 函数 被 调用 1500 次 后， 会 进行 JIT 编译（ 有关 JIT 编译 的 更多 细节 请参阅 第 11 章）。 而在 Server 模式 下， 这个 数值 为 10000。 因此， 在 Server 模式 下 系统 更有 可能 解释 执行。 而 一旦 进行 编译， Server 模式 的 优化 效果 会好 于 Client 模式。 对于 系统 最 大堆， 在 Client 模式 下 为 约 256MB， 而在 Server 模式 下 约为 1GB。</p>
+<h1 id="第4章-垃圾回收的概念与算法"><a href="#第4章-垃圾回收的概念与算法" class="headerlink" title="第4章 垃圾回收的概念与算法"></a>第4章 垃圾回收的概念与算法</h1><p>知识点：</p>
+<ul>
+<li>了解什么是垃圾回收</li>
+<li>学习几种常用的垃圾回收算法</li>
+<li>掌握可触及的概念</li>
+<li>理解Stop-The-World(STW)</li>
+</ul>
+<h2 id="4-1-内存管理清洁工：认识垃圾回收"><a href="#4-1-内存管理清洁工：认识垃圾回收" class="headerlink" title="4.1 内存管理清洁工：认识垃圾回收"></a>4.1 内存管理清洁工：认识垃圾回收</h2><p>​    开发人员只需要关注内存的申请，而内存的释放由系统自动识别和完成。</p>
+<h2 id="4-2-清洁工具打PK：讨论常用的垃圾回收算法"><a href="#4-2-清洁工具打PK：讨论常用的垃圾回收算法" class="headerlink" title="4.2 清洁工具打PK：讨论常用的垃圾回收算法"></a>4.2 清洁工具打PK：讨论常用的垃圾回收算法</h2><h3 id="4-2-1-引用计数法-Reference-Counting"><a href="#4-2-1-引用计数法-Reference-Counting" class="headerlink" title="4.2.1 引用计数法(Reference Counting)"></a>4.2.1 引用计数法(Reference Counting)</h3><p>​    有两个问题：</p>
+<p>(1) 无法处理循环引用</p>
+<p>(2) 引用计算器要求在每次引用产生和消除的时候，伴随一个加法操作和一个减法操作，对系统性能有一定影响。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f68960a160a154a679c2ec7.jpg" alt=""></p>
+<h3 id="4-2-2-标记清除算法-Mark-Sweep"><a href="#4-2-2-标记清除算法-Mark-Sweep" class="headerlink" title="4.2.2 标记清除算法(Mark-Sweep)"></a>4.2.2 标记清除算法(Mark-Sweep)</h3><p>​    分为两个阶段：标记阶段和清除阶段。</p>
+<p>​    在标记阶段，首先通过根节点标记所有从根节点开始的可达对象。然后在清除节点，清除所有未被标记的对象。标记清除的最大问题是可能产生空间碎片。</p>
+<p><img src="https://pic.imgdb.cn/item/5f68996a160a154a679f1344.jpg" alt=""></p>
+<h3 id="4-2-3-复制算法-Copying"><a href="#4-2-3-复制算法-Copying" class="headerlink" title="4.2.3 复制算法(Copying)"></a>4.2.3 复制算法(Copying)</h3><p>​    核心思想是：将原有内存空间分成两块，每次使用其中一块，在进行垃圾回收时，将正在使用的内存中存活对象复制到未使用的内存块中，之后清除正在使用的内存块中的所有对象，交换两个内存的角色，完成垃圾回收。</p>
+<p>​    代价是将内存折半。</p>
+<p><img src="https://pic.imgdb.cn/item/5f689a09160a154a679f960f.jpg" alt=""></p>
+<p>​    在新生代串行垃圾回收器中，使用了复制算法思想。新生代分为eden区、from区和to区。from区和to区也称为survivor区，用于存放未被回收的对象。</p>
+<ul>
+<li><p>新生代： 存放 年轻 对象 的 堆 空间。 年轻 对象 指 刚刚 创建 的 或者 经历 垃圾 回收 次数 不多 的 对象。 </p>
+</li>
+<li><p>老 年代： 存放 老年 对象 的 堆 空间。 老年 对象 指 经历 多次 垃圾 回收 后 依然 存活 的 对象。</p>
+</li>
+</ul>
+<p>​    在 进行 垃圾 回收 时， eden 区 的 存活 对象 会被 复制 到 未使 用的 survivor 区（ 假设 是 to 区）， 正在 使用 的 survivor 区（ 假设 是 from） 的 年轻 对象 也会 被 复制 到 to 区（ 大 对象 或者 老年 对象 会 直接 进入 老 年代， 如果 to 区 已满， 则 对象 也会 直接 进入 老 年代）。 此时， eden 区 和 from 区 的 剩余 对象 就是 垃圾 对象， 可以 直接 清空， to 区 则 存放 此次 回收 后的 存活 对象。 这种 改进 的 复制 算法， 既 保证 了 空间 的 连续性， 又 避免 了 大量 的 内存 空间 浪费，</p>
+<p><img src="https://pic.imgdb.cn/item/5f689c3c160a154a67a169f9.jpg" alt=""></p>
+<p>注意： 复制 算法 比较 适合 新生代， 因为 在 新生代 垃圾 对象 通常 会 多于 存活 对象， 复制 算法 的 效果 会 比较 好。</p>
+<h3 id="4-2-4-标记压缩算法-Mark-Compact"><a href="#4-2-4-标记压缩算法-Mark-Compact" class="headerlink" title="4.2.4 标记压缩算法(Mark-Compact)"></a>4.2.4 标记压缩算法(Mark-Compact)</h3><p>​    也叫标记整理算法。</p>
+<p>​    由于 存活 对象 较多， 复制 的 成本 将 很高。</p>
+<p>​    标记 压缩 法 是一 种 老 年代 的 回收 算法。 它在 标记 清 除法 的 基础上 做了 一些 优化。 和 标记 清除 法 一样， 标记 压缩 法 首先 也需 要从 根 节点 开始， 对 所有 可达 对象 做 一次 标记。 但 之后， 它 并不 只是 简单 地 清理 未标 记的 对象， 而是 将 所有 的 存活 对象 压缩 到 内存 的 一端。 然后， 清理 边界 外 所有 的 空间。 这种 方法 既 避免 了 碎片 的 产生， 又不 需要 两块 相同 的 内存 空间， 性 价 比 较高。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f689ca0160a154a67a1bbb9.jpg" alt=""></p>
+<p>标记 压缩 法 的 最终 效果 等同 于 标记 清除 法 执行 完成 后再 进行 一次 内存 碎片 整理， 因此， 也可以 把 它 称为 标记 清除 压缩 法。</p>
+<h3 id="4-2-5-分代算法-Generational-Collecting"><a href="#4-2-5-分代算法-Generational-Collecting" class="headerlink" title="4.2.5 分代算法(Generational Collecting)"></a>4.2.5 分代算法(Generational Collecting)</h3><p>​    分代算法将内存区间根据对象的特点分成几块，根据每块内存的区间的特点使用不同的回收算法，以提高垃圾回收效率。</p>
+<p><img src="https://pic.imgdb.cn/item/5f689e46160a154a67a313df.jpg" alt=""></p>
+<p>​    通常 新生代 回收 的 频率 很高， 但是 每次 回收 的 耗时 很短， 而 老年 代 回收 的 频率 比 较低， 但是 会 消耗 更多 的 时间。 为了 支持 高频率 的 新生代 回收， 虚拟 机 可能 使用 一种 叫作 卡 表（ Card Table） 的 数据 结构。 卡 表为 一个 比特 位 集合， 每一个 比特 位 可以 用来 表示 老 年代 的 某一 区域 中的 所有 对象 是否 持有 新生代 对象 的 引用。</p>
+<p>​    这样 在 新生代 GC 时， 可以 不用 花 大量 时间 扫描 所有 的 老年 代 对象 来 确定 每一个 对象 的 引用 关系， 可以 先 扫描 卡 表， 只有 当 卡 表 的 标记 位 为 1 时， 才 需要 扫描 给定 区域 的 老年 代 对象， 而 卡 表 位 为 0 的 老年 代 对象， 一定 不 含有 新生代 对象 的 引用。</p>
+<p><img src="https://pic.imgdb.cn/item/5f689ead160a154a67a3738c.jpg" alt=""></p>
+<h3 id="4-2-6-分区算法-Region"><a href="#4-2-6-分区算法-Region" class="headerlink" title="4.2.6 分区算法(Region)"></a>4.2.6 分区算法(Region)</h3><p>​    分 代 算法 将 按照 对象 的 生命 周期 长短 划分 成 两个 部分， 分区 算法 将 整个 堆 空间 划分 成 连续 的 不同 小 区间。</p>
+<p>​    所示。 每一个 小 区间 都 独立 使用， 独立 回收。 这种 算法 的 好处 是 可以 控制 一次 回收 小区 间的 数量。</p>
+<p>​    在 相同 条件下， 堆 空间 越大， 一次 GC 所需 要的 时间 就 越长， 从而 产生 的 停顿 也 越长（ GC 产生 的 停顿 请 参见 4. 4 节）。 为了 更好 地 控制 GC 产生 的 停顿 时间， 将 一块 大的 内存 区域 分割 成 多个 小块， 根据 目标 停顿 时间， 每次 合理 地 回收 若干个 小 区间， 而 不是 回收 整个 堆 空间， 从而 减少 一次 GC 所 产生 的 停顿。</p>
+<p>​    <img src="https://pic.imgdb.cn/item/5f68a036160a154a67a46732.jpg" alt=""></p>
+<h2 id="4-3-谁才是真正的垃圾：判断可触及性"><a href="#4-3-谁才是真正的垃圾：判断可触及性" class="headerlink" title="4.3 谁才是真正的垃圾：判断可触及性"></a>4.3 谁才是真正的垃圾：判断可触及性</h2><p>​    垃圾 回收 的 基本 思想 是 考查 每一个 对象 的 可 触及 性， 即从 根 节点 开始 是否 可以 访问 这个 对象， 如果 可以， 则 说明 当前 对象 正在 被 使用， 如果 从 所 有的 根 节点 开始 都无 法 访问 到 某个 对象， 说明 该 对象 已经 不再 使用 了， 一般来说， 该 对象 需要 被 回收。 但 事实上， 一个 无法 触及 的 对象 有可 能在 某个 条件下 使 自己“ 复活”， 如果 是 这样 的 情况， 那么 对 它的 回收 就是 不合理 的， 为此， 需要 给出 一个 对象 可触 及 性 状态 的 定义， 并 规定 在什么 状态 下 才可 以 安全 地 回收 对象。</p>
+<ul>
+<li>可触及的：从根节点，可以到达这个对象。</li>
+<li>可符合的：对象的所有引用都被释放，但是对象有可能在finalize()函数中复活。</li>
+<li>不可触及的：对象的finalize()函数被调用，并没有复活，那么就会进入不可触及状态，不可触及的对象不可能被复活，因为finalize()函数只会被调用一次。</li>
+</ul>
+<h3 id="4-3-1-对象的复活"><a href="#4-3-1-对象的复活" class="headerlink" title="4.3.1 对象的复活"></a>4.3.1 对象的复活</h3><p>​    对象有可能在finalize函数中使自己复活。</p>
+<p>​    注意： finalize() 函数 是一 个 非常 糟糕 的 模式， 不 推荐 读者 使用 finalize() 函数 释放 资源。</p>
+<p>​    第一， 因为 finalize() 函数 有可能 发生 引用 外 泄， 在 无意中 复活 对象；</p>
+<p>​    第二， 由于 finalize() 函数 是 被 系统 调用 的， 调用 时间 是 不明确 的， 因此 不是 一个 好的 资源 释放 方案， 推荐 在 try- catch- finally 语句 中进 行 资源 的 释放。</p>
+<h3 id="4-3-2-引用和可触及性的强度"><a href="#4-3-2-引用和可触及性的强度" class="headerlink" title="4.3.2 引用和可触及性的强度"></a>4.3.2 引用和可触及性的强度</h3><p>​    在 Java 中 提供 了 4 个 级别 的 引用： 强 引用、 软 引用、 弱 引用 和 虚 引用。 除 强 引用 外， 其他 3 种 引用 均可 以在 java. lang. ref 包 中 找到。</p>
+<p>​    其中 FinalReference 为“ 最终” 引用， 它 用以 实现 对象 的 finalize（） 函数（</p>
+<p>​    强 引用 就是 程序 中 一般 使用 的 引用 类型， 强 引用 的 对象 是 可 触及 的， 不会 被 回收。 软 引用、 弱 引用 和 虚 引用 的 对 象是 软 可 触及、 弱 可 触及 和 虚 可 触及 的， 在 一定 条件下 都是 可以 被 回收 的。</p>
+<p>强 引用 具备 以下 特点：</p>
+<ul>
+<li><p>强 引用 可以 直接 访问 目标 对象。</p>
+</li>
+<li><p>强 引用 所 指向 的 对象 在 任何时候 都不 会被 系统 回收， 虚拟 机 宁愿 抛出 OOM 异常， 也不 会 回收 强 引用 所 指向的 对象。</p>
+</li>
+<li><p>强 引用 可能 导致 内存 泄漏。</p>
+</li>
+</ul>
+<h3 id="4-3-3-软引用——可被回收的引用"><a href="#4-3-3-软引用——可被回收的引用" class="headerlink" title="4.3.3 软引用——可被回收的引用"></a>4.3.3 软引用——可被回收的引用</h3><p>软 引用 是 比 强 引用 弱 一点 的 引用 类型。 如果 一个 对象 只 持有 软 引用， 那么 当 堆 空间 不足 时， 就会 被 回收。 软 引用 使用 java. lang. ref. SoftReference 类 实现。</p>
+<p>每一个 软 引用 都可以 附带 一个 引用 队列， 当 对象 的 可达 性 发生 改变 时（ 由 可达 变为 不 可达）， 软引用 对象 就会 进入 引用 队列。 通过 这个 引用 队列， 可以 跟踪 对象 的 回收 情况。</p>
+<p><img src="https://pic.imgdb.cn/item/5f68a826160a154a67aaf771.jpg" alt=""></p>
+<h3 id="4-3-4-弱引用——发现即回收"><a href="#4-3-4-弱引用——发现即回收" class="headerlink" title="4.3.4 弱引用——发现即回收"></a>4.3.4 弱引用——发现即回收</h3><p>​    弱 引用 是 一种 比 软 引用 弱 的 引用 类型。 在 系统 GC 时， 只要 发现 弱 引用， 不管 系统 堆 空间 使用 情况 如何， 都会 将对 象 进行 回收。 但是， 由于 垃圾 回收 器 的 线程 通常 优先级 很低， 并不 一定 能 很快 地 发现 持有 弱 引用 的 对象。 在 这种 情况下， 弱 引用 对象 可以 存在 较长 的 时间。 一旦 一个 弱 引用 对象 被 垃圾 回收 器 回收， 便会 加入 一个 注册 的 引用 队列（ 这一点 和 软 引用 很像）。 弱 引用 使用 java. lang. ref. WeakReference 类 实现。</p>
+<p>​    弱 引用 和 软 引用 一样， 在 构造 弱 引用 时， 也可以 指定 一个 引用 队列， 当 弱 引用 对象 被 回收 时， 就会 加入 指定 的 引用 队列， 通过 这个 队列 可以 跟踪 对象 的 回收 情况。</p>
+<p>注意： 软 引用、 弱 引用 都 非常 适合 保存 那些 可有可无 的 缓存 数据。 如果 这么 做， 当 系统 内存 不足 时， 这些 缓存 数据 会被 回收， 不会 导致 内存 溢出。 而 当 内存 资源 充足 时， 这些 缓存 数据 又可 以 存在 相当 长的 时间， 从而 起到 让 系统 加速 的 作用。</p>
+<h3 id="4-3-5-虚引用——对象回收跟踪"><a href="#4-3-5-虚引用——对象回收跟踪" class="headerlink" title="4.3.5 虚引用——对象回收跟踪"></a>4.3.5 虚引用——对象回收跟踪</h3><p>​    虚 引用 是 所有 引用 类型 中 最弱 的 一个。 一个 持有 虚 引用 的 对象， 和 没有 引用 几乎 是 一样 的， 随时 都可 能被 垃圾 回收 器 回收。 当 试图 通过 虚 引用 的 get() 方法 取得 强 引用 时， 总会 失败。 并且， 虚 引用 必须 和 引用 队列 一起 使用， 它的 作用 在于 跟踪 垃圾 回收 过程。</p>
+<p>​    由于 虚 引用 可以 跟踪 对象 的 回收 时间， 所以 也可以 将 一些 资源 释放 操作 放在 虚 引用 中 执行 和 记录。</p>
+<h2 id="4-4-垃圾回收时的停顿现象：Stop-TheWorld实战"><a href="#4-4-垃圾回收时的停顿现象：Stop-TheWorld实战" class="headerlink" title="4.4 垃圾回收时的停顿现象：Stop-TheWorld实战"></a>4.4 垃圾回收时的停顿现象：Stop-TheWorld实战</h2><p>​    垃圾 回收 器 的 任务 是 识别 和 回收 垃圾 对象， 以 进行 内存 清理。 为了 让 垃圾 回收 器 可以 正常 且 高效 地 执行， 在 大部分 情况下， 会要 求 系统 进入 一个 停顿 的 状态。 停顿 的 目的 是 终止 所有 应用 线程 的 执行， 只有 这样 系统 中 才不 会有 新的 垃圾 产生， 同时 停顿 保证 了 系统 状态 在某 一个 瞬间 的 一致性， 也有 益于 垃圾 回收 器 更好 地 标记 垃圾 对象。 因此， 在 垃圾 回收 时， 都会 产生 应用 程序 的 停顿。 停顿 产生 时， 整个 应用 程序 会被 卡 死， 没有 任何 响应， 因此 这个 停顿 也 叫作“ Stop- The- World”（ STW）。</p>
+<p>​    例子略。</p>
+<h1 id="第5章-垃圾收集器和内存分配"><a href="#第5章-垃圾收集器和内存分配" class="headerlink" title="第5章 垃圾收集器和内存分配"></a>第5章 垃圾收集器和内存分配</h1><p>知识点：</p>
+<ul>
+<li>Java虚拟机支持的垃圾回收器种类</li>
+<li>串行垃圾回收器</li>
+<li>并行垃圾回收器</li>
+<li>CMS回收器</li>
+<li>G1回收器</li>
+<li>有关对象分配的一些细节问题</li>
+</ul>
+<h2 id="5-1-一心一意一件事：串行回收器"><a href="#5-1-一心一意一件事：串行回收器" class="headerlink" title="5.1 一心一意一件事：串行回收器"></a>5.1 一心一意一件事：串行回收器</h2><p>串行回收器是指使用单线程进行垃圾回收的回收器。</p>
+<p>对于 并行 能力 较弱 的 计算机 来说， 串行 回收 器 的 专注 性 和 独占 性 往往 能 让 其 有 更好 的 性能 表现。 串行 回收 器 可以 在 新生代 和 老年 代 使用， 根据 不同 的 堆 空间 分为 新生代 串行 回收 器 和 老年 代 串行 回收 器。</p>
+<h3 id="5-1-1-新生代串行回收器"><a href="#5-1-1-新生代串行回收器" class="headerlink" title="5.1.1 新生代串行回收器"></a>5.1.1 新生代串行回收器</h3><p>两个特点</p>
+<ul>
+<li>仅仅使用单线程进行垃圾回收</li>
+<li>是独占式的垃圾回收方式。</li>
+</ul>
+<p>在 串行 回收 器 进行 垃圾 回收 时， Java 应用 程序 中的 线程 都 需要 暂停 工作， 等待 垃圾 回收 完成。</p>
+<p><img src="https://pic.imgdb.cn/item/5f69f9e2160a154a67573d4c.jpg" alt=""></p>
+<p>​    新生代 串行 回收 器 使用 复制 算法， 实现 相对 简单、 逻辑 处理 特别高 效 且 没有 线程 切换 的 开销。 在 诸如 单 CPU 处理器 等 硬件 平台 不是 特别 优越 的 情况下， 它的 性能 表现 可以 超过 并行 回收 器 和 并发 回收 器。</p>
+<p>使用- XX:+ UseSerialGC 参数 可以 指定 使用 新生代 串行 回收 器 或 老年 代 串行 回收 器。 当 虚拟 机 在 Client 模式 下 运行时， 它是 默认 的 垃圾 回收 器。</p>
+<p>注意：串行 垃圾 回收 器 虽然 古老， 但是 久经考验， 在 大多数 情况下， 其 性能 表现 是 相当 不错 的。</p>
+<h3 id="5-1-2-老年代串行回收器"><a href="#5-1-2-老年代串行回收器" class="headerlink" title="5.1.2 老年代串行回收器"></a>5.1.2 老年代串行回收器</h3><p>作为 老牌 的 垃圾 回收 器， 老年 代 串行 回收 器 可以 和 多种 新生代 回收 器 配合 使用， 同时 它 也可以 作为 CMS 回收 器 的 备用 回收 器。</p>
+<ul>
+<li>-XX：+ UseSerialGC： 新生代、 老 年代 都 使用 串行 回收 器。</li>
+<li>-XX：+ UseParNewGC（ JDK 9、 JDK 10 已经 删除， 因为 ParNew 需要 和 CMS 搭配 工作， 而 CMS 已经 被 G1 替代， 不再 支持 此 参数）： 新生代 使用 ParNew 回收 器， 老年 代 使用 串行 回收 器。</li>
+<li>-XX：+ UseParallelGC： 新生代 使用 ParallelGC 回收 器， 老年 代 使用 串行 回收 器。</li>
+</ul>
+<h2 id="5-2-人多力量大：并行回收器"><a href="#5-2-人多力量大：并行回收器" class="headerlink" title="5.2 人多力量大：并行回收器"></a>5.2 人多力量大：并行回收器</h2><h3 id="5-2-1-新生代ParNew回收器"><a href="#5-2-1-新生代ParNew回收器" class="headerlink" title="5.2.1 新生代ParNew回收器"></a>5.2.1 新生代ParNew回收器</h3><p>它 只是 简单 地 将 串行 回收 器 多 线程 化， 它的 回收 策略、 算法 及 参数 和 新生代 串行 回收 器 一样。</p>
+<p><img src="https://pic.imgdb.cn/item/5f69fabc160a154a6757a32c.jpg" alt=""></p>
+<ul>
+<li>-XX：+ UseParNewGC（ JDK 9、 JDK 10 已经 删除， 因为 ParNew 需要 和 CMS 搭配 工作， 而 CMS 已经 被 G1 替代， 不再 支持 此 参数）： 新生代 使用 ParNew 回收 器， 老年 代 使用 串行 回收 器。</li>
+<li>-XX：+ UseConcMarkSweepGC（ JDK 9、 JDK 10 不 建议 使用， 建议 使用 默认 的 G1 垃圾 回收 器）： 新生代 使用 ParNew 回收 器， 老年 代 使用 CMS。</li>
+</ul>
+<p>​    ParNew 回收 器 工作 时 的 线程 数量 可以 使用- XX: ParallelGCThreads 参数 指定。 一般， 最好 与 CPU 数量 相当， 避免 过多 的 线程 数 影响 垃圾 回收 性能。 在 默认 情况下， 当 CPU 数量 小于 8 时， ParallelGCThreads 的 值 等于 CPU 数量， 当 CPU 数量 大于 8 时， ParallelGCThreads 的 值 等于 3+(( 5 × CPU_ Count)/ 8)。</p>
+<h3 id="5-2-2-新生代ParallelGC回收器"><a href="#5-2-2-新生代ParallelGC回收器" class="headerlink" title="5.2.2 新生代ParallelGC回收器"></a>5.2.2 新生代ParallelGC回收器</h3><p>​    从 表面 上看， 它 和 ParNew 回收 器 一样， 都是 多 线程、 独占 式 的 回收 器。 但是， ParallelGC 回收 器 有一个 重要的 特点： 它 非常 关注 系统 的 吞吐量。</p>
+<ul>
+<li><p>-XX：+ UseParallelGC： 新生代 使用 ParallelGC 回收 器， 老年 代 使用 串行 回收 器。 </p>
+</li>
+<li><p>-XX：+ UseParallelOldGC： 新生代 使用 ParallelGC 回收 器， 老年 代 使用 ParallelOldGC 回收 器。 </p>
+</li>
+</ul>
+<p>  ParallelGC 回收 器 提供 了 两个 重要的 参数 用于 控制系统 的 吞吐量。</p>
+<ul>
+<li>-XX： MaxGCPauseMillis： 设置 最大 垃圾 回收 停顿 时间。 它的 值 是一 个大 于 0 的 整数。 ParallelGC 在 工作 时， 会 调整 Java 堆 大小 或者 其他 参数， 尽可能 地 把 停顿 时间 控制 在 MaxGCPauseMillis 以内。 如果 读者 希望 减少 停顿 时间 而 把 这个 值 设 得很 小， 为了 达到 预期 的 停顿 时间， 虚拟 机 可能 会使 用 一个 较 小的 堆（ 一个 小堆 比 一个 大堆 回收 快）， 而这 将 导致 垃圾 回收 变得 很 频繁， 从而 增加 垃圾 回收 总 时间， 降低 吞吐量。 </li>
+<li>-XX： GCTimeRatio： 设置 吞吐量 大小。 它的 值 是 一个 0 到 100 之间 的 整数。 假设 GCTimeRatio 的 值 为 n， 那么 系统 将 花费 不超过 1/（ 1+ n） 的 时间 进行 垃圾 回收。 比如 GCTimeRatio 等于 19（ 默认值）， 则 系统 用于 垃圾 回收回收 的 时间 不超过 1/（ 1+ 19）= 5%。 默认 情况下， 它的 取值 是 99， 即有 不超过 1/（ 1+ 99）= 1% 的 时间 用于 垃圾 回收。</li>
+</ul>
+<p>​    还 支持 一种 自 适应 的 GC 调节 策略。 使用- XX:+ UseAdaptiveSizePolicy 可以 打开 自 适应 GC 策略。 在这 种 模式 下， 新生代 的 大小、 eden 区 和 survivor 区 的 比例、 晋升 老 年代 的 对象 年龄 等 参数 会被 自动 调整， 以 达到 在 堆 大小、 吞吐量 和 停顿 时间 之间 的 平衡 点。</p>
+<h3 id="5-2-3-老年代ParallelOldGC会后器"><a href="#5-2-3-老年代ParallelOldGC会后器" class="headerlink" title="5.2.3 老年代ParallelOldGC会后器"></a>5.2.3 老年代ParallelOldGC会后器</h3><p>​    ParallelOldGC 回收 器 使用 标记 压缩 法， 它在 JDK1. 6 中 才可 以 使用。</p>
+<p><img src="https://pic.imgdb.cn/item/5f69fd2a160a154a6758af56.jpg" alt=""></p>
+<p>使用- XX:+ UseParallelOldGC 可以 在 新生代 使用 ParallelGC 回收 器， 老年 代 使用 ParallelOldGC 回收 器。</p>
+<p>参数- XX: ParallelGCThreads 也可以 用于 设置 垃圾 回收 时 的 线程 数量。</p>
+<h2 id="5-3-一心多用都不落下：CMS回收器-JDK8及之前的版本"><a href="#5-3-一心多用都不落下：CMS回收器-JDK8及之前的版本" class="headerlink" title="5.3 一心多用都不落下：CMS回收器(JDK8及之前的版本)"></a>5.3 一心多用都不落下：CMS回收器(JDK8及之前的版本)</h2><h3 id="5-3-1-CMS主要工作步骤"><a href="#5-3-1-CMS主要工作步骤" class="headerlink" title="5.3.1 CMS主要工作步骤"></a>5.3.1 CMS主要工作步骤</h3><p>​    CMS 工作 时 的 主要 步骤 有： 初始 标记、 并发 标记、 预 清理、 重新 标记、 并发 清除 和 并发 重置。</p>
+<p><img src="https://pic.imgdb.cn/item/5f69fddf160a154a6759083d.jpg" alt=""></p>
+<p>​    根据 标记 清除 法， 初始 标记、 并发 标记 和 重新 标记 都是 为了 标记 出 需要 回收 的 对象。 并发 清理 则是 在 标记 完成 后， 正式 回收 垃圾 对象。 并发 重置 是指 在 垃圾 回收 完成 后， 重新 初始化 CMS 数据 结构 和 数据， 为 下一 次 垃圾 回收 做好 准备。 并发 标记、 并发 清理 和 并发 重置 都是 可以 和 应用 程序 线程 一起 执行 的。</p>
+<pre><code>默认 情况下， 在 并发 标记 之后， 会有 一个 预 清理 的 操作（ 也可以 关闭 开关- XX:- CMSPrecleaningEnabled， 不 进行 预 清理）。 预 清理 是 并发 的， 除了 为 正式 清理 做 准备 和 检查， 还会 尝试 控制 一次 停顿 的 时间。 由于 重新 标记 是 独占 CPU 的， 如果 新生代 GC 发 生后， 立即 触发 一次 重新 标记， 那么 一次 停顿 的 时间 可能 很长。 为了 避免 这种 情况， 预处理 时会 刻意 等待 一次 新生代 GC 的 发生， 然后 根据 历史 性能 数据 预测 下 一次 新生代 GC 可能发生 的 时间， 在当 前 时间 和 预测 时间 的 中间 时刻 进行 重新 标记。 这样 可 尽量 避免 新生代 GC 和 重新 标记 重合， 尽可能 减少 一次 停顿 的 时间。</code></pre><h3 id="5-3-2-CMS主要的参数"><a href="#5-3-2-CMS主要的参数" class="headerlink" title="5.3.2 CMS主要的参数"></a>5.3.2 CMS主要的参数</h3><p>​    启用 CMS 回收 器 的 参数 是- XX:+ UseConcMarkSweepGC。设置 合理 的 工作 线程 数量 对 系统性 能有 重要的 影响。</p>
+<p>​    CMS 默认 启动 的 并发 线程 数 是( ParallelGCThreads+ 3)/ 4。 ParallelGCThreads 表示 GC 并行 时 使用 的 线程 数量，如果 新生代 使用 ParNew， 那么 ParallelGCThreads 也就是 新生代 GC 的 线程 数量。 这 意味着 有 4 个 ParallelGCThreads 时， 只有 1 个 并发 线程， 而有 两个 并发 线程 时， 有 5~ 8 个 ParallelGCThreads 线程。</p>
+<p>​    并发 线程 数量 也可以 通过- XX: ConcGCThreads 或者- XX: ParallelCMSThreads 参数 手工 设定。 当 CPU 资源 比较 紧张 时， 受到 CMS 回收 器 线程 的 影响， 应用 系统 的 性能 在 垃圾 回收 阶段 可能 会 非常 糟糕。</p>
+<p>​     CMS 回收 器 不会 等待 堆 内存 饱和 时 才 进行 垃圾 回收， 而是 当 堆 内存 使用 率 达到 某一 阈值 时 便 开始 进行 回收， 以 确保 应用 程序 在 CMS 工作 过程中， 依然 有 足够 的 空间 支持 应用 程序 运行。</p>
+<p>​    使用 参数- XX: CMSInitiatingOccupancyFraction 来 指定， 默认 是 68， 即 当 老 年代 的 空间 使用 率 达到 68% 时， 会 执行 一次 CMS 回收。 如果 应用 程序 的 内存 使用 率 增长 很快， 在 CMS 的 执行 过程中， 已经 出现 了 内存 不足 的 情况， CMS 回收 就会 失败， 虚拟 机 将 启动 老年 代 串行 回收 器 进行 垃圾 回收。</p>
+<p>​    如果 内存 增长 缓慢， 则 可以 设置 一个 稍 大的 值， 大的 阈值 可以 有效 降低 CMS 的 触发 频率， 减少 老年 代 回收 的 次数， 可以 较为 明显 地 改善 应用 程序 性能。 反之， 如果 应用 程序 内存 使用 率 增长 很快， 则应 该 降低 这个 阈值， 以 避免 频繁 触发 老年 代 串行 回收 器。</p>
+<p><img src="https://pic.imgdb.cn/item/5f69ff4a160a154a6759d87c.jpg" alt=""></p>
+<p>​    -XX:+ UseCMSCompactAtFullCollection 参数 可 以使 CMS 在 垃圾 收集 完成 后， 进行 一次 内存 碎片 整理， 内存 碎片 的 整理 不是 并发 进行 的。</p>
+<p>​    - XX: CMSFullGCsBeforeCompaction 参数 可以 用于 设定 进行 多少 次 CMS 回收 后， 进行 一次 内存 压缩。</p>
+<h3 id="5-3-3-CMS的日志分析"><a href="#5-3-3-CMS的日志分析" class="headerlink" title="5.3.3 CMS的日志分析"></a>5.3.3 CMS的日志分析</h3><p>​    略</p>
+<h3 id="5-3-4-有关Class的回收"><a href="#5-3-4-有关Class的回收" class="headerlink" title="5.3.4 有关Class的回收"></a>5.3.4 有关Class的回收</h3><p>​    在 使用 CMS 回收 器 时， 如果 需要 回收 Perm 区， 那么 默认 情况下， 还需 要 触发 一次 Full GC。</p>
+<p>​    如果 希望 使用 CMS 回收 器 回收 Perm 区， 则 必须 打开- XX:+ CMSClassUnloadingEnabled 开关。 使用- XX:+ CMSClassUnloadingEnabled 后， 如果 条件 允许， 系统 会 使用 CMS 的 机制 回收 Perm 区 的 Class 数据，</p>
+<h2 id="5-4-未来我做主-G1回收器-JDK9及之后版本的默认回收器"><a href="#5-4-未来我做主-G1回收器-JDK9及之后版本的默认回收器" class="headerlink" title="5.4 未来我做主:G1回收器(JDK9及之后版本的默认回收器)"></a>5.4 未来我做主:G1回收器(JDK9及之后版本的默认回收器)</h2><p> G1 使用 了 全新 的 分区 算法， 其 特点 如下。</p>
+<ul>
+<li><p>并行 性： G1 在 回收 期间， 可以 由 多个 GC 线程 同时 工作， 有效 利用 多 核计 算 能力。</p>
+</li>
+<li><p>并发 性： G1 拥有 与 应用 程序 交替 执行 的 能力， 部分 工作 可以 和 应用 程序 同时 执行， 一般来说， 不会 在 整个 回收 期间 完全 阻塞 应用 程序。</p>
+</li>
+<li><p>分 代 GC： G1 依然是 一个 分 代 回收 器， 但是 和 之前 的 回收 器 不同， 它 同时 兼顾 年轻 代 和 老 年代， 其他 回收 器 或者 工作 在 年轻 代， 或者 工作 在 老 年代。</p>
+</li>
+<li><p>空间 整理： G1 在 回收 过程中， 会 进行 适当 的 对象 移动， 不像 CMS， 只是 简单 地 标记 清理 对象， 在 若干 次 GC 后， CMS 必须 进行 一次 碎片 整理。 而 G1 不同， 它 每次 回收 都会 有效地 复制 对象， 减少 碎片 空间。</p>
+</li>
+<li><p>可 预见性： 由于 分区 的 原因， G1 可以 只 选取 部分 区域 进行 内存 回收， 这样 缩小 了 回收 的 范围， 全局 停顿 也能 得到 较好 的 控制。</p>
+</li>
+</ul>
+<h3 id="5-4-1-G1的内存划分和主要收集过程"><a href="#5-4-1-G1的内存划分和主要收集过程" class="headerlink" title="5.4.1 G1的内存划分和主要收集过程"></a>5.4.1 G1的内存划分和主要收集过程</h3><p>​    G1 将 堆 进行 分区， 划分 为 一 个个 的 区域， 每次 回收 的 时候， 只 回收 其中 几个 区域， 以此 来 控制 垃圾 回收 产生 的 一次 停顿 的 时间。</p>
+<p>​    回收过程有4个阶段：</p>
+<ul>
+<li>新生代 GC。 </li>
+<li>并发 标记 周期。</li>
+<li>混合 回收。 </li>
+<li>如果 需要， 可能 会 进行 Full GC。</li>
+</ul>
+<h3 id="5-4-2-G1的新生代GC"><a href="#5-4-2-G1的新生代GC" class="headerlink" title="5.4.2 G1的新生代GC"></a>5.4.2 G1的新生代GC</h3><p>​    新生代 GC 的 主要 工作 是 回收 eden 区 和 survivor 区。 一旦 eden 区 被占 满， 新生代 GC 就会 启动。E 表示 eden 区， S 表示 survivor 区， O 表示 老 年代。 可以 看到， 新生代 GC 只 处理 eden 区 和 survivor 区， 回收 后 所有 的 eden 区 都 应该 被 清空， 而 survivor 区 会被 回收 一部分 数据， 但是 应该 至少 仍然 存在 一个 survivor 区。</p>
+<p>​    另一个 重要的 变化 是， 老 年代 的 区域 增多， 因为 部分 survivor 区 或者 eden 区 的 对象 可能 会 晋升 到 老 年代。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6a016c160a154a675b1bc4.jpg" alt=""></p>
+<h3 id="5-4-3-G1的并发标记周期"><a href="#5-4-3-G1的并发标记周期" class="headerlink" title="5.4.3 G1的并发标记周期"></a>5.4.3 G1的并发标记周期</h3><p>​    分为以下几步：</p>
+<ul>
+<li>初始 标记： 标记 从 根 节点 直接 可达 的 对象。 这个 阶段 会 伴随 一次 新生代 GC， 它是 会 产生 全局 停顿 的， 应用 程序 线程 在这 个 阶段 必须 停止 执行。</li>
+<li>根 区域 扫描： 由于 初始 标记 必然会 伴随 一次 新生代 GC， 所以 在 初始化 标记 后， eden 区 被 清空， 并且 存活 对象 被 移入 survivor 区。 在这 个 阶段， 将 扫描 由 survivor 区 直接 可达 的 老年 代 区域， 并 标记 这些 直接 可达 的 对象。 这个 过程 是 可以 和 应用 程序 并发 执行 的。 但是 根 区域 扫描 不能 和 新生代 GC 同时 执行（ 因为 根 区域 扫描 依赖 survivor 区 的 对象， 而 新生代 GC 会 修改 这个 区域）， 因此 如果 恰巧 在此 时 需要 进行 新生代 GC， 就 需要 等待 根 区域 扫描 结束 后才 能 进行。 如果 发生 这种 情况， 这次 新生代 GC 的 时间 就会 延长。</li>
+<li>并发 标记： 和 CMS 类似， 并发 标记 将会 扫描 并 查找 整个 堆 的 存活 对象， 并 做好 标记。 这是 一个 并发 的 过程， 并且 这个 过程 可以 被 一次 新生代 GC 打断。</li>
+<li>重新 标记： 和 CMS 一样， 重新 标记 也是 会 产生 应用 程序 停顿 的。 由于 在 并发 标记 过程中， 应用 程序 依然 在 运行， 因此 标记 结果 可能 需要 进行 修正， 所以 在此 对上 一次 的 标记 结果 进行 补充。 在 G1 中， 这个 过程 使用 SATB（ Snapshot- At- The- Beginning） 算法 完成， 即 G1 会在 标记 之初 为 存活 对象 创建 一个 快照， 这个 快照 有助于 加速 重新 标记 的 速度。</li>
+<li>独占 清理： 这个 阶段 是 会 引起 停顿 的。 它将 计算 各个 区域 的 存活 对象 和 GC 回收 比例， 并进 行 排序， 识别 可供 混合 回收 的 区域。 在这 个 阶段， 还会 更新 记忆 集（ Remebered Set）。 该 阶段 给出 了 需要 被 混合 回收 的 区域 并进 行了 标记， 在 混合 回收 阶段 需要 这些 信息。</li>
+<li>并发 清理： 这里 会 识别 并 清理 完全 空闲 的 区域。 它是 并发 的 清理， 不会 引起 停顿。</li>
+</ul>
+<p>​    并发 标记 周期 执行 前后 最大 的 不同 是在 该 阶段 后， 系统 增加 了 一些 标记 为 G 的 区域。 这些 区域 被 标记， 是因为 它们 内部 的 垃圾 比例 较高， 希望 在 后续 的 混合 GC 中进 行 收集（ 注意 在 并发 标记 周期 中 并未 正式 收集 这些 区域）。 这些 将要 被 回收 的 区域 会被 G1 记录 在 一个 称为 Collection Sets（ 回收 集） 的 集合 中。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6a02a1160a154a675bd3d5.jpg" alt=""></p>
+<p><img src="https://pic.imgdb.cn/item/5f6a02b2160a154a675bdddd.jpg" alt=""></p>
+<h3 id="5-4-4-混合回收"><a href="#5-4-4-混合回收" class="headerlink" title="5.4.4 混合回收"></a>5.4.4 混合回收</h3><p>​    在这 个 阶段 既 会 执行 正常 的 年轻 代 GC， 又会 选取 一些 被 标记 的 老年 代 区域 进行 回收， 它 同时 处理 了 新生代 和 老 年代， 如图 5. 9 所示。 因为 新生代 GC 的 原因， eden 区 必然 被 清空， 此外， 有 两块 被 标记 为 G 的 垃圾 比例 最高 的 区域 被 清理。 被 清理 区域 中的 存活 对象 会被 移到 其他 区域， 这样做 的 好处 是 可以 减少 空间 碎片。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6a0303160a154a675c110f.jpg" alt=""></p>
+<p>​    混合 GC 会 执行 多次， 直到 回收 了 足够 多的 内存 空间， 然后 它 会 触发 一次 新生代 GC。 新生代 GC 后， 又 可能 会 发生 一次 并发 标记 周期 的 处理， 最后 又会 引起 混合 GC 的 执行。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6a0320160a154a675c2354.jpg" alt=""></p>
+<h3 id="5-4-5-必要时的Full-GC"><a href="#5-4-5-必要时的Full-GC" class="headerlink" title="5.4.5 必要时的Full GC"></a>5.4.5 必要时的Full GC</h3><p>​    不能 完全避免 在 特别 繁忙 的 场合 出现 在 回收 过程中 内存 不充足 的 情况。 当 遇到 这种 情况 时， G1 也会 转入 一个 Full GC。</p>
+<h3 id="5-4-6-G1的日志"><a href="#5-4-6-G1的日志" class="headerlink" title="5.4.6 G1的日志"></a>5.4.6 G1的日志</h3><p>略。</p>
+<p>​    记忆 集 是 G1 中 维护 的 一个 数据 结构， 简称 RS。 每一个 G1 区域 都有 一个 RS 与之 关联。 由于 G1 回收 时 是按 照 区域 回收 的， 比如 在 回收 区域 A 的 对象 时， 很可能 并不 回收 区域 B 的 对象， 为了 回收 区域 A 的 对象， 要 扫描 区域 B 甚至 整个 堆 来 判定 区域 A 中 哪些 对象 不 可达， 这样做 的 代价 显然 很大。 因此， G1 在 区域 A 的 RS 中， 记录 了 在 区域 A 中 被 其他 区域 引用 的 对象， 这样 在 回收 区域 A 时， 只要 将 RS 视为 区域 A 根 集 的 一部分 即可， 从而 避免 做 整个 堆 的 扫描。 由于 系统 在 运行 过程中， 对象 之间 的 引用 关系 是 可能 时刻 变化 的， 为了 更 高效 地 跟踪 这些 引用 关系， 会 将 这些 变化 记录 在 Update Buffers 中。 这里 的 Processed Buffers 指的 就是 处理 这个 Update Buffers 数据。</p>
+<h3 id="5-4-7-G1相关参数"><a href="#5-4-7-G1相关参数" class="headerlink" title="5.4.7 G1相关参数"></a>5.4.7 G1相关参数</h3><p>​    可以 使用- XX:+ UseG1GC 标记 打开 G1 的 开关， 对 G1 进行 设置 时， 最重要的 一个 参数 就是- XX: MaxGCPauseMillis， 它 用于 指定 目标 最大 停顿 时间。时间。 如果 任何 一次 停顿 超过 这个 设置 值， G1 就会 尝试 调整 新生代 和 老 年代 的 比例、 调整 堆 大小、 调整 晋升 年龄 等， 试图 达到 预设 目标。</p>
+<p>​    如果 停顿 时间 缩短， 对于 新生代 来说， 这 意味着 很可能 要 增加 新生代 GC 的 次数。 对于 老年 代 来说， 为了 获得 更短 的 停顿 时间， 在 混合 GC 时， 一次 收集 的 区域 数量 也会 变少， 这样 无疑 增加 了 进行 Full GC 的 可能性。</p>
+<p>​    另外 一个 重要的 参数 是- XX: ParallelGCThreads， 它 用于 设置 并行 回收 时 GC 的 工作 线程 数量。<br>​    此外，- XX: InitiatingHeapOccupancyPercent 参数 可以 指定 当 整个 堆 使用 率 达到 多少 时， 触发 并发 标记 周期 的 执行。 默认值 是 45， 即 当 整个 堆 的 占用 率 达到 45% 时， 执行 并发 标记 周期。 InitiatingHeapOccupancyPercent 一旦 设置， 始终 都不 会被 G1 修改， 这 意味着 G1 不会 试图 改变 这个 值 来 满足 MaxGCPauseMillis 的 目标。 如果 InitiatingHeapOccupancyPercent 值 设置 得 偏大， 会 导致 并发 周期 迟迟 得不到 启动， 那么 引起 Full GC 的 可能性 也 大大 增加， 反之， 一个 过小 的 InitiatingHeapOccupancyPercent 值 会使 得 并发 标记 周期 执行 非常 频繁， 大量 GC 线程 抢占 CPU， 导致 应用 程序 的 性能 有所 下降。</p>
+<h2 id="5-5-回眸：有关对象内存分配和回收的一些细节问题"><a href="#5-5-回眸：有关对象内存分配和回收的一些细节问题" class="headerlink" title="5.5 回眸：有关对象内存分配和回收的一些细节问题"></a>5.5 回眸：有关对象内存分配和回收的一些细节问题</h2><h3 id="5-5-1-禁用System-gc"><a href="#5-5-1-禁用System-gc" class="headerlink" title="5.5.1  禁用System.gc()"></a>5.5.1  禁用System.gc()</h3><p>​    在 默认 情况下， System. gc() 会 显 式 直接 触发 Full GC， 同时 对 老 年代 和 新生代 进行 回收。 而 一般 情况下， 我们 认为 垃圾 回收 应该 是 自动 进行 的， 无须 手工 触发。 如果 过于 频繁 地 触发 垃圾 回收 对 系统性 能 是 没有 好处 的。 因此 虚拟 机 提供 了 一个 参数 DisableExplicitGC 来 控制 是否 手工 触发 GC。</p>
+<p>​    如果 设置 了- XX:-+ DisableExplicitGC， 条件 判断 就 无法 成立， 那么 就会 禁用 显 式 GC， System. gc() 等价 于 一个 空 函数 调用。</p>
+<h3 id="5-5-2-System-gc-使用并发回收"><a href="#5-5-2-System-gc-使用并发回收" class="headerlink" title="5.5.2 System.gc()使用并发回收"></a>5.5.2 System.gc()使用并发回收</h3><p>​    在 默认 的 情况下， 即使 System. gc() 生效， 会使 用 传统 的 Full GC 方式 回收 整个 堆， 而 忽略 参数 中的 UseG1GC 和 UseConcMarkSweepGC。</p>
+<p>​    打开 虚拟 机 参数- XX:+ ExplicitGCInvokesConcurrent 后， 可以 改变 这种 默认 的 行为，</p>
+<p>​    只有 在 打开 ExplicitGCInvokesConcurrent 开关 后， System. gc() 这种 显 式 GC 才会 使用 并发 的 方式 进行 回收， 否则， 无论 是否 启用 了 CMS 或者 G1， 都不 会 进行 并发 回收。</p>
+<h3 id="5-5-3-并行GC前额外触发的新生代GC"><a href="#5-5-3-并行GC前额外触发的新生代GC" class="headerlink" title="5.5.3 并行GC前额外触发的新生代GC"></a>5.5.3 并行GC前额外触发的新生代GC</h3><p>​    对于 并行 回收 器 的 Full GC（ 使用 UseParallelOldGC 或者 UseParallelGC），， 在 每一 次 Full GC 之前 都会 伴随 一次 新生代 GC。</p>
+<p>​    如果不 需要 这个 特性， 那么 可以 使用 参数- XX:- ScavengeBeforeFullGC 去除 发生 在 Full GC 之前 的 那次 新生代 GC。 在 默认 情况下， ScavengeBeforeFullGC 的 值 为 true。</p>
+<h3 id="5-5-4-对象何时进入老年代"><a href="#5-5-4-对象何时进入老年代" class="headerlink" title="5.5.4 对象何时进入老年代"></a>5.5.4 对象何时进入老年代</h3><h4 id="1-初创的对象在eden区"><a href="#1-初创的对象在eden区" class="headerlink" title="1. 初创的对象在eden区"></a>1. 初创的对象在eden区</h4><p>​    当 对象 首次 创建 时， 会被 放置 在 新生代 的 eden 区。当 对象 的 年龄 达到 一定 的 大小， 就 自然 可以 离开 年轻 代， 进入 老 年代。 一般 把 对象 进入 老 年代 的 事件， 称为“ 晋升”。</p>
+<h4 id="3-老年对象进入老年代"><a href="#3-老年对象进入老年代" class="headerlink" title="3. 老年对象进入老年代"></a>3. 老年对象进入老年代</h4><p>​    对象 的 年龄 是由 对象 经历 过 的 GC 次数 决定 的。 在 新生代 中的 对象 每 经历 一次 GC， 如果 它 没有 被 回收， 它的 年龄 就 加 1。 虚拟 机 提供 了 一个 参数 来 控制 新生代 对象 的 最大 年龄： MaxTenuringThreshold。 在 默认 情况下， 这个 参数 的 值 为 15。 也就是说， 新生代 的 对象 最多 经历 15 次 GC， 就可以 晋升 到 老 年代。</p>
+<p>​    MaxTenuringThreshold 指的 是最 大 晋升 年龄。 它是 对象 晋升 到 老 年代 的 充分 非必要 条件。 即 达到 该 年龄， 对象 必然 晋升， 而未 达到 该 年龄， 对象 也有 可能 晋升。 事实上， 对象 的 实际 晋升 年龄， 是由 虚拟 机 在 运行时 自行 判断 的。</p>
+<p>​    计算晋升年龄的基本逻辑代码如下：</p>
+<p><img src="https://pic.imgdb.cn/item/5f6b3d5d160a154a67d76a1d.jpg" alt=""></p>
+<p>注意： 对象 的 实际 晋升 年龄 是 根据 survivor 区 的 使用 情况 动态 计算 得来 的， 而 MaxTenuringThreshold 只是 表示 这个 年龄 的 最大值。</p>
+<h4 id="4-大对象进入老年代"><a href="#4-大对象进入老年代" class="headerlink" title="4. 大对象进入老年代"></a>4. 大对象进入老年代</h4><p>​    除了 年龄， 对象 的 体积 也会 影响 对象 的 晋升。 试想， 如果 对象 体积 很大， 新生代 无论 eden 区 还是 survivor 区 都无 法 容纳 这个 对象， 自然 这个 对象 无法 存放 在 新生代， 也非 常有 可能 被 直接 晋升 到 老 年代。</p>
+<p>​     PretenureSizeThreshold， 它 用来 设置 对象 直接 晋升 到 老 年代 的 阈值， 单位 是 字节。 只要 对象 的 大小 大于 指定 值， 就会 绕过 新生代， 直接 在 老年 代 分配。 这个 参数 只对 串行 回收 器 和 ParNew 有效， 对于 ParallelGC 无效。 默认 情况下 该 值 为 0， 也就是 不 指定 最大 的 晋升 大小， 一切 由 运行 情况 决定。</p>
+<h3 id="5-5-5-在TLAB上分配对象"><a href="#5-5-5-在TLAB上分配对象" class="headerlink" title="5.5.5 在TLAB上分配对象"></a>5.5.5 在TLAB上分配对象</h3><p>​    TLAB 的 全称 是 Thread Local Allocation Buffer， 即 线程 本地 分配 缓存。 从 名字 上 可以 看到， TLAB 是一 个 线程 专用 的 内存 分配 区域。</p>
+<p>​    Java 虚拟 机 就 使用 了 TLAB 这种 线程 专属 的 区域 来 避免 多 线程 冲突， 提高 对象 分配 的 效率。 TLAB 本身 占用 了 eden 区 的 空间。 在 TLAB 启用 的 情况下， 虚拟 机会 为 每一个 Java 线程 分配 一块 TLAB 区域。</p>
+<p>​    大 对象 无法 在 TLAB 区域 进行 分配， 总是 会 直接 分配 在 堆 上。 由于 TLAB 空间 比较 小， 很容易 装满。 比如， 一个 100KB 的 空间， 如果 已经 使用 了 80KB， 当 需要 再分 配 一个 30KB 的 对象 时， 肯定 就 无能为力 了。 这时， 虚拟 机 有两 种 选择： 第一， 废弃 当前 的 TLAB 区域， 这样 就会 浪费 20KB 空间； 第二， 将 这 30KB 的 对象 直接 分配 在 堆 上， 保留 当前 的 TLAB 区域， 这样 将来 有 小于 20KB 的 对象 分配 请求 时 可以 直接 使用 这块 空间。 当 发生 请求 分配 的 对象 大于 TLAB 内 可用 空间 时， 虚拟 机 如何 在这 两种 行为 中进 行 选择 呢? 虚拟 机 内部 会 维护 一个 叫作 refill_ waste 的 值， 当 请求 对象 大于 refill_ waste 时， 会 选择 在 堆 中 分配， 若 小于 该 值， 则 会 废弃 当前 TLAB 区域， 新建 TLAB 区域 来 分配 新 对象。 这个 阈值 可以 使用 虚拟 机 参数 TLABRefillWasteFraction 来 调整， 它 表示 TLAB 中 允许 产生 这种 浪费 的 比例。 它的 默认值 为 64， 即表示 使用 约为 1/ 64 的 TLAB 区域 作为 refill_ waste。</p>
+<p>​    默认 情况下， TLAB 和 refill_ waste 的 大小 都是 会在 运行时 不断 调整 的， 使 系统 的 运行 状态 达到 最优。 如果 想 禁用 自动 调整 TLAB 的 大小， 可以 使用- XX:- ResizeTLAB 禁用 ResizeTLAB， 并使 用- XX: TLABSize 手工 指定 TLAB 的 大小。</p>
+<p>​    如果 想 观察 TLAB 区域 的 使用 情况， 可 打开 跟踪 参数- XX:+ PrintTLAB（ 考虑到 兼容性 问题， JDK9、 JDK10 不再 支持 此 参数）。</p>
+<h3 id="5-5-6-finalize-函数对垃圾回收的影响"><a href="#5-5-6-finalize-函数对垃圾回收的影响" class="headerlink" title="5.5.6 finalize()函数对垃圾回收的影响"></a>5.5.6 finalize()函数对垃圾回收的影响</h3><p>​    该 函数 允许 在 子类 中 被 重载， 用于 在 对象 被 回收 时 进行 资源 释放。 目前， 普遍 的 认识 是， 尽量 不要 使用 finalize() 函数 进行 资源 释放， 原因 主要 有 以下 几点：</p>
+<ul>
+<li>在 使用 finalize（） 函数 时 可能 会 导致 对象 复活。</li>
+<li>finalize（） 函数 的 执行 时间 是 没有 保障 的， 它 完全 由 GC 线程 决定， 在 极端 情况下， 若不 发生 GC， finalize（） 函数 将 没有 机会 执行。</li>
+<li>一个 糟糕 的 finalize（） 函数 会 严重影响 GC 的 性能。</li>
+</ul>
+<p>​    finalize() 函数 是由 FinalizerThread 线程 处理 的。 每一个 即将 被 回收 并且 包含 finalize() 函数 的 对象 都会 在 正式 回收 前 加入 FinalizerThread 的 执行 队列， 该 队列 为 java. lang. ref. ReferenceQueue 引用 队列， 内部 实 现为 链 表 结构， 队列 中 每一 项 都为 java. lang. ref. Finalizer 引用， 它 本质 为 一个 引用。</p>
+<p><img src="https://pic.imgdb.cn/item/5f6b414d160a154a67d971aa.jpg" alt=""></p>
+<p>​    虽然 不 推荐 使用 finalize() 函数， 但是 在 有些 场合， 使用 finalize() 函数 可以 起到 双 保险 的 作用。 比如 在 MySQL 的 JDBC 驱动 中， com. mysql. jdbc. ConnectionImpl 就 实现 了 finalize() 函数。</p>
+<p>​    当 一个 JDBC Connection 被 回收 时， 需要 进行 连接 的 关闭， 即 这里 的 cleanup（） 方法。 事实上， 在 回收 前， 开发 人员 如果 正常 调用 了 Connection. close（） 方法， 连接 就 会被 显 式 关闭， 那样 的 话， 在 cleanup（） 方法 中将 什么 都 不会 做。 而 如果 开发 人员 忘记 显 式 关闭 连接， 而 Connection 对象 又被 回收 了， 则 会 隐式 地 进行 连接 的 关闭， 确保 没有 数据库 连接 泄漏。</p>
+<h2 id="5-6-温故而知新"><a href="#5-6-温故而知新" class="headerlink" title="5.6 温故而知新"></a>5.6 温故而知新</h2><h4 id="1-与串行回收器相关的参数"><a href="#1-与串行回收器相关的参数" class="headerlink" title="1. 与串行回收器相关的参数"></a>1. 与串行回收器相关的参数</h4><ul>
+<li>-XX：+ UseSerialGC： 在 新生代 和 老年 代 使用 串行 回收 器。 </li>
+<li>-XX： SurvivorRatio： 设置 eden 区 大小 和 survivior 区 大小 的 比例。 </li>
+<li>-XX： PretenureSizeThreshold： 设置 大 对象 直接 进入 老 年代 的 阈值。 当 对象 的 大小 超过 这个 值 时， 将 直接 被 分配 在 老 年代。 </li>
+<li>-XX： MaxTenuringThreshold： 设置 对象 进入 老 年代 的 年龄 的 最大值。 每一 次 Minor GC 后， 对象 年龄 就 加 1。 任何 大于 这个 年龄 的 对象， 一定 会 进入 老 年代。</li>
+</ul>
+<h4 id="2-与并行GC相关的参数"><a href="#2-与并行GC相关的参数" class="headerlink" title="2. 与并行GC相关的参数"></a>2. 与并行GC相关的参数</h4><ul>
+<li><p>-XX：+ UseParNewGC（ 考虑到 兼容性 问题， JDK 9、 JDK 10 已经 删除）： 在 新生代 使用 并行 回收 器。 </p>
+</li>
+<li><p>-XX：+ UseParallelOldGC： 老年 代 使用 并行 回收 器。</p>
+</li>
+<li><p>-XX： ParallelGCThreads： 设置 用于 垃圾 回收 的 线程 数。 通常 情况下 可以 和 CPU 数量 相等， 但在 CPU 数量 比较 多的 情况下， 设置 相对 较小 的 数值 也是 合理 的。 </p>
+</li>
+<li><p>-XX： MaxGCPauseMillis： 设置 最大 垃圾 回收 停顿 时间。 它的 值 是一 个大 于 0 的 整数。 回收 器 在 工作 时， 会 调整 Java 堆 大小 或者 其他 一些 参数， 尽可能 地 把 停顿 时间 控制 在 MaxGCPauseMillis 以内。 </p>
+</li>
+<li><p>-XX： GCTimeRatio： 设置 吞吐量 大小。 它的 值 是 一个 0 到 100 之间 的 整数。 假设 GCTimeRatio 的 值 为 n， 那么 系统 将 花费 不超过 1/（ 1+ n） 的 时间 用于 垃圾 回收。 </p>
+</li>
+<li><p>-XX：+ UseAdaptiveSizePolicy： 打开 自 适应 GC 策略。 在这 种 模式 下， 新生代 的 大小、 eden 区 和 survivior 区 的 比例、 晋升 老 年代 的 对象 年龄 等 参数 会被 自动 调整， 以 达到 在 堆 大小、 吞吐量 和 停顿 时间 之间 的 平衡。</p>
+</li>
+</ul>
+<h4 id="3-与-CMS-回收-器-相关-的-参数（-JDK9、-JDK10-已经-开始-废弃-CMS-回收-器，-建议-使用-G1-回收-器）"><a href="#3-与-CMS-回收-器-相关-的-参数（-JDK9、-JDK10-已经-开始-废弃-CMS-回收-器，-建议-使用-G1-回收-器）" class="headerlink" title="3. 与 CMS 回收 器 相关 的 参数（ JDK9、 JDK10 已经 开始 废弃 CMS 回收 器， 建议 使用 G1 回收 器）"></a>3. 与 CMS 回收 器 相关 的 参数（ JDK9、 JDK10 已经 开始 废弃 CMS 回收 器， 建议 使用 G1 回收 器）</h4><ul>
+<li>-XX：+ UseConcMarkSweepGC： 新生代 使用 并行 回收 器， 老年 代 使用 CMS+ 串行 回收 器。 </li>
+<li>-XX： ParallelCMSThreads： 设定 CMS 的 线程 数量。 </li>
+<li>-XX： CMSInitiatingOccupancyFraction： 设置 CMS 回收 器 在 老年 代 空间 被 使用 多少 后 触发， 默认 为 68%。 </li>
+<li>-XX：+ UseCMSCompactAtFullCollection： 设置 CMS 回收 器 在 完成 垃圾 回收 后 是否 要 进行 一次 内存 碎片 的 整理。 </li>
+<li>-XX： CMSFullGCsBeforeCompaction： 设定 进行 多少 次 CMS 垃圾 回收 后， 进行 一次 内存 压缩。 </li>
+<li>-XX：+ CMSClassUnloadingEnabled： 允许 对 类 元 数据区 进行 回收。 </li>
+<li>-XX： CMSInitiatingPermOccupancyFraction： 当 永久 区 占用 率 达到 这一 百分比 时， 启动 CMS 回收（ 前提 是 激活 了- XX：+ CMSClassUnloadingEnabled）。 </li>
+<li>-XX： UseCMSInitiatingOccupancyOnly： 表示 只在 到达 阈值 的 时候 才 进行 CMS 回收。 </li>
+<li>-XX：+ CMSIncrementalMode： 使用 增量 模式， 比较 适合 单 CPU。 增量 模式 在 JDK 8 中 标记 为 废弃， 并且 将 在 JDK 9 中 彻底 移 除。</li>
+</ul>
+<h5 id="4-与-G1-回收-器-相关-的-参数"><a href="#4-与-G1-回收-器-相关-的-参数" class="headerlink" title="4. 与 G1 回收 器 相关 的 参数"></a>4. 与 G1 回收 器 相关 的 参数</h5><ul>
+<li>-XX：+ UseG1GC： 使用 G1 回收 器。 </li>
+<li>-XX： MaxGCPauseMillis： 设置 最大 垃圾 回收 停顿 时间。 </li>
+<li>-XX： GCPauseIntervalMillis： 设置 停顿 间隔 时间。</li>
+</ul>
+<h4 id="5-TLAB相关"><a href="#5-TLAB相关" class="headerlink" title="5. TLAB相关"></a>5. TLAB相关</h4><ul>
+<li>-XX：+ UseTLAB： 开启 TLAB 分配。 </li>
+<li>-XX：+ PrintTLAB（ 考虑到 兼容性 问题， JDK 9、 JDK 10 不再 支持 此 参数）： 打印 TLAB 相关 分配 信息。 ·-XX： TLABSize： 设置 TLAB 区域 大小。 </li>
+<li>-XX：+ ResizeTLAB： 自动 调整 TLAB 区域 大小。</li>
+</ul>
+<h4 id="6-其他参数"><a href="#6-其他参数" class="headerlink" title="6. 其他参数"></a>6. 其他参数</h4><ul>
+<li>-XX：+ DisableExplicitGC： 禁用 显 式 GC。 </li>
+<li>-XX：+ ExplicitGCInvokesConcurrent： 使用 并发 方式 处理 显 式 GC。</li>
+</ul>
+<h2 id="5-7-动手才是真英雄"><a href="#5-7-动手才是真英雄" class="headerlink" title="5.7 动手才是真英雄"></a>5.7 动手才是真英雄</h2><p>这章只列标题</p>
+<h3 id="5-7-1-配置实验环境"><a href="#5-7-1-配置实验环境" class="headerlink" title="5.7.1 配置实验环境"></a>5.7.1 配置实验环境</h3><h3 id="5-7-2-配置-性能-测试-工具-JMeter"><a href="#5-7-2-配置-性能-测试-工具-JMeter" class="headerlink" title="5.7.2 配置 性能 测试 工具 JMeter"></a>5.7.2 配置 性能 测试 工具 JMeter</h3><h3 id="5-7-3-配置Web应用服务器Tomcat"><a href="#5-7-3-配置Web应用服务器Tomcat" class="headerlink" title="5.7.3 配置Web应用服务器Tomcat"></a>5.7.3 配置Web应用服务器Tomcat</h3><h3 id="5-7-4-实战-案例-1—-初试-串行-回收-器"><a href="#5-7-4-实战-案例-1—-初试-串行-回收-器" class="headerlink" title="5.7.4 实战 案例 1— 初试 串行 回收 器"></a>5.7.4 实战 案例 1— 初试 串行 回收 器</h3><h3 id="5-7-5-实战-案例-2—-扩-大堆-以-提升-系统-性能"><a href="#5-7-5-实战-案例-2—-扩-大堆-以-提升-系统-性能" class="headerlink" title="5.7.5 实战 案例 2— 扩 大堆 以 提升 系统 性能"></a>5.7.5 实战 案例 2— 扩 大堆 以 提升 系统 性能</h3><h3 id="5-7-6-实战-案例-3—-调整-初始-堆-大小"><a href="#5-7-6-实战-案例-3—-调整-初始-堆-大小" class="headerlink" title="5.7.6 实战 案例 3— 调整 初始 堆 大小"></a>5.7.6 实战 案例 3— 调整 初始 堆 大小</h3><h3 id="5-7-7-实战-案例-4—-使用-ParrellOldGC-回收-器"><a href="#5-7-7-实战-案例-4—-使用-ParrellOldGC-回收-器" class="headerlink" title="5.7.7 实战 案例 4— 使用 ParrellOldGC 回收 器"></a>5.7.7 实战 案例 4— 使用 ParrellOldGC 回收 器</h3><h3 id="5-7-8-实战-案例-5—-使用-较小-堆-提高-GC-压力"><a href="#5-7-8-实战-案例-5—-使用-较小-堆-提高-GC-压力" class="headerlink" title="5.7.8 实战 案例 5— 使用 较小 堆 提高 GC 压力"></a>5.7.8 实战 案例 5— 使用 较小 堆 提高 GC 压力</h3><h3 id="5-7-9-实战-案例-6—-测试-ParallelOldGC-的-表现"><a href="#5-7-9-实战-案例-6—-测试-ParallelOldGC-的-表现" class="headerlink" title="5.7.9 实战 案例 6— 测试 ParallelOldGC 的 表现"></a>5.7.9 实战 案例 6— 测试 ParallelOldGC 的 表现</h3><h3 id="5-7-10-实战-案例-7—-测试-ParNew-回收-器-的-表现"><a href="#5-7-10-实战-案例-7—-测试-ParNew-回收-器-的-表现" class="headerlink" title="5.7.10 实战 案例 7— 测试 ParNew 回收 器 的 表现"></a>5.7.10 实战 案例 7— 测试 ParNew 回收 器 的 表现</h3><h3 id="5-7-11-实战-案例-8—-测试-JDK-1-8-的-表现"><a href="#5-7-11-实战-案例-8—-测试-JDK-1-8-的-表现" class="headerlink" title="5.7.11 实战 案例 8— 测试 JDK 1. 8 的 表现"></a>5.7.11 实战 案例 8— 测试 JDK 1. 8 的 表现</h3><h3 id="5-7-12-实战-案例-9—-使用-高-版本-虚拟-机-提升-性能"><a href="#5-7-12-实战-案例-9—-使用-高-版本-虚拟-机-提升-性能" class="headerlink" title="5.7.12 实战 案例 9— 使用 高 版本 虚拟 机 提升 性能"></a>5.7.12 实战 案例 9— 使用 高 版本 虚拟 机 提升 性能</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag"># Java虚拟机</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/14/manacher%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/" rel="next" title="manacher算法笔记">
+                <i class="fa fa-chevron-left"></i> manacher算法笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/timg.jpg"
+                alt="宋梓立 sorie" />
+            
+              <p class="site-author-name" itemprop="name">宋梓立 sorie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ewasong" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:819294006@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-初探Java虚拟机"><span class="nav-number">1.</span> <span class="nav-text">第1章 初探Java虚拟机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-认识Java虚拟机的基本结构"><span class="nav-number">2.</span> <span class="nav-text">第2章 认识Java虚拟机的基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-谋全局者才能成大器：看穿Java虚拟机的架构"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 谋全局者才能成大器：看穿Java虚拟机的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-小参数能解决大问题：学会设置Java虚拟机参数"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 小参数能解决大问题：学会设置Java虚拟机参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-对象去哪儿：辨清Java堆"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 对象去哪儿：辨清Java堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-函数如何调用：出入Java栈"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 函数如何调用：出入Java栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-局部变量表"><span class="nav-number">2.4.1.</span> <span class="nav-text">2.4.1 局部变量表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-操作数栈"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.4.2 操作数栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-3-帧数据区"><span class="nav-number">2.4.3.</span> <span class="nav-text">2.4.3 帧数据区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-4-栈上分配"><span class="nav-number">2.4.4.</span> <span class="nav-text">2.4.4 栈上分配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-类去哪儿了：识别方法区"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 类去哪儿了：识别方法区</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-常用Java虚拟机参数"><span class="nav-number">3.</span> <span class="nav-text">第3章 常用Java虚拟机参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-一切运行都有迹可循：掌握跟踪调试参数"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 一切运行都有迹可循：掌握跟踪调试参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-跟踪垃圾回收——读懂虚拟机日志"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 跟踪垃圾回收——读懂虚拟机日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-类加载-卸载的追踪"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 类加载&#x2F;卸载的追踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-查看系统参数"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 查看系统参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-让性能飞起来：学习堆的配置参数"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 让性能飞起来：学习堆的配置参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-最大堆和初始堆的设置"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 最大堆和初始堆的设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-新生代的配置"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 新生代的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-堆溢出处理"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3 堆溢出处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-别让性能有缺口：了解非堆内存的参数配置"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 别让性能有缺口：了解非堆内存的参数配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-方法区配置"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 方法区配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-栈配置"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 栈配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-直接内存配置"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3 直接内存配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-Client和Server二选一：虚拟机工作模式"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Client和Server二选一：虚拟机工作模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-垃圾回收的概念与算法"><span class="nav-number">4.</span> <span class="nav-text">第4章 垃圾回收的概念与算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-内存管理清洁工：认识垃圾回收"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 内存管理清洁工：认识垃圾回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-清洁工具打PK：讨论常用的垃圾回收算法"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 清洁工具打PK：讨论常用的垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-引用计数法-Reference-Counting"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 引用计数法(Reference Counting)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2-标记清除算法-Mark-Sweep"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 标记清除算法(Mark-Sweep)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-3-复制算法-Copying"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 复制算法(Copying)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-4-标记压缩算法-Mark-Compact"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 标记压缩算法(Mark-Compact)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5-分代算法-Generational-Collecting"><span class="nav-number">4.2.5.</span> <span class="nav-text">4.2.5 分代算法(Generational Collecting)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-6-分区算法-Region"><span class="nav-number">4.2.6.</span> <span class="nav-text">4.2.6 分区算法(Region)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-谁才是真正的垃圾：判断可触及性"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 谁才是真正的垃圾：判断可触及性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-对象的复活"><span class="nav-number">4.3.1.</span> <span class="nav-text">4.3.1 对象的复活</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-引用和可触及性的强度"><span class="nav-number">4.3.2.</span> <span class="nav-text">4.3.2 引用和可触及性的强度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3-软引用——可被回收的引用"><span class="nav-number">4.3.3.</span> <span class="nav-text">4.3.3 软引用——可被回收的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-4-弱引用——发现即回收"><span class="nav-number">4.3.4.</span> <span class="nav-text">4.3.4 弱引用——发现即回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-5-虚引用——对象回收跟踪"><span class="nav-number">4.3.5.</span> <span class="nav-text">4.3.5 虚引用——对象回收跟踪</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-垃圾回收时的停顿现象：Stop-TheWorld实战"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 垃圾回收时的停顿现象：Stop-TheWorld实战</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5章-垃圾收集器和内存分配"><span class="nav-number">5.</span> <span class="nav-text">第5章 垃圾收集器和内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-一心一意一件事：串行回收器"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 一心一意一件事：串行回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-1-新生代串行回收器"><span class="nav-number">5.1.1.</span> <span class="nav-text">5.1.1 新生代串行回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-2-老年代串行回收器"><span class="nav-number">5.1.2.</span> <span class="nav-text">5.1.2 老年代串行回收器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-人多力量大：并行回收器"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 人多力量大：并行回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-新生代ParNew回收器"><span class="nav-number">5.2.1.</span> <span class="nav-text">5.2.1 新生代ParNew回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-新生代ParallelGC回收器"><span class="nav-number">5.2.2.</span> <span class="nav-text">5.2.2 新生代ParallelGC回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-老年代ParallelOldGC会后器"><span class="nav-number">5.2.3.</span> <span class="nav-text">5.2.3 老年代ParallelOldGC会后器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-一心多用都不落下：CMS回收器-JDK8及之前的版本"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 一心多用都不落下：CMS回收器(JDK8及之前的版本)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-1-CMS主要工作步骤"><span class="nav-number">5.3.1.</span> <span class="nav-text">5.3.1 CMS主要工作步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-2-CMS主要的参数"><span class="nav-number">5.3.2.</span> <span class="nav-text">5.3.2 CMS主要的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-3-CMS的日志分析"><span class="nav-number">5.3.3.</span> <span class="nav-text">5.3.3 CMS的日志分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-4-有关Class的回收"><span class="nav-number">5.3.4.</span> <span class="nav-text">5.3.4 有关Class的回收</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-未来我做主-G1回收器-JDK9及之后版本的默认回收器"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 未来我做主:G1回收器(JDK9及之后版本的默认回收器)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-1-G1的内存划分和主要收集过程"><span class="nav-number">5.4.1.</span> <span class="nav-text">5.4.1 G1的内存划分和主要收集过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-2-G1的新生代GC"><span class="nav-number">5.4.2.</span> <span class="nav-text">5.4.2 G1的新生代GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-3-G1的并发标记周期"><span class="nav-number">5.4.3.</span> <span class="nav-text">5.4.3 G1的并发标记周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-4-混合回收"><span class="nav-number">5.4.4.</span> <span class="nav-text">5.4.4 混合回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-5-必要时的Full-GC"><span class="nav-number">5.4.5.</span> <span class="nav-text">5.4.5 必要时的Full GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-6-G1的日志"><span class="nav-number">5.4.6.</span> <span class="nav-text">5.4.6 G1的日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-7-G1相关参数"><span class="nav-number">5.4.7.</span> <span class="nav-text">5.4.7 G1相关参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-回眸：有关对象内存分配和回收的一些细节问题"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 回眸：有关对象内存分配和回收的一些细节问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-1-禁用System-gc"><span class="nav-number">5.5.1.</span> <span class="nav-text">5.5.1  禁用System.gc()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-2-System-gc-使用并发回收"><span class="nav-number">5.5.2.</span> <span class="nav-text">5.5.2 System.gc()使用并发回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-3-并行GC前额外触发的新生代GC"><span class="nav-number">5.5.3.</span> <span class="nav-text">5.5.3 并行GC前额外触发的新生代GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-4-对象何时进入老年代"><span class="nav-number">5.5.4.</span> <span class="nav-text">5.5.4 对象何时进入老年代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-初创的对象在eden区"><span class="nav-number">5.5.4.1.</span> <span class="nav-text">1. 初创的对象在eden区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-老年对象进入老年代"><span class="nav-number">5.5.4.2.</span> <span class="nav-text">3. 老年对象进入老年代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-大对象进入老年代"><span class="nav-number">5.5.4.3.</span> <span class="nav-text">4. 大对象进入老年代</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-5-在TLAB上分配对象"><span class="nav-number">5.5.5.</span> <span class="nav-text">5.5.5 在TLAB上分配对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-6-finalize-函数对垃圾回收的影响"><span class="nav-number">5.5.6.</span> <span class="nav-text">5.5.6 finalize()函数对垃圾回收的影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-温故而知新"><span class="nav-number">5.6.</span> <span class="nav-text">5.6 温故而知新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-与串行回收器相关的参数"><span class="nav-number">5.6.0.1.</span> <span class="nav-text">1. 与串行回收器相关的参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-与并行GC相关的参数"><span class="nav-number">5.6.0.2.</span> <span class="nav-text">2. 与并行GC相关的参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-与-CMS-回收-器-相关-的-参数（-JDK9、-JDK10-已经-开始-废弃-CMS-回收-器，-建议-使用-G1-回收-器）"><span class="nav-number">5.6.0.3.</span> <span class="nav-text">3. 与 CMS 回收 器 相关 的 参数（ JDK9、 JDK10 已经 开始 废弃 CMS 回收 器， 建议 使用 G1 回收 器）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-与-G1-回收-器-相关-的-参数"><span class="nav-number">5.6.0.3.1.</span> <span class="nav-text">4. 与 G1 回收 器 相关 的 参数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-TLAB相关"><span class="nav-number">5.6.0.4.</span> <span class="nav-text">5. TLAB相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-其他参数"><span class="nav-number">5.6.0.5.</span> <span class="nav-text">6. 其他参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-7-动手才是真英雄"><span class="nav-number">5.7.</span> <span class="nav-text">5.7 动手才是真英雄</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-1-配置实验环境"><span class="nav-number">5.7.1.</span> <span class="nav-text">5.7.1 配置实验环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-2-配置-性能-测试-工具-JMeter"><span class="nav-number">5.7.2.</span> <span class="nav-text">5.7.2 配置 性能 测试 工具 JMeter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-3-配置Web应用服务器Tomcat"><span class="nav-number">5.7.3.</span> <span class="nav-text">5.7.3 配置Web应用服务器Tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-4-实战-案例-1—-初试-串行-回收-器"><span class="nav-number">5.7.4.</span> <span class="nav-text">5.7.4 实战 案例 1— 初试 串行 回收 器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-5-实战-案例-2—-扩-大堆-以-提升-系统-性能"><span class="nav-number">5.7.5.</span> <span class="nav-text">5.7.5 实战 案例 2— 扩 大堆 以 提升 系统 性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-6-实战-案例-3—-调整-初始-堆-大小"><span class="nav-number">5.7.6.</span> <span class="nav-text">5.7.6 实战 案例 3— 调整 初始 堆 大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-7-实战-案例-4—-使用-ParrellOldGC-回收-器"><span class="nav-number">5.7.7.</span> <span class="nav-text">5.7.7 实战 案例 4— 使用 ParrellOldGC 回收 器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-8-实战-案例-5—-使用-较小-堆-提高-GC-压力"><span class="nav-number">5.7.8.</span> <span class="nav-text">5.7.8 实战 案例 5— 使用 较小 堆 提高 GC 压力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-9-实战-案例-6—-测试-ParallelOldGC-的-表现"><span class="nav-number">5.7.9.</span> <span class="nav-text">5.7.9 实战 案例 6— 测试 ParallelOldGC 的 表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-10-实战-案例-7—-测试-ParNew-回收-器-的-表现"><span class="nav-number">5.7.10.</span> <span class="nav-text">5.7.10 实战 案例 7— 测试 ParNew 回收 器 的 表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-11-实战-案例-8—-测试-JDK-1-8-的-表现"><span class="nav-number">5.7.11.</span> <span class="nav-text">5.7.11 实战 案例 8— 测试 JDK 1. 8 的 表现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-12-实战-案例-9—-使用-高-版本-虚拟-机-提升-性能"><span class="nav-number">5.7.12.</span> <span class="nav-text">5.7.12 实战 案例 9— 使用 高 版本 虚拟 机 提升 性能</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">宋梓立 sorie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'XTY8e76465N8ugbyhpCoS88f-gzGzoHsz',
+        appKey: 'dwWTNcurePtzzBdMO62hSRMy',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
